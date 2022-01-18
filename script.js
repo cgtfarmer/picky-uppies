@@ -1,5 +1,11 @@
 const canvas = document.querySelector('#canvas');
 const debugText = document.querySelector('#debug-text');
+const inventoryUi = document.querySelector('#inventory');
+const storeUi = document.querySelector('#store');
+const prometiumSellInput = document.querySelector('#prometium-sell-input');
+const enduriumSellInput = document.querySelector('#endurium-sell-input');
+const terbiumSellInput = document.querySelector('#terbium-sell-input');
+
 const ctx = canvas.getContext('2d');
 ctx.lineWidth = 0.5;
 ctx.strokeStyle = '#000000';
@@ -8,13 +14,13 @@ const CANVAS_WIDTH = 16 * 90; // 1440
 const CANVAS_HEIGHT = 9 * 90; // 810
 const TICKER_INCREMENT = 100; // milliseconds
 
-const RECT_WIDTH = 20;
-const RECT_HEIGHT = 20;
-const MAX_SPEED_X = 5;
-const MAX_SPEED_Y = 5;
+const RECT_WIDTH = 50;
+const RECT_HEIGHT = 50;
+const MAX_SPEED_X = 10;
+const MAX_SPEED_Y = 10;
 
-const BASE_WIDTH = 35;
-const BASE_HEIGHT = 35;
+const BASE_WIDTH = 75;
+const BASE_HEIGHT = 75;
 
 const KEYDOWN_EVENT = 'keydown';
 const LEFT_ARROW_KEY = 37;
@@ -48,7 +54,7 @@ class Inventory {
     }
     this.creditsUi = document.querySelector('#credits');
     this.uridiumUi = document.querySelector('#uridium');
-    this.prometidUi = document.querySelector('#prometid');
+    this.prometiumUi = document.querySelector('#prometium');
     this.enduriumUi = document.querySelector('#endurium');
     this.terbiumUi = document.querySelector('#terbium');
   }
@@ -72,7 +78,7 @@ class Inventory {
   updateUi() {
     this.creditsUi.innerHTML = this.credits;
     this.uridiumUi.innerHTML = this.uridium;
-    this.prometidUi.innerHTML = this.stash['Prometium'];
+    this.prometiumUi.innerHTML = this.stash['Prometium'];
     this.enduriumUi.innerHTML = this.stash['Endurium'];
     this.terbiumUi.innerHTML = this.stash['Terbium'];
   }
@@ -91,7 +97,7 @@ class Inventory {
   }
 }
 
-const inventory = new Inventory();
+let inventory = null;
 
 let timer = null;
 
@@ -119,6 +125,7 @@ class Prometium extends Resource {
   constructor(x, y) {
     super('Prometium', 'red', x, y);
     this.value = 10;
+    this.radius = 10;
   }
 }
 
@@ -126,6 +133,7 @@ class Endurium extends Resource {
   constructor(x, y) {
     super('Endurium', 'blue', x, y);
     this.value = 15;
+    this.radius = 10;
   }
 }
 
@@ -133,21 +141,23 @@ class Terbium extends Resource {
   constructor(x, y) {
     super('Terbium', 'yellow', x, y);
     this.value = 20;
+    this.radius = 10;
   }
 }
 
 // let myCar1 = new Car("Ford", 2014);
 
 let resources = [
-  new Prometium(100, 100),
-  new Endurium(150, 30),
-  new Terbium(25, 130)
+  new Prometium(200, 200),
+  new Endurium(250, 70),
+  new Terbium(50, 230)
 ];
 
 let spaceHasBeenEvaluated = false;
 
 function main() {
   render();
+  inventory = new Inventory();
   inventory.updateUi();
   timer = window.setInterval(tick, TICKER_INCREMENT);
 }
@@ -166,7 +176,7 @@ function render() {
   for (let resource of resources) {
     ctx.beginPath();
     ctx.fillStyle = resource.color;
-    ctx.arc(resource.x, resource.y, 3, 0, 2 * Math.PI, false);
+    ctx.arc(resource.x, resource.y, resource.radius, 0, 2 * Math.PI, false);
     ctx.fill();
     ctx.stroke();
   }
@@ -264,6 +274,59 @@ function resourceInRange(resource) {
     return true;
   } else {
     return false;
+  }
+}
+
+function sell(resource) {
+  switch(resource) {
+    case 'prometium':
+      if (prometiumSellInput.value <= inventory.stash['Prometium']) {
+        inventory.stash['Prometium'] -= prometiumSellInput.value
+        inventory.credits += prometiumSellInput.value * 10;
+        prometiumSellInput.value = 0;
+      } else {
+        console.log('ERROR: Insufficient Prometium supply for this trade');
+      }
+      break;
+    case 'endurium':
+      if (enduriumSellInput.value <= inventory.stash['Endurium']) {
+        inventory.stash['Endurium'] -= enduriumSellInput.value
+        inventory.credits += enduriumSellInput.value * 10;
+        enduriumSellInput.value = 0;
+      } else {
+        console.log('ERROR: Insufficient Endurium supply for this trade');
+      }
+      break;
+    case 'terbium':
+      if (terbiumSellInput.value <= inventory.stash['Terbium']) {
+        inventory.stash['Terbium'] -= terbiumSellInput.value
+        inventory.credits += terbiumSellInput.value * 10;
+        terbiumSellInput.value = 0;
+      } else {
+        console.log('ERROR: Insufficient Terbium supply for this trade');
+      }
+      break;
+    default:
+      console.log('ERROR: Invalid max sell resource');
+  }
+
+  inventory.updateUi();
+}
+
+function maxSell(resource) {
+  console.log(enduriumSellInput);
+  switch(resource) {
+    case 'prometium':
+      prometiumSellInput.value = inventory.stash['Prometium'];
+      break;
+    case 'endurium':
+      enduriumSellInput.value = inventory.stash['Endurium'];
+      break;
+    case 'terbium':
+      terbiumSellInput.value = inventory.stash['Terbium'];
+      break;
+    default:
+      console.log('ERROR: Invalid max sell resource');
   }
 }
 

@@ -1,98 +1,119 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
     <title>Light Orbit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   </head>
-  <body onkeydown="registerKey(event);" onkeyup="unregisterKey(event);">
+
+  <body class="d-flex flex-column min-vh-100" onkeydown="registerKey(event);" onkeyup="unregisterKey(event);">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a href="#" class="navbar-brand">Light Orbit</a>
+      </div>
+    </nav>
+
     <main>
-      <h1>Light Orbit</h1>
 
-      <div id="inventory">
-        <h3>Inventory</h3>
-
+      <div class="d-flex justify-content-around my-4">
         <div>
           <label for="credits">Credits: </label>
-          <span id="credits"></span>
+          <span id="credits">0</span>
         </div>
 
         <div>
           <label for="uridium">Uridium: </label>
-          <span id="uridium"></span>
+          <span id="uridium">0</span>
         </div>
+      </div>
 
-        <ul>
-          <li>
-            <label for="prometid">Prometid: </label>
-            <span id="prometid">0</span>
+      <pre id="debug-text" class="container"></pre>
+
+      <div style="text-align: center;">
+        <canvas id="canvas" width="1440" height="810"></canvas>
+      </div>
+
+      <div class="container">
+        <!-- <a class="nav-link disabled" href="#" tabindex="-1">Store</a> -->
+
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#inventory" type="button" role="tab">Inventory</button>
           </li>
-          <li>
-            <label for="endurium">Endurium: </label>
-            <span id="endurium">0</span>
-          </li>
-          <li>
-            <label for="terbium">Terbium: </label>
-            <span id="terbium">0</span>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#boosts" type="button" role="tab">Boosts</button>
           </li>
         </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="inventory" role="tabpanel">
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+                  <th>Name</th>
+                  <th>#</th>
+                  <th>Sell</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Prometium</td>
+                  <td id="prometium">0</td>
+                  <td>
+                    <input type="number" id="prometium-sell-input" value="0">
+                    <button class="btn btn-primary" onclick="sell('prometium');">Sell</button>
+                    <a href="#inventory" class="ps-2" onclick="maxSell('prometium');">Max</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Endurium</td>
+                  <td id="endurium">0</td>
+                  <td>
+                    <input type="number" id="endurium-sell-input" value="0">
+                    <button class="btn btn-primary" onclick="sell('endurium');">Sell</button>
+                    <a href="#inventory" class="ps-2" onclick="maxSell('endurium');">Max</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Terbium</td>
+                  <td id="terbium">0</td>
+                  <td>
+                    <input type="number" id="terbium-sell-input" value="0">
+                    <button class="btn btn-primary" onclick="sell('terbium');">Sell</button>
+                    <a href="#inventory" class="ps-2" onclick="maxSell('terbium');">Max</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tab-pane fade" id="boosts" role="tabpanel">
+          </div>
+        </div>
       </div>
-
-      <div id="store">
-        <h3>Sell</h3>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>#</th>
-              <th colspan="2"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Prometid</td>
-              <td id="prometid-store">0</td>
-              <td>
-                <input type="number" id="prometid-store-input">
-                <button>Sell</button>
-              </td>
-              <td>
-                <button>Sell All</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Endurium</td>
-              <td id="endurium-store">0</td>
-              <td>
-                <input type="number" id="prometid-store-input">
-                <button>Sell</button>
-              </td>
-              <td>
-                <button>Sell All</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Terbium</td>
-              <td id="terbium-store">0</td>
-              <td>
-                <input type="number" id="prometid-store-input">
-                <button>Sell</button>
-              </td>
-              <td>
-                <button>Sell All</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <canvas id="canvas"></canvas>
-
-      <pre id="debug-text"></pre>
     </main>
 
+    <footer class="bg-dark text-white mt-auto p-3">
+      <div class="container-fluid row text-center text-sm-left justify-content-around">
+        <div>
+          <h5>Contact Info</h5>
+          <ol class="list-unstyled">
+            <li>
+              <i class="fas fa-envelope mr-1"></i>
+              <a href="mailto:christian.gt.farmer@gmail.com">christian.gt.farmer@gmail.com</a>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="text-center text-white text-sm pb-1">
+        Copyright 2021
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="script.js"></script>
   </body>
 </html>
