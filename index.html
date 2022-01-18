@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Light Orbit</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body onkeydown="registerKey(event);" onkeyup="unregisterKey(event);">
+    <main>
+      <h1>Light Orbit</h1>
+
+      <div id="inventory">
+        <h3>Inventory</h3>
+
+        <div>
+          <label for="credits">Credits: </label>
+          <span id="credits"></span>
+        </div>
+
+        <div>
+          <label for="uridium">Uridium: </label>
+          <span id="uridium"></span>
+        </div>
+
+        <ul>
+          <li>
+            <label for="prometid">Prometid: </label>
+            <span id="prometid">0</span>
+          </li>
+          <li>
+            <label for="endurium">Endurium: </label>
+            <span id="endurium">0</span>
+          </li>
+          <li>
+            <label for="terbium">Terbium: </label>
+            <span id="terbium">0</span>
+          </li>
+        </ul>
+      </div>
+
+      <div id="store">
+        <h3>Sell</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>#</th>
+              <th colspan="2"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Prometid</td>
+              <td id="prometid-store">0</td>
+              <td>
+                <input type="number" id="prometid-store-input">
+                <button>Sell</button>
+              </td>
+              <td>
+                <button>Sell All</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Endurium</td>
+              <td id="endurium-store">0</td>
+              <td>
+                <input type="number" id="prometid-store-input">
+                <button>Sell</button>
+              </td>
+              <td>
+                <button>Sell All</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Terbium</td>
+              <td id="terbium-store">0</td>
+              <td>
+                <input type="number" id="prometid-store-input">
+                <button>Sell</button>
+              </td>
+              <td>
+                <button>Sell All</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <canvas id="canvas"></canvas>
+
+      <pre id="debug-text"></pre>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
