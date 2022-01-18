@@ -1,0 +1,44 @@
+# Player
+id
+name
+img
+currency
+specialCurrency
+experience
+health
+
+# Maps
+id
+width
+height
+img
+
+# Items
+id
+name
+type # Resource, Ammo
+buyValue
+sellValue
+img
+
+# PlayerItems
+id
+playerId
+itemId
+quantity
+
+# MapItems
+id
+mapId
+itemId
+x
+y
+
+# Portals
+id
+mapId # 1
+x
+y
+img
+toPortalId
+
