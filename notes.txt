@@ -1,4 +1,4 @@
-# Player
+# Players
 id
 name
 img
@@ -16,9 +16,7 @@ img
 # Items
 id
 name
-type # Resource, Ammo
-buyValue
-sellValue
+type # Resource, Ammo, Currency, SpecialCurrency
 img
 
 # PlayerItems
@@ -27,18 +25,52 @@ playerId
 itemId
 quantity
 
-# MapItems
+# StoreItems
+id
+itemId
+buyPrice
+sellPrice
+
+# MapCollectibles
 id
 mapId
-itemId
+type # BonusBox, LootBox, Resource
 x
 y
 
+# MapCollectibleItems
+id
+mapCollectibleId
+itemId
+quantity
+
+# CollectionItems
+id
+collectionId
+itemId
+
 # Portals
 id
-mapId # 1
+mapId
 x
 y
 img
 toPortalId
+
+# Bases
+id
+mapId
+x
+y
+img
+
+# Enemies
+id
+mapId
+x
+y
+img
+name
+experience
+health
 
