@@ -1,4 +1,10 @@
 class Inventory {
+  static creditsUi = document.querySelector('#credits');
+  static uridiumUi = document.querySelector('#uridium');
+  static prometiumUi = document.querySelector('#prometium');
+  static enduriumUi = document.querySelector('#endurium');
+  static terbiumUi = document.querySelector('#terbium');
+
   constructor() {
     this.credits = 0;
     this.uridium = 0;
@@ -7,27 +13,24 @@ class Inventory {
     this.stash = {
       'Prometium': 0,
       'Endurium': 0,
-      'Terbium': 0
+      'Terbium': 0,
+      'Ammunition': 0
     }
-    this.creditsUi = document.querySelector('#credits');
-    this.uridiumUi = document.querySelector('#uridium');
-    this.prometiumUi = document.querySelector('#prometium');
-    this.enduriumUi = document.querySelector('#endurium');
-    this.terbiumUi = document.querySelector('#terbium');
 
     this.updateCurrencyUi();
     this.updateResourceUi();
+    this.updateAmmunitionUi();
   }
 
   addCredits(amount) {
-    // console.log(`addResource(${name}, ${count})`);
+    console.log(`[Inventory] [Add Credits] ${amount}`);
     this.credits += amount;
     this.updateCurrencyUi();
     return true;
   }
 
   removeCredits(amount) {
-    // console.log(`addResource(${name}, ${count})`);
+    console.log(`[Inventory] [Remove Credits] ${amount}`);
     if (amount > this.credits) {
       console.log('ERROR: Not enough credits');
       return false;
@@ -39,14 +42,14 @@ class Inventory {
   }
 
   addUridium(amount) {
-    // console.log(`addResource(${name}, ${count})`);
+    console.log(`[Inventory] [Add Uridium] ${amount}`);
     this.uridium += amount;
     this.updateCurrencyUi();
     return true;
   }
 
   removeUridium(amount) {
-    // console.log(`addResource(${name}, ${count})`);
+    console.log(`[Inventory] [Remove Uridium] ${amount}`);
     if (amount > this.uridium) {
       console.log('ERROR: Not enough uridium');
       return false;
@@ -57,8 +60,27 @@ class Inventory {
     return true;
   }
 
+  addAmmunition(amount) {
+    console.log(`[Inventory] [Add Ammunition] ${amount}`);
+    this.stash['Ammunition'] += amount;
+    this.updateAmmunitionUi();
+    return true;
+  }
+
+  removeAmmunition(amount) {
+    console.log(`[Inventory] [Remove Ammunition] ${amount}`);
+    if (amount > this.stash['Ammunition']) {
+      console.log('ERROR: Not enough ammunition');
+      return false;
+    }
+
+    this.stash['Ammunition'] -= amount;
+    this.updateAmmunitionUi();
+    return true;
+  }
+
   addResource(name, count) {
-    console.log(`addResource(${name}, ${count})`);
+    console.log(`[Inventory] [Add Resource] ${name}, ${count}`);
     if (!this.validResource(name)) {
       console.log('ERROR: Adding invalid resource');
       return false;
@@ -70,6 +92,7 @@ class Inventory {
   }
 
   removeResource(name, count) {
+    console.log(`[Inventory] [Remove Resource] ${name}, ${count}`);
     if (!this.validResource(name)) {
       console.log('ERROR: Removing invalid resource');
       return false;
@@ -86,14 +109,21 @@ class Inventory {
   }
 
   updateCurrencyUi() {
-    this.creditsUi.innerHTML = this.credits;
-    this.uridiumUi.innerHTML = this.uridium;
+    console.log('[Inventory] [Update Currency UI]');
+    Inventory.creditsUi.innerHTML = this.credits;
+    Inventory.uridiumUi.innerHTML = this.uridium;
   }
 
   updateResourceUi() {
-    this.prometiumUi.innerHTML = this.stash['Prometium'];
-    this.enduriumUi.innerHTML = this.stash['Endurium'];
-    this.terbiumUi.innerHTML = this.stash['Terbium'];
+    console.log('[Inventory] [Update Resource UI]');
+    Inventory.prometiumUi.innerHTML = this.stash['Prometium'];
+    Inventory.enduriumUi.innerHTML = this.stash['Endurium'];
+    Inventory.terbiumUi.innerHTML = this.stash['Terbium'];
+  }
+
+  updateAmmunitionUi() {
+    console.log('[Inventory] [Update Ammunition UI]');
+    // TODO: Implement
   }
 
   validResource(name) {

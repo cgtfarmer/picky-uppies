@@ -11,9 +11,6 @@ const CANVAS_WIDTH = 16 * 90; // 1440
 const CANVAS_HEIGHT = 9 * 90; // 810
 const TICKER_INCREMENT = 100; // milliseconds
 
-const BASE_WIDTH = 75;
-const BASE_HEIGHT = 75;
-
 const KEYDOWN_EVENT = 'keydown';
 const LEFT_ARROW_KEY = 37;
 const RIGHT_ARROW_KEY = 39;
@@ -34,52 +31,58 @@ const LISTENING_KEYS = [
 ];
 
 let player = null;
-let inventory = null;
 let store = null;
 let timer = null;
 let keys = {};
 
 let spaceHasBeenEvaluated = false;
 
+const resourcesList = ['Prometium', 'Endurium', 'Terbium'];
+
+let currentMap = null;
+
 function main() {
-  map = new Map(1440, 810);
+  const map1Options = {
+    base: {
+      x: 0,
+      y: 0
+    },
+    resources: {
+      count: 10,
+      selection: [0, 1, 2]
+    },
+    bonusBoxes: {
+      count: 3
+    }
+  };
+  const map1 = new GameMap(1440, 810, map1Options);
+  currentMap = map1;
   player = new Player();
-  inventory = new Inventory();
   store = new Store();
-  render();
+  renderFrame();
   timer = window.setInterval(tick, TICKER_INCREMENT);
 }
 
 function tick() {
-  updateSpeed();
-  render();
-}
-
-function render() {
+  player.speedX = 0;
+  player.speedY = 0;
+  performKeyActions();
   player.x += player.speedX;
   player.y += player.speedY;
-  updateDebugText();
+  renderFrame();
+  // updateDebugText();
+}
+
+function renderFrame() {
+  clearFrame();
+
+  currentMap.render();
+
+  player.render();
+}
+
+function clearFrame() {
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-
-  ctx.beginPath();
-  ctx.fillStyle = 'red';
-  ctx.rect(0, 0, BASE_WIDTH, BASE_HEIGHT);
-  ctx.fill();
-  ctx.stroke();
-
-  for (let resource of resources) {
-    ctx.beginPath();
-    ctx.fillStyle = resource.color;
-    ctx.arc(resource.x, resource.y, resource.radius, 0, 2 * Math.PI, false);
-    ctx.fill();
-    ctx.stroke();
-  }
-
-  ctx.beginPath();
-  ctx.fillStyle = 'black';
-  ctx.rect(player.x, player.y, player.width, player.height);
-  ctx.fill();
-  ctx.stroke();
 }
 
 function updateDebugText() {
@@ -89,7 +92,9 @@ function updateDebugText() {
     canvas height: ${CANVAS_HEIGHT}
     x: ${player.x}
     y: ${player.y}
-    resources: (${resources.length}) ${resources}
+    resources: (${currentMap.resources.length}) ${currentMap.resources}
+    bonusBoxes: (${currentMap.bonusBoxes.length}) ${currentMap.bonusBoxes}
+    ammunition: ${player.inventory.stash['Ammunition']}
   `;
 }
 
@@ -111,10 +116,7 @@ function unregisterKey(event) {
   spaceHasBeenEvaluated = false;
 }
 
-function updateSpeed() {
-  player.speedX = 0;
-  player.speedY = 0;
-
+function performKeyActions() {
   if (Object.keys(keys).length == 0) return;
 
   if (keys[A_KEY] || keys[LEFT_ARROW_KEY]) { player.speedX = player.maxSpeedX * -1; }
@@ -124,21 +126,22 @@ function updateSpeed() {
   if (keys[SPACEBAR_KEY]) {
     if (!spaceHasBeenEvaluated) {
       console.log('Registering spacebar');
-      if (player.collectResource()) {
-        generateRandomResource();
+      const results = player.collect();
+      if (results == -1) return;
+
+      if (results['type'] == 'resource') {
+        currentMap.resources.splice(results['index'], 1);
+        currentMap.generateRandomResource();
+      } else if (results['type'] == 'bonusBox') {
+        currentMap.bonusBoxes.splice(results['index'], 1);
+        currentMap.generateRandomBonusBox();
       }
+
       spaceHasBeenEvaluated = true;
     } else {
       console.log('Not registering spacebar');
     }
   }
-}
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  // The maximum is inclusive and the minimum is inclusive
-  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 main();

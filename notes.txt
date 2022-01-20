@@ -1,3 +1,10 @@
+IMPORTANT: Absolutely screw this for now rofl. The complexity of this absolutely exploded way beyond what I'm ready for. All I want out of this is a single map, a single player, my 10 cycling resources just like I had, and maybe 5 cycling enemies to kill that move around and attack back. Maybe build out a simple repair button and then probs leave it at that - end of the project
+
+Next project should just be marginally more complex
+
+
+# --------------------------------------
+
 # Players
 id
 name
@@ -11,6 +18,7 @@ y
 
 # Maps
 id
+name
 width
 height
 img
@@ -19,6 +27,38 @@ img
 id
 name
 type # Resource, Ammo, Currency, SpecialCurrency
+img
+
+# Resources
+id
+name
+damageModifier
+speedModifier
+shieldModifier
+img
+
+# Ammunitions
+id
+name
+damageModifier
+img
+
+# Lasers
+id
+name
+dps
+img
+
+# Shields
+id
+name
+capacity
+img
+
+# Generators
+id
+name
+speedModifier
 img
 
 # PlayerEquippedItems

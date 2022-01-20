@@ -1,37 +1,40 @@
 class Resource {
-  constructor(name, color, x, y) {
-    this.name = name;
-    this.color = color;
+  constructor(x, y, color, sellValue) {
     this.x = x;
     this.y = y;
+    this.radius = 10;
+    this.color = color;
+    this.sellValue = sellValue;
+  }
+
+  render() {
+    ctx.beginPath();
+    ctx.fillStyle = this.color;
+    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+    ctx.fill();
+    ctx.stroke();
   }
 
   toString(x, y) {
-    return `${this.name}(${this.x}, ${this.y})`;
+    return `${this.constructor.name}(${this.x}, ${this.y})`;
   }
 }
 
 class Prometium extends Resource {
   constructor(x, y) {
-    super('Prometium', 'red', x, y);
-    this.value = 10;
-    this.radius = 10;
+    super(x, y, 'red', 10);
   }
 }
 
 class Endurium extends Resource {
   constructor(x, y) {
-    super('Endurium', 'blue', x, y);
-    this.value = 15;
-    this.radius = 10;
+    super(x, y, 'blue', 15);
   }
 }
 
 class Terbium extends Resource {
   constructor(x, y) {
-    super('Terbium', 'yellow', x, y);
-    this.value = 20;
-    this.radius = 10;
+    super(x, y, 'yellow', 20);
   }
 }
 
