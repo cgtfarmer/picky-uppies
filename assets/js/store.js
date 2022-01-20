@@ -27,24 +27,24 @@ class Store {
 
     switch(resource) {
       case 'prometium':
-        if (player.inventory.removeResource('Prometium', Store.prometiumSellInput.value)) {
-          player.inventory.addCredits(Store.prometiumSellInput.value * this.prices[resource]['sell']);
+        if (game.player.inventory.removeResource('Prometium', Store.prometiumSellInput.value)) {
+          game.player.inventory.addCredits(Store.prometiumSellInput.value * this.prices[resource]['sell']);
           Store.prometiumSellInput.value = 0;
         } else {
           console.log('ERROR: Insufficient Prometium supply for this trade');
         }
         break;
       case 'endurium':
-        if (player.inventory.removeResource('Endurium', Store.enduriumSellInput.value)) {
-          player.inventory.addCredits(Store.enduriumSellInput.value * this.prices[resource]['sell']);
+        if (game.player.inventory.removeResource('Endurium', Store.enduriumSellInput.value)) {
+          game.player.inventory.addCredits(Store.enduriumSellInput.value * this.prices[resource]['sell']);
           Store.enduriumSellInput.value = 0;
         } else {
           console.log('ERROR: Insufficient Endurium supply for this trade');
         }
         break;
       case 'terbium':
-        if (player.inventory.removeResource('Terbium', Store.terbiumSellInput.value)) {
-          player.inventory.addCredits(Store.terbiumSellInput.value * this.prices[resource]['sell']);
+        if (game.player.inventory.removeResource('Terbium', Store.terbiumSellInput.value)) {
+          game.player.inventory.addCredits(Store.terbiumSellInput.value * this.prices[resource]['sell']);
           Store.terbiumSellInput.value = 0;
         } else {
           console.log('ERROR: Insufficient Terbium supply for this trade');
@@ -58,13 +58,13 @@ class Store {
   maxSell(resource) {
     switch(resource) {
       case 'prometium':
-        Store.prometiumSellInput.value = player.inventory.stash['Prometium'];
+        Store.prometiumSellInput.value = game.player.inventory.stash['Prometium'];
         break;
       case 'endurium':
-        Store.enduriumSellInput.value = player.inventory.stash['Endurium'];
+        Store.enduriumSellInput.value = game.player.inventory.stash['Endurium'];
         break;
       case 'terbium':
-        Store.terbiumSellInput.value = player.inventory.stash['Terbium'];
+        Store.terbiumSellInput.value = game.player.inventory.stash['Terbium'];
         break;
       default:
         console.log('ERROR: Invalid max sell resource');
@@ -73,10 +73,10 @@ class Store {
 
   baseInRange() {
     return (
-      currentMap.base.x <= player.x &&
-      player.x <= (currentMap.base.x + currentMap.base.width) &&
-      currentMap.base.y <= player.y &&
-      player.y <= (currentMap.base.y + currentMap.base.height)
+      game.currentMap.base.x <= game.player.x &&
+      game.player.x <= (game.currentMap.base.x + game.currentMap.base.width) &&
+      game.currentMap.base.y <= game.player.y &&
+      game.player.y <= (game.currentMap.base.y + game.currentMap.base.height)
     )
   }
 }

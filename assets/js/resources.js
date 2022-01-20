@@ -8,11 +8,11 @@ class Resource {
   }
 
   render() {
-    ctx.beginPath();
-    ctx.fillStyle = this.color;
-    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-    ctx.fill();
-    ctx.stroke();
+    game.ctx.beginPath();
+    game.ctx.fillStyle = this.color;
+    game.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+    game.ctx.fill();
+    game.ctx.stroke();
   }
 
   toString(x, y) {

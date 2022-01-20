@@ -25,11 +25,11 @@ class BonusBox {
   }
 
   render() {
-    ctx.beginPath();
-    ctx.fillStyle = this.color;
-    ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.fill();
-    ctx.stroke();
+    game.ctx.beginPath();
+    game.ctx.fillStyle = this.color;
+    game.ctx.rect(this.x, this.y, this.width, this.height);
+    game.ctx.fill();
+    game.ctx.stroke();
   }
 
   toString(x, y) {

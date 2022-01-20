@@ -22,21 +22,10 @@ class Player {
 
   collect() {
     console.log('[Player] [Collect]');
-    for (let i = 0; i < currentMap.bonusBoxes.length; i++) {
-      const bonusBox = currentMap.bonusBoxes[i];
+    for (let i = 0; i < game.currentMap.bonusBoxes.length; i++) {
+      const bonusBox = game.currentMap.bonusBoxes[i];
       if (this.collectibleInRange(bonusBox)) {
-        console.log(bonusBox);
-        for (let reward of bonusBox.rewards) {
-          console.log(reward);
-          if (reward['name'] == 'Credits') {
-            this.inventory.addCredits(reward['quantity']);
-          } else if (reward['name'] == 'Uridium') {
-            this.inventory.addUridium(reward['quantity']);
-          } else if (reward['name'] == 'Ammunition') {
-            this.inventory.addAmmunition(reward['quantity']);
-          }
-        }
-
+        this.collectBonusBox(bonusBox);
         return { 'type': 'bonusBox', 'index': i };
       }
     }
@@ -46,8 +35,8 @@ class Player {
       return -1;
     }
 
-    for (let i = 0; i < currentMap.resources.length; i++) {
-      const resource = currentMap.resources[i];
+    for (let i = 0; i < game.currentMap.resources.length; i++) {
+      const resource = game.currentMap.resources[i];
       if (this.collectibleInRange(resource)) {
         this.inventory.addResource(resource.constructor.name, 1)
         return { 'type': 'resource', 'index': i };
@@ -57,14 +46,28 @@ class Player {
     return -1;
   }
 
+  collectBonusBox(bonusBox) {
+    console.log('[Player] [Collect] [Collect Bonus Box]');
+    for (let reward of bonusBox.rewards) {
+      // console.log(reward);
+      if (reward['name'] == 'Credits') {
+        this.inventory.addCredits(reward['quantity']);
+      } else if (reward['name'] == 'Uridium') {
+        this.inventory.addUridium(reward['quantity']);
+      } else if (reward['name'] == 'Ammunition') {
+        this.inventory.addAmmunition(reward['quantity']);
+      }
+    }
+  }
+
   collectResource() {
     if (this.inventory.size >= this.inventory.capacity) {
       console.log('ERROR: Inventory is full');
       return -1;
     }
 
-    for (let i = 0; i < currentMap.resources.length; i++) {
-      const resource = currentMap.resources[i];
+    for (let i = 0; i < game.currentMap.resources.length; i++) {
+      const resource = game.currentMap.resources[i];
       if (this.collectibleInRange(resource)) {
         this.inventory.addResource(resource.constructor.name, 1)
         return i;
@@ -86,11 +89,11 @@ class Player {
   }
 
   render() {
-    ctx.beginPath();
-    ctx.fillStyle = 'black';
-    ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.fill();
-    ctx.stroke();
+    game.ctx.beginPath();
+    game.ctx.fillStyle = 'black';
+    game.ctx.rect(this.x, this.y, this.width, this.height);
+    game.ctx.fill();
+    game.ctx.stroke();
   }
 }
 
