@@ -2,8 +2,8 @@ class Base {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.width = 75;
-    this.height = 75;
+    this.width = 100;
+    this.height = 100;
     this.color = 'gray';
   }
 

@@ -1,6 +1,7 @@
 class Inventory {
   static creditsUi = document.querySelector('#credits');
   static uridiumUi = document.querySelector('#uridium');
+  static ammunitionUi = document.querySelector('#ammunition');
   static prometiumUi = document.querySelector('#prometium');
   static enduriumUi = document.querySelector('#endurium');
   static terbiumUi = document.querySelector('#terbium');
@@ -123,7 +124,7 @@ class Inventory {
 
   updateAmmunitionUi() {
     console.log('[Inventory] [Update Ammunition UI]');
-    // TODO: Implement
+    Inventory.ammunitionUi.innerHTML = this.stash['Ammunition'];
   }
 
   validResource(name) {

@@ -2,8 +2,8 @@ class Player {
   constructor() {
     this.width = 50;
     this.height = 50;
-    this.x = 50;
-    this.y = 50;
+    this.x = 125;
+    this.y = 125;
     this.maxSpeedX = 10;
     this.maxSpeedY = 10;
     this.speedX = 0;
