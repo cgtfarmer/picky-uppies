@@ -23,6 +23,7 @@ class Store {
   sell(resource) {
     if (!this.baseInRange()) {
       new ErrorMessage('ERROR: May only sell at a base');
+      return;
     }
 
     switch(resource) {

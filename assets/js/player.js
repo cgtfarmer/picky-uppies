@@ -1,5 +1,6 @@
 class Player {
   constructor() {
+    console.log('[Player] [Constructor]');
     this.width = 50;
     this.height = 50;
     this.x = 125;
@@ -10,14 +11,29 @@ class Player {
     this.speedY = 0;
     this.health = 100;
     this.dps = 10;
+    this.attackRange = 125;
     this.enemyTarget = null;
+    this.attackingEnemy = false;
+    this.experience = 0;
     this.inventory = new Inventory();
   }
 
   targetNearestEnemy() {
+    console.log('[Player] [Target Nearest Enemy]');
+    for (let i = 0; i < game.currentMap.enemies.length; i++) {
+      const enemy = game.currentMap.enemies[i];
+      if (this.enemyInRange(enemy) && enemy != this.enemyTarget) {
+        this.enemyTarget = enemy;
+        return true;
+      }
+    }
+
+    return false;
   }
 
   attackEnemyTarget() {
+    console.log('[Player] [Attack Enemy Target]');
+    this.attackingEnemy = true;
   }
 
   collect() {
@@ -61,6 +77,7 @@ class Player {
   }
 
   collectResource() {
+    console.log('[Player] [Collect Resource]');
     if (this.inventory.size >= this.inventory.capacity) {
       console.log('ERROR: Inventory is full');
       return -1;
@@ -75,7 +92,24 @@ class Player {
     }
   }
 
+  enemyInRange(enemy) {
+    const msg = '[Player] [Enemy In Range]';
+    if (
+      ((this.x - this.attackRange) < enemy.x) &&
+      ((enemy.x + enemy.width) < (this.x + this.width + this.attackRange)) &&
+      ((this.y - this.attackRange) < enemy.y) &&
+      ((enemy.y + enemy.height) < (this.y + this.height + this.attackRange))
+    ) {
+      console.log(`${msg} true`);
+      return true;
+    } else {
+      console.log(`${msg} false`);
+      return false;
+    }
+  }
+
   collectibleInRange(collectible) {
+    console.log('[Player] [Collectible In Range]');
     if (
       (this.x < collectible.x) &&
       (collectible.x < (this.x + this.width)) &&
@@ -90,7 +124,7 @@ class Player {
 
   render() {
     game.ctx.beginPath();
-    game.ctx.fillStyle = 'black';
+    game.ctx.fillStyle = '#ffffff';
     game.ctx.rect(this.x, this.y, this.width, this.height);
     game.ctx.fill();
     game.ctx.stroke();

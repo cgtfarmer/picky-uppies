@@ -3,6 +3,10 @@ IMPORTANT: Absolutely screw this for now rofl. The complexity of this absolutely
 Next project should just be marginally more complex
 
 
+store to buy ammo
+enemies
+xp bar
+
 # --------------------------------------
 
 # Players

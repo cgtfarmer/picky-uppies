@@ -1,5 +1,10 @@
 const resourcesList = ['Prometium', 'Endurium', 'Terbium'];
+const MILLISECONDS_PER_SECOND = 1000;
 
+const experienceUi = document.querySelector('#experience');
+const ammunitionUi = document.querySelector('#ammunition');
+const targetUi = document.querySelector('#target');
+const targetHpUi = document.querySelector('#target-hp');
 // const inventoryUi = document.querySelector('#inventory');
 // const storeUi = document.querySelector('#store');
 
@@ -19,6 +24,9 @@ function main() {
     },
     bonusBoxes: {
       count: 3
+    },
+    enemies: {
+      count: 5
     }
   };
 

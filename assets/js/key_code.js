@@ -8,5 +8,8 @@ class KeyCode {
   static s = 83;
   static d = 68;
   static spacebar = 32;
+  static tab = 9;
+  static esc = 27;
+  static f = 70;
 }
 

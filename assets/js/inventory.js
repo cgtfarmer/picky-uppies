@@ -15,7 +15,7 @@ class Inventory {
       'Prometium': 0,
       'Endurium': 0,
       'Terbium': 0,
-      'Ammunition': 0
+      'Ammunition': 1000
     }
 
     this.updateCurrencyUi();

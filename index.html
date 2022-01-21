@@ -4,8 +4,8 @@
     <title>Light Orbit</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="assets/css/main.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="assets/css/main.css" rel="stylesheet" type="text/css">
   </head>
 
   <body class="d-flex flex-column min-vh-100" onkeydown="game.inputHandler.registerKey(event);" onkeyup="game.inputHandler.unregisterKey(event);">
@@ -34,10 +34,38 @@
         </div>
       </div>
 
+      <div class="container mt-2 mb-4">
+        <div class="row">
+          <div class="col-3">
+            <h4>Player</h4>
+            <div class="progress">
+              <div class="progress-bar bg-danger" role="progressbar" style="width: 100%">100%</div>
+            </div>
+          </div>
+
+          <div class="col">
+          </div>
+
+          <div id="target" class="col-3" hidden>
+            <h4>Target</h4>
+            <div class="progress">
+              <div id="target-hp" class="progress-bar bg-danger" role="progressbar" style="width: 75%">75%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <pre id="debug-text" class="container"></pre>
 
       <div style="text-align: center;">
         <canvas id="canvas" width="1440" height="810"></canvas>
+      </div>
+
+      <div class="container mt-2 mb-4">
+        <h4>Level 1</h4>
+        <div class="progress">
+          <div id="experience" class="progress-bar bg-success" role="progressbar" style="width: 0%">0%</div>
+        </div>
       </div>
 
       <p id="error-msg" class="container py-2 bg-danger text-center" hidden></p>
@@ -132,6 +160,7 @@
     <script src="assets/js/input_handler.js"></script>
     <script src="assets/js/error_message.js"></script>
     <script src="assets/js/base.js"></script>
+    <script src="assets/js/enemy.js"></script>
     <script src="assets/js/game_map.js"></script>
     <script src="assets/js/inventory.js"></script>
     <script src="assets/js/store.js"></script>

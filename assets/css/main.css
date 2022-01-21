@@ -1,8 +1,36 @@
+body {
+  background-color: #999999;
+}
+
 canvas {
-  border: 1px solid #000000;
+  background-color: #000000;
+  border: 5px solid #000000;
 }
 
 label {
   font-weight: bold;
+}
+
+table {
+  border-color: #000000 !important;
+}
+
+thead.table-dark th {
+  border-top-color: #000000 !important;
+  border-bottom-color: #000000 !important;
+}
+
+ul.nav.nav-tabs {
+  border-color: #000000 !important;
+}
+
+ul.nav.nav-tabs li.nav-item button.nav-link.active {
+  background-color: #444444;
+  color: #ffffff;
+  border-color: #000000 !important;
+}
+
+ul.nav.nav-tabs li.nav-item button.nav-link:hover {
+  border-color: #000000 !important;
 }
 

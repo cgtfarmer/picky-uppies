@@ -6,6 +6,8 @@ class InputHandler {
     KeyCode.s,
     KeyCode.d,
     KeyCode.spacebar,
+    KeyCode.tab,
+    KeyCode.esc,
     KeyCode.leftArrow,
     KeyCode.rightArrow,
     KeyCode.upArrow,
@@ -39,6 +41,26 @@ class InputHandler {
     if (this.keys[KeyCode.d] || this.keys[KeyCode.rightArrow]) { game.player.speedX = game.player.maxSpeedX; }
     if (this.keys[KeyCode.w] || this.keys[KeyCode.upArrow]) { game.player.speedY = game.player.maxSpeedY * -1; }
     if (this.keys[KeyCode.s] || this.keys[KeyCode.downArrow]) { game.player.speedY = game.player.maxSpeedY; }
+
+    if (this.keys[KeyCode.tab]) {
+      if (game.player.targetNearestEnemy()) {
+        targetUi.hidden = false;
+      }
+    }
+
+    if (this.keys[KeyCode.esc]) {
+      if (game.player.attackingEnemy) {
+        game.player.attackingEnemy = false;
+      } else if (game.player.enemyTarget) {
+        game.player.enemyTarget = null;
+        targetUi.hidden = true;
+      }
+    }
+
+    if (this.keys[KeyCode.f]) {
+      game.player.attackEnemyTarget();
+    }
+
     if (this.keys[KeyCode.spacebar]) {
       if (!this.spaceHasBeenEvaluated) {
         // console.log('Registering spacebar');

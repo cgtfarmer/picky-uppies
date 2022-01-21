@@ -21,10 +21,35 @@ class GameMap {
     this.resourceSelection = options.resources.selection;
     this.resources = [];
     this.bonusBoxes = [];
+    this.enemies = [];
     this.base = new Base(options.base.x, options.base.y);
+    this.backgroundStarCoords = [];
 
     this.initResources(options.resources);
     this.initBonusBoxes(options.bonusBoxes);
+    this.initEnemies(options.enemies);
+    this.initBackgroundStarCoords();
+  }
+
+  initBackgroundStarCoords() {
+    for (let i = 0; i < 100; i++) {
+      const x = getRandomInt(0, this.width);
+      const y = getRandomInt(0, this.height);
+      this.backgroundStarCoords.push([x, y]);
+    }
+  }
+
+  initEnemies(options) {
+    console.log('[GameMap] [Init Enemies]');
+    for (let i = 0; i < options.count; i++) {
+      this.enemies.push(this.generateRandomEnemy());
+    }
+  }
+
+  generateRandomEnemy() {
+    const x = getRandomInt(0, (this.width - GameMap.offset));
+    const y = getRandomInt(0, (this.height - GameMap.offset));
+    return new Enemy(x, y);
   }
 
   initBonusBoxes(options) {
@@ -72,6 +97,16 @@ class GameMap {
   }
 
   render() {
+    // console.log(this.backgroundStarCoords);
+    for (let i = 0; i < this.backgroundStarCoords.length; i++) {
+      const coords = this.backgroundStarCoords[i];
+      game.ctx.beginPath();
+      game.ctx.fillStyle = 'white';
+      game.ctx.arc(coords[0], coords[1], 2, 0, 2 * Math.PI, false);
+      game.ctx.fill();
+      game.ctx.stroke();
+    }
+
     this.base.render();
 
     for (let bonusBox of this.bonusBoxes) {
@@ -80,6 +115,10 @@ class GameMap {
 
     for (let resource of this.resources) {
       resource.render();
+    }
+
+    for (let enemy of this.enemies) {
+      enemy.render();
     }
   }
 }
