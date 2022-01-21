@@ -10,7 +10,7 @@ class BonusBox {
     this.y = y;
     this.width = 30;
     this.height = 30;
-    this.color = 'pink';
+    this.color = 'cyan';
     this.rewardCount = getRandomInt(1, 5);
     this.rewards = [];
     this.initRandomRewards();

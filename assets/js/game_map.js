@@ -21,6 +21,15 @@ class GameMap {
     this.resourceSelection = options.resources.selection;
     this.resources = [];
     this.bonusBoxes = [];
+    this.loot = [];
+    // this.loot = [
+    //   new Loot([
+    //     { name: 'Credits', maxQuantity: 100 },
+    //     { name: 'Prometium', maxQuantity: 5 },
+    //     { name: 'Endurium', maxQuantity: 3 },
+    //     { name: 'Terbium', maxQuantity: 2 }
+    //   ])
+    // ];
     this.enemies = [];
     this.base = new Base(options.base.x, options.base.y);
     this.backgroundStarCoords = [];
@@ -108,6 +117,10 @@ class GameMap {
     }
 
     this.base.render();
+
+    for (let loot of this.loot) {
+      loot.render();
+    }
 
     for (let bonusBox of this.bonusBoxes) {
       bonusBox.render();

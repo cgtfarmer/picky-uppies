@@ -17,6 +17,8 @@ class InputHandler {
   constructor() {
     this.keys = {};
     this.spaceHasBeenEvaluated = false;
+    this.tabHasBeenEvaluated = false;
+    this.escHasBeenEvaluated = false;
   }
 
   registerKey(event) {
@@ -32,6 +34,7 @@ class InputHandler {
   unregisterKey(event) {
     this.keys[event.keyCode] = (event.type == InputHandler.keydownEvent);
     if (event.keyCode == KeyCode.spacebar) this.spaceHasBeenEvaluated = false;
+    if (event.keyCode == KeyCode.tab) this.tabHasBeenEvaluated = false;
   }
 
   performKeyActions() {
@@ -42,13 +45,18 @@ class InputHandler {
     if (this.keys[KeyCode.w] || this.keys[KeyCode.upArrow]) { game.player.speedY = game.player.maxSpeedY * -1; }
     if (this.keys[KeyCode.s] || this.keys[KeyCode.downArrow]) { game.player.speedY = game.player.maxSpeedY; }
 
-    if (this.keys[KeyCode.tab]) {
+    if (this.keys[KeyCode.tab] && !this.tabHasBeenEvaluated) {
+      this.tabHasBeenEvaluated = true;
+
       if (game.player.targetNearestEnemy()) {
+        targetCardLvlUi.innerHTML = game.player.enemyTarget.level;
         targetUi.hidden = false;
       }
     }
 
-    if (this.keys[KeyCode.esc]) {
+    if (this.keys[KeyCode.esc] && !this.escHasBeenEvaluated) {
+      this.escHasBeenEvaluated = true;
+
       if (game.player.attackingEnemy) {
         game.player.attackingEnemy = false;
       } else if (game.player.enemyTarget) {
@@ -61,24 +69,24 @@ class InputHandler {
       game.player.attackEnemyTarget();
     }
 
-    if (this.keys[KeyCode.spacebar]) {
-      if (!this.spaceHasBeenEvaluated) {
-        // console.log('Registering spacebar');
-        this.spaceHasBeenEvaluated = true;
-        const results = game.player.collect();
-        if (results == -1) return;
+    if (this.keys[KeyCode.spacebar] && !this.spaceHasBeenEvaluated) {
+      this.spaceHasBeenEvaluated = true;
+      const results = game.player.collect();
+      if (results == -1) return;
 
-        if (results['type'] == 'resource') {
-          game.currentMap.resources.splice(results['index'], 1);
-          game.currentMap.generateRandomResource();
-        } else if (results['type'] == 'bonusBox') {
-          game.currentMap.bonusBoxes.splice(results['index'], 1);
-          game.currentMap.generateRandomBonusBox();
-        }
-
-        // this.spaceHasBeenEvaluated = true;
-      } else {
-        // console.log('Not registering spacebar');
+      if (results['type'] == 'resource') {
+        game.currentMap.resources.splice(results['index'], 1);
+        game.currentMap.generateRandomResource();
+      } else if (results['type'] == 'bonusBox') {
+        game.currentMap.bonusBoxes.splice(results['index'], 1);
+        game.currentMap.generateRandomBonusBox();
+      } else if (results['type'] == 'loot') {
+        successMsgUi.innerHTML = `Received: ${game.currentMap.loot[results['index']].toString()}`;
+        successMsgUi.hidden = false;
+        setTimeout(() => {
+          successMsgUi.hidden = true;
+        }, 7000);
+        game.currentMap.loot.splice(results['index'], 1);
       }
     }
   }

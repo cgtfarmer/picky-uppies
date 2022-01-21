@@ -15,9 +15,32 @@
       </div>
     </nav>
 
-    <main>
+    <main class="d-flex flex-column justify-content-center">
+      <div class="mt-2">
+        <div class="d-flex justify-content-between">
+          <div class="col-3 p-2 target-card">
+            <div class="d-flex justify-content-between">
+              <h4>Player</h4>
+              <h4>Lvl <span id="player-card-lvl">1</span></h4>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-danger" role="progressbar" style="width: 100%">100%</div>
+            </div>
+          </div>
 
-      <div class="d-flex justify-content-around my-4">
+          <div id="target" class="col-3 p-2 target-card" hidden>
+            <div class="d-flex justify-content-between">
+              <h4>Target</h4>
+              <h4>Lvl <span id="target-card-lvl">1</span></h4>
+            </div>
+            <div class="progress">
+              <div id="target-hp" class="progress-bar bg-danger" role="progressbar" style="width: 75%">75%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-around m-1">
         <div>
           <label for="credits">Credits: </label>
           <span id="credits">0</span>
@@ -34,43 +57,22 @@
         </div>
       </div>
 
-      <div class="container mt-2 mb-4">
-        <div class="row">
-          <div class="col-3">
-            <h4>Player</h4>
-            <div class="progress">
-              <div class="progress-bar bg-danger" role="progressbar" style="width: 100%">100%</div>
-            </div>
-          </div>
-
-          <div class="col">
-          </div>
-
-          <div id="target" class="col-3" hidden>
-            <h4>Target</h4>
-            <div class="progress">
-              <div id="target-hp" class="progress-bar bg-danger" role="progressbar" style="width: 75%">75%</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <pre id="debug-text" class="container"></pre>
-
-      <div style="text-align: center;">
-        <canvas id="canvas" width="1440" height="810"></canvas>
-      </div>
-
-      <div class="container mt-2 mb-4">
-        <h4>Level 1</h4>
+      <div class="my-1">
         <div class="progress">
           <div id="experience" class="progress-bar bg-success" role="progressbar" style="width: 0%">0%</div>
         </div>
       </div>
 
-      <p id="error-msg" class="container py-2 bg-danger text-center" hidden></p>
+      <p id="success-msg" class="py-2 bg-success text-center" hidden></p>
+      <p id="error-msg" class="py-2 bg-danger text-center" hidden></p>
 
-      <div class="container">
+      <pre id="debug-text"></pre>
+
+      <div style="text-align: center;">
+        <canvas id="canvas" width="1360" height="765"></canvas>
+      </div>
+
+      <div>
         <!-- <a class="nav-link disabled" href="#" tabindex="-1">Store</a> -->
 
         <ul class="nav nav-tabs" role="tablist">
@@ -160,6 +162,7 @@
     <script src="assets/js/input_handler.js"></script>
     <script src="assets/js/error_message.js"></script>
     <script src="assets/js/base.js"></script>
+    <script src="assets/js/loot.js"></script>
     <script src="assets/js/enemy.js"></script>
     <script src="assets/js/game_map.js"></script>
     <script src="assets/js/inventory.js"></script>

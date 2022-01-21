@@ -7,8 +7,8 @@ class Inventory {
   static terbiumUi = document.querySelector('#terbium');
 
   constructor() {
-    this.credits = 0;
-    this.uridium = 0;
+    this.credits = 1000;
+    this.uridium = 100;
     this.capacity = 100;
     this.size = 0;
     this.stash = {

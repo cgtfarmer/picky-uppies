@@ -1,5 +1,13 @@
+Game.canvas.width = Game.canvasWidth;
+Game.canvas.height = Game.canvasHeight;
+
 const resourcesList = ['Prometium', 'Endurium', 'Terbium'];
 const MILLISECONDS_PER_SECOND = 1000;
+
+const playerLvlUi = document.querySelector('#player-lvl');
+const playerCardLvlUi = document.querySelector('#player-card-lvl');
+const targetCardLvlUi = document.querySelector('#target-card-lvl');
+const successMsgUi = document.querySelector('#success-msg');
 
 const experienceUi = document.querySelector('#experience');
 const ammunitionUi = document.querySelector('#ammunition');
@@ -31,7 +39,7 @@ function main() {
   };
 
   game = new Game();
-  const map1 = new GameMap(1440, 810, map1Options);
+  const map1 = new GameMap(Game.canvasWidth, Game.canvasHeight, map1Options);
   game.maps.push(map1);
   game.currentMap = map1;
   game.player = new Player();

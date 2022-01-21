@@ -15,7 +15,28 @@ class Enemy {
     this.attackingPlayer = false;
     this.experience = 15;
     this.color = 'red';
+    this.level = 1;
     this.targetOffset = 10;
+    this.lootTable = [
+      { name: 'Credits', maxQuantity: 100 },
+      { name: 'Uridium', maxQuantity: 5 },
+      { name: 'Prometium', maxQuantity: 5 },
+      { name: 'Endurium', maxQuantity: 3 },
+      { name: 'Terbium', maxQuantity: 2 }
+    ];
+    this.loot = this.generateRandomLoot();
+  }
+
+  generateRandomLoot() {
+    console.log('[Enemy] [Generate Random Loot]');
+    return new Loot(this.lootTable);
+  }
+
+  dropLoot() {
+    console.log('[Enemy] [Drop Loot]');
+    this.loot.x = this.x;
+    this.loot.y = this.y;
+    game.currentMap.loot.push(this.loot);
   }
 
   render() {

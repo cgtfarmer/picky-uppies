@@ -14,8 +14,13 @@ class Player {
     this.attackRange = 125;
     this.enemyTarget = null;
     this.attackingEnemy = false;
-    this.experience = 0;
+    this.level = 1;
+    this.experience = 10;
     this.inventory = new Inventory();
+    playerCardLvlUi.innerHTML = this.level;
+    const percentage = `${(this.experience / 100) * 100}%`;
+    experienceUi.style.width = percentage;
+    experienceUi.innerHTML = percentage;
   }
 
   targetNearestEnemy() {
@@ -27,6 +32,7 @@ class Player {
         return true;
       }
     }
+    // MAKE SURE TARGET LVL IS DISPLAYED
 
     return false;
   }
@@ -38,6 +44,14 @@ class Player {
 
   collect() {
     console.log('[Player] [Collect]');
+    for (let i = 0; i < game.currentMap.loot.length; i++) {
+      const loot = game.currentMap.loot[i];
+      if (this.collectibleInRange(loot)) {
+        this.collectLoot(loot);
+        return { 'type': 'loot', 'index': i };
+      }
+    }
+
     for (let i = 0; i < game.currentMap.bonusBoxes.length; i++) {
       const bonusBox = game.currentMap.bonusBoxes[i];
       if (this.collectibleInRange(bonusBox)) {
@@ -60,6 +74,24 @@ class Player {
     }
 
     return -1;
+  }
+
+  collectLoot(loot) {
+    console.log('[Player] [Collect] [Collect Loot]');
+    for (let reward of loot.rewards) {
+      // console.log(reward);
+      if (reward['name'] == 'Credits') {
+        this.inventory.addCredits(reward['quantity']);
+      } else if (reward['name'] == 'Uridium') {
+        this.inventory.addUridium(reward['quantity']);
+      } else if (reward['name'] == 'Prometium') {
+        this.inventory.addResource('Prometium', reward['quantity']);
+      } else if (reward['name'] == 'Endurium') {
+        this.inventory.addResource('Endurium', reward['quantity']);
+      } else if (reward['name'] == 'Terbium') {
+        this.inventory.addResource('Terbium', reward['quantity']);
+      }
+    }
   }
 
   collectBonusBox(bonusBox) {
@@ -128,6 +160,18 @@ class Player {
     game.ctx.rect(this.x, this.y, this.width, this.height);
     game.ctx.fill();
     game.ctx.stroke();
+
+    if (this.attackingEnemy) {
+      if (getRandomInt(0, 3) != 0) {
+        game.ctx.beginPath();
+        game.ctx.strokeStyle = '#00ff00';
+        game.ctx.lineWidth = 2.0;
+        game.ctx.moveTo(this.x + (this.width/2), (this.y + (this.height/2)));
+        game.ctx.lineTo(this.enemyTarget.x + (this.enemyTarget.width/2), (this.enemyTarget.y + (this.enemyTarget.height/2)));
+        game.ctx.stroke();
+        game.ctx.strokeStyle = '#000000';
+      }
+    }
   }
 }
 

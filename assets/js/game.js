@@ -1,7 +1,7 @@
 class Game {
   static canvas = document.querySelector('#canvas');
-  static canvasWidth = 16 * 90; // 1440
-  static canvasHeight = 9 * 90; // 810
+  static canvasWidth = 16 * 85; // 1360
+  static canvasHeight = 9 * 85; // 765
   static debugText = document.querySelector('#debug-text');
 
   constructor() {
@@ -85,22 +85,25 @@ class Game {
           // console.log(`${i}: ${this.currentMap.enemies[i].health} ${this.player.enemyTarget.health}`);
           if (this.currentMap.enemies[i] == this.player.enemyTarget) {
             this.currentMap.enemies.splice(i, 1);
-            this.player.experience += this.player.enemyTarget.experience;
-            const percentage = `${(this.player.experience / 100) * 100}%`;
-            experienceUi.style.width = percentage;
-            experienceUi.innerHTML = percentage;
-            // give xp, drop loot
-            this.currentMap.enemies.push(this.currentMap.generateRandomEnemy());
+            break;
           }
         }
 
+        this.player.experience += this.player.enemyTarget.experience;
+        const percentage = `${Math.round((this.player.experience / 100) * 100)}%`;
+        experienceUi.style.width = percentage;
+        experienceUi.innerHTML = percentage;
+
+        this.currentMap.enemies.push(this.currentMap.generateRandomEnemy());
+
+        this.player.enemyTarget.dropLoot();
         this.player.enemyTarget = null;
         targetUi.hidden = true;
       }
     }
 
     this.renderFrame();
-    this.updateDebugText();
+    // this.updateDebugText();
   }
 
   renderFrame() {

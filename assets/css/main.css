@@ -2,6 +2,15 @@ body {
   background-color: #999999;
 }
 
+main {
+  margin-left: 268px;
+  margin-right: 268px;
+}
+
+#debug-text {
+  margin: 0px;
+}
+
 canvas {
   background-color: #000000;
   border: 5px solid #000000;
@@ -32,5 +41,9 @@ ul.nav.nav-tabs li.nav-item button.nav-link.active {
 
 ul.nav.nav-tabs li.nav-item button.nav-link:hover {
   border-color: #000000 !important;
+}
+
+div.target-card {
+  border: 1px solid #000000;
 }
 
