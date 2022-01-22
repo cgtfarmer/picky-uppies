@@ -32,14 +32,17 @@ class Player {
         return true;
       }
     }
-    // MAKE SURE TARGET LVL IS DISPLAYED
 
     return false;
   }
 
   attackEnemyTarget() {
     console.log('[Player] [Attack Enemy Target]');
-    this.attackingEnemy = true;
+    if (this.enemyTarget) {
+      this.attackingEnemy = true;
+      return true;
+    }
+    return false;
   }
 
   collect() {
@@ -136,6 +139,20 @@ class Player {
       return true;
     } else {
       console.log(`${msg} false`);
+      return false;
+    }
+  }
+
+  portalInRange(portal) {
+    console.log('[Player] [Portal In Range]');
+    if (
+      (this.x < portal.x) &&
+      (portal.x < (this.x + this.width)) &&
+      (this.y < portal.y) &&
+      (portal.y < (this.y + this.height))
+    ) {
+      return true;
+    } else {
       return false;
     }
   }

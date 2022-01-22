@@ -31,9 +31,13 @@ class GameMap {
     //   ])
     // ];
     this.enemies = [];
-    this.base = new Base(options.base.x, options.base.y);
+    this.base = null;
+    this.portals = [];
     this.backgroundStarCoords = [];
 
+    if (options.base) {
+      this.base = new Base(options.base.x, options.base.y);
+    }
     this.initResources(options.resources);
     this.initBonusBoxes(options.bonusBoxes);
     this.initEnemies(options.enemies);
@@ -44,7 +48,8 @@ class GameMap {
     for (let i = 0; i < 100; i++) {
       const x = getRandomInt(0, this.width);
       const y = getRandomInt(0, this.height);
-      this.backgroundStarCoords.push([x, y]);
+      const size = getRandomInt(1, 3);
+      this.backgroundStarCoords.push([x, y, size]);
     }
   }
 
@@ -113,15 +118,17 @@ class GameMap {
       game.ctx.lineWidth = 0.5;
       game.ctx.strokeStyle = '#000000';
       game.ctx.fillStyle = 'white';
-      game.ctx.arc(coords[0], coords[1], 2, 0, 2 * Math.PI, false);
+      game.ctx.arc(coords[0], coords[1], coords[2], 0, 2 * Math.PI, false);
       game.ctx.fill();
       game.ctx.stroke();
     }
 
-    this.base.render();
+    if (this.base) {
+      this.base.render();
+    }
 
-    for (let loot of this.loot) {
-      loot.render();
+    for (let portal of this.portals) {
+      portal.render();
     }
 
     for (let bonusBox of this.bonusBoxes) {

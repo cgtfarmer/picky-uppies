@@ -4,7 +4,7 @@ class Base {
     this.y = y;
     this.width = 100;
     this.height = 100;
-    this.color = '#aaaaaa';
+    this.color = '#bbbbbb';
   }
 
   render() {

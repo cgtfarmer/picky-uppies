@@ -11,5 +11,6 @@ class KeyCode {
   static tab = 9;
   static esc = 27;
   static f = 70;
+  static j = 74;
 }
 

@@ -8,6 +8,8 @@ class InputHandler {
     KeyCode.spacebar,
     KeyCode.tab,
     KeyCode.esc,
+    KeyCode.f,
+    KeyCode.j,
     KeyCode.leftArrow,
     KeyCode.rightArrow,
     KeyCode.upArrow,
@@ -19,11 +21,12 @@ class InputHandler {
     this.spaceHasBeenEvaluated = false;
     this.tabHasBeenEvaluated = false;
     this.escHasBeenEvaluated = false;
+    this.jHasBeenEvaluated = false;
   }
 
   registerKey(event) {
     // Don't register if opposite key is currently registered?
-    // console.log(event.keyCode);
+    console.log(event.keyCode);
     if (InputHandler.listeningKeys.includes(event.keyCode)) {
       event.preventDefault();
     }
@@ -35,6 +38,7 @@ class InputHandler {
     this.keys[event.keyCode] = (event.type == InputHandler.keydownEvent);
     if (event.keyCode == KeyCode.spacebar) this.spaceHasBeenEvaluated = false;
     if (event.keyCode == KeyCode.tab) this.tabHasBeenEvaluated = false;
+    if (event.keyCode == KeyCode.j) this.jHasBeenEvaluated = false;
   }
 
   performKeyActions() {
@@ -44,6 +48,17 @@ class InputHandler {
     if (this.keys[KeyCode.d] || this.keys[KeyCode.rightArrow]) { game.player.speedX = game.player.maxSpeedX; }
     if (this.keys[KeyCode.w] || this.keys[KeyCode.upArrow]) { game.player.speedY = game.player.maxSpeedY * -1; }
     if (this.keys[KeyCode.s] || this.keys[KeyCode.downArrow]) { game.player.speedY = game.player.maxSpeedY; }
+
+    if (this.keys[KeyCode.j] && !this.jHasBeenEvaluated) {
+      this.jHasBeenEvaluated = true;
+
+      for (let i = 0; i < game.currentMap.portals.length; i++) {
+        const portal = game.currentMap.portals[i];
+        if (game.player.portalInRange(portal)) {
+          portal.jump();
+        }
+      }
+    }
 
     if (this.keys[KeyCode.tab] && !this.tabHasBeenEvaluated) {
       this.tabHasBeenEvaluated = true;
