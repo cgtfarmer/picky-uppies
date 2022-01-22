@@ -1,4 +1,7 @@
 class Store {
+  static shopCreditsUi = document.querySelector('#shop-credits');
+  static shopUridiumUi = document.querySelector('#shop-uridium');
+  static shopAmmunitionUi = document.querySelector('#shop-ammunition');
   static prometiumSellInputUi = document.querySelector('#prometium-sell-input');
   static enduriumSellInputUi = document.querySelector('#endurium-sell-input');
   static terbiumSellInputUi = document.querySelector('#terbium-sell-input');
@@ -41,6 +44,7 @@ class Store {
       case 'ammunition':
         if (game.player.inventory.removeCredits(this.prices.ammunition.buy)) {
           game.player.inventory.addAmmunition(100);
+          new ShopSuccessMessage('Received: Ammunition x100');
         } else {
           console.log('ERROR: Insufficient Credits supply for this trade');
         }
@@ -116,6 +120,11 @@ class Store {
   }
 
   updateUi() {
+    // here
+    Store.shopCreditsUi.innerHTML = game.player.inventory.credits;
+    Store.shopUridiumUi.innerHTML = game.player.inventory.uridium;;
+    Store.shopAmmunitionUi.innerHTML = game.player.inventory.stash['Ammunition'];;
+
     Store.prometiumUi.innerHTML = game.player.inventory.stash['Prometium'];
     Store.enduriumUi.innerHTML = game.player.inventory.stash['Endurium'];
     Store.terbiumUi.innerHTML = game.player.inventory.stash['Terbium'];

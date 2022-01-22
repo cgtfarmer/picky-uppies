@@ -32,70 +32,31 @@ class Game {
     this.player.y += this.player.speedY;
 
     for (let enemy of this.currentMap.enemies) {
-      const newDirection = getRandomInt(0, 15);
-      if (newDirection == 0) {
-        if (getRandomInt(1, 10) <= 4) {
-          enemy.speedX = 0;
-          enemy.speedY = 0;
-        } else {
-          enemy.speedX = getRandomInt(enemy.maxSpeedX * -1, enemy.maxSpeedX);
-          enemy.speedY = getRandomInt(enemy.maxSpeedY * -1, enemy.maxSpeedY);
-        }
-      }
-
-      if (
-        ((enemy.x + enemy.speedX) < 0) ||
-        ((enemy.x + enemy.speedX) > (this.currentMap.width - enemy.width))
-      ) {
-        enemy.speedX = 0;
-      } else {
-        enemy.x += enemy.speedX;
-      }
-
-      if (
-        ((enemy.y + enemy.speedY) < 0) ||
-        ((enemy.y + enemy.speedY) > (this.currentMap.height - enemy.height))
-      ) {
-        enemy.speedY = 0;
-      } else {
-        enemy.y += enemy.speedY;
-      }
-    }
-
-    if (this.player.attackingEnemy &&
-      !this.player.enemyInRange(this.player.enemyTarget)) {
-      this.player.attackingEnemy = false;
+      enemy.move();
     }
 
     if (this.player.attackingEnemy) {
-      this.player.inventory.removeAmmunition(1);
-
-      this.player.enemyTarget.health -= (
-        this.player.dps * (this.tickerIncrement / MILLISECONDS_PER_SECOND)
-      )
-
-      if (this.player.enemyTarget.health <= 0) {
-        this.player.attackingEnemy = false;
-
-        // this.player.enemyTarget.die();
-        for (let i = 0; i < this.currentMap.enemies.length; i++) {
-          // console.log(`${i}: ${this.currentMap.enemies[i].health} ${this.player.enemyTarget.health}`);
-          if (this.currentMap.enemies[i] == this.player.enemyTarget) {
-            this.player.enemyTarget.dropLoot();
-            this.currentMap.enemies.splice(i, 1);
-            break;
-          }
+      if (this.player.enemyInRange(this.player.enemyTarget)) {
+        if ((this.player.fireTicker / 1000) >= this.player.fireRate) {
+          this.player.fire();
+          this.player.fireTicker = 0;
+        } else {
+          this.player.fireTicker += this.tickerIncrement;
         }
 
-        this.player.experience += this.player.enemyTarget.experience;
-        const percentage = `${Math.round((this.player.experience / 100) * 100)}%`;
-        experienceUi.style.width = percentage;
-        experienceUi.innerHTML = percentage;
+        if (this.player.enemyTarget.health <= 0) {
+          this.player.attackingEnemy = false;
 
-        this.currentMap.enemies.push(this.currentMap.generateRandomEnemy());
+          this.player.addExperience(this.player.enemyTarget.experience);
 
-        this.player.enemyTarget = null;
-        targetUi.hidden = true;
+          this.player.enemyTarget.die();
+
+          this.currentMap.enemies.push(this.currentMap.generateRandomEnemy());
+
+          this.player.cancelTarget();
+        }
+      } else {
+        this.player.attackingEnemy = false;
       }
     }
 

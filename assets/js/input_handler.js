@@ -63,11 +63,7 @@ class InputHandler {
 
     if (this.keys[KeyCode.tab] && !this.tabHasBeenEvaluated) {
       this.tabHasBeenEvaluated = true;
-
-      if (game.player.targetNearestEnemy()) {
-        targetCardLvlUi.innerHTML = game.player.enemyTarget.level;
-        targetUi.hidden = false;
-      }
+      game.player.targetNearestEnemy();
     }
 
     if (this.keys[KeyCode.esc] && !this.escHasBeenEvaluated) {
@@ -75,12 +71,9 @@ class InputHandler {
       this.escHasBeenEvaluated = true;
 
       if (game.player.attackingEnemy) {
-        console.log('attackingEnemy');
-        game.player.attackingEnemy = false;
+        game.player.cancelAttack();
       } else if (game.player.enemyTarget) {
-        console.log('enemyTarget');
-        game.player.enemyTarget = null;
-        targetUi.hidden = true;
+        game.player.cancelTarget();
       }
     }
 

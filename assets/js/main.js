@@ -3,16 +3,9 @@ Game.canvas.height = Game.canvasHeight;
 
 const resourcesList = ['Prometium', 'Endurium', 'Terbium'];
 const MILLISECONDS_PER_SECOND = 1000;
-
-const playerLvlUi = document.querySelector('#player-lvl');
-const playerCardLvlUi = document.querySelector('#player-card-lvl');
-const targetCardLvlUi = document.querySelector('#target-card-lvl');
 // const successMsgUi = document.querySelector('#success-msg');
 
-const experienceUi = document.querySelector('#experience');
 const ammunitionUi = document.querySelector('#ammunition');
-const targetUi = document.querySelector('#target');
-const targetHpUi = document.querySelector('#target-hp');
 // const inventoryUi = document.querySelector('#inventory');
 // const storeUi = document.querySelector('#store');
 

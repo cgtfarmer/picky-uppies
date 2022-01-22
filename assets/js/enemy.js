@@ -27,6 +27,17 @@ class Enemy {
     this.loot = this.generateRandomLoot();
   }
 
+  die() {
+    for (let i = 0; i < game.currentMap.enemies.length; i++) {
+      // console.log(`${i}: ${this.currentMap.enemies[i].health} ${this.player.enemyTarget.health}`);
+      if (game.currentMap.enemies[i] == game.player.enemyTarget) {
+        this.dropLoot();
+        game.currentMap.enemies.splice(i, 1);
+        break;
+      }
+    }
+  }
+
   generateRandomLoot() {
     console.log('[Enemy] [Generate Random Loot]');
     return new Loot(this.lootTable);
@@ -40,6 +51,47 @@ class Enemy {
     game.currentMap.loot.push(this.loot);
   }
 
+  move() {
+    this.#getTickVelocity();
+
+    this.#truncateMapBoundaryVelocity();
+  }
+
+  #getTickVelocity() {
+    const newDirection = getRandomInt(0, 15);
+    if (newDirection == 0) {
+      if (getRandomInt(1, 10) <= 4) {
+        this.speedX = 0;
+        this.speedY = 0;
+      } else {
+        this.speedX = getRandomInt(this.maxSpeedX * -1, this.maxSpeedX);
+        this.speedY = getRandomInt(this.maxSpeedY * -1, this.maxSpeedY);
+      }
+    }
+  }
+
+  #truncateMapBoundaryVelocity() {
+    // TODO: I should probably make a reference to the map this
+    //       enemy belongs to, instead of assuming that map is the current map
+    if (
+      ((this.x + this.speedX) < 0) ||
+      ((this.x + this.speedX) > (game.currentMap.width - this.width))
+    ) {
+      this.speedX = 0;
+    } else {
+      this.x += this.speedX;
+    }
+
+    if (
+      ((this.y + this.speedY) < 0) ||
+      ((this.y + this.speedY) > (game.currentMap.height - this.height))
+    ) {
+      this.speedY = 0;
+    } else {
+      this.y += this.speedY;
+    }
+  }
+
   render() {
     game.ctx.beginPath();
     game.ctx.lineWidth = 0.5;
@@ -51,8 +103,8 @@ class Enemy {
 
     if (this == game.player.enemyTarget) {
       const percentage = `${Math.round((this.health / this.maxHealth) * 100)}%`;
-      targetHpUi.style.width = percentage;
-      targetHpUi.innerHTML = percentage;
+      Player.targetHpUi.style.width = percentage;
+      Player.targetHpUi.innerHTML = percentage;
       game.ctx.beginPath();
       game.ctx.lineWidth = 2;
       game.ctx.strokeStyle = '#ffffff';

@@ -75,7 +75,7 @@
       </div>
 
       <div class="container d-flex justify-content-around my-3">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#player-modal" onclick="game.player.updateUi();">Player</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#player-modal" onclick="game.player.updateUi(); game.player.inventory.updateResourceUi();">Player</button>
 
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#store-modal" onclick="game.store.updateUi();">Shop</button>
 
@@ -97,7 +97,7 @@
       </div>
 
       <div class="text-center text-white text-sm pb-1">
-        2021
+        2022
       </div>
     </footer>
 
@@ -123,12 +123,47 @@
                   <td id="player-level">0</td>
                 </tr>
                 <tr>
+                  <td>Total Experience</td>
+                  <td id="player-total-experience">0</td>
+                </tr>
+                <tr>
+                  <td>Experience</td>
+                  <td>
+                    <span id="player-current-experience">0</span> /
+                    <span id="player-level-experience">0</span>
+                  </td>
+                </tr>
+                <tr>
                   <td>HP</td>
                   <td id="player-hp">0</td>
                 </tr>
                 <tr>
                   <td>DPS</td>
                   <td id="player-dps">0</td>
+                </tr>
+                <tr>
+                  <td>Damage</td>
+                  <td id="player-damage">0</td>
+                </tr>
+                <tr>
+                  <td>Fire Rate</td>
+                  <td id="player-fire-rate">0</td>
+                </tr>
+                <tr>
+                  <td>Accuracy</td>
+                  <td id="player-accuracy">0</td>
+                </tr>
+                <tr>
+                  <td>Critical Hit Rate</td>
+                  <td id="player-critical-rate">0</td>
+                </tr>
+                <tr>
+                  <td>Critical Hit Damage</td>
+                  <td id="player-critical-damage">0</td>
+                </tr>
+                <tr>
+                  <td>Attack Range</td>
+                  <td id="player-attack-range">0</td>
                 </tr>
                 <tr>
                   <td>Speed</td>
@@ -179,7 +214,25 @@
             <button class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
+            <div class="container d-flex justify-content-around mb-1">
+              <div>
+                <label for="credits">Credits: </label>
+                <span id="shop-credits">0</span>
+              </div>
+
+              <div>
+                <label for="ammunition">Ammunition: </label>
+                <span id="shop-ammunition">0</span>
+              </div>
+
+              <div>
+                <label for="uridium">Uridium: </label>
+                <span id="shop-uridium">0</span>
+              </div>
+            </div>
+
             <p id="shop-error-msg" class="py-2 bg-danger text-center" hidden></p>
+            <p id="shop-success-msg" class="py-2 bg-success text-center" hidden></p>
 
             <ul class="nav nav-tabs">
               <li class="nav-item">
@@ -329,6 +382,7 @@
     <script src="assets/js/success_message.js"></script>
     <script src="assets/js/error_message.js"></script>
     <script src="assets/js/shop_error_message.js"></script>
+    <script src="assets/js/shop_success_message.js"></script>
     <script src="assets/js/base.js"></script>
     <script src="assets/js/loot.js"></script>
     <script src="assets/js/portal.js"></script>
