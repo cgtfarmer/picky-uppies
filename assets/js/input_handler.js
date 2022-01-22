@@ -26,7 +26,7 @@ class InputHandler {
 
   registerKey(event) {
     // Don't register if opposite key is currently registered?
-    console.log(event.keyCode);
+    // console.log(event.keyCode);
     if (InputHandler.listeningKeys.includes(event.keyCode)) {
       event.preventDefault();
     }

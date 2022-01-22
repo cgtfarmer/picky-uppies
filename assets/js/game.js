@@ -82,6 +82,7 @@ class Game {
         for (let i = 0; i < this.currentMap.enemies.length; i++) {
           // console.log(`${i}: ${this.currentMap.enemies[i].health} ${this.player.enemyTarget.health}`);
           if (this.currentMap.enemies[i] == this.player.enemyTarget) {
+            this.player.enemyTarget.dropLoot();
             this.currentMap.enemies.splice(i, 1);
             break;
           }
@@ -94,7 +95,6 @@ class Game {
 
         this.currentMap.enemies.push(this.currentMap.generateRandomEnemy());
 
-        this.player.enemyTarget.dropLoot();
         this.player.enemyTarget = null;
         targetUi.hidden = true;
       }

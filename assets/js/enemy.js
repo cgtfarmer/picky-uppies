@@ -33,7 +33,7 @@ class Enemy {
   }
 
   dropLoot() {
-    console.log('[Enemy] [Drop Loot]');
+    console.log(`[Enemy] [Drop Loot] (${this.x}, ${this.y})`);
     this.loot.x = this.x;
     this.loot.y = this.y;
     game.currentMap.loot.push(this.loot);
