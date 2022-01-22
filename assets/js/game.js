@@ -7,8 +7,6 @@ class Game {
   constructor() {
     console.log('[Game] [Constructor]');
     this.ctx = canvas.getContext('2d');
-    this.ctx.lineWidth = 0.5;
-    this.ctx.strokeStyle = '#000000';
     this.tickerIncrement = 100; // milliseconds
     this.player = null;
     this.store = null;

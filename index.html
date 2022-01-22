@@ -16,7 +16,7 @@
     </nav>
 
     <main class="d-flex flex-column justify-content-center">
-      <div class="mt-2">
+      <div class="container mt-2">
         <div class="d-flex justify-content-between">
           <div class="col-3 p-2 target-card">
             <div class="d-flex justify-content-between">
@@ -40,7 +40,7 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-around m-1">
+      <div class="container d-flex justify-content-around my-1">
         <div>
           <label for="credits">Credits: </label>
           <span id="credits">0</span>
@@ -57,14 +57,16 @@
         </div>
       </div>
 
-      <div class="my-1">
+      <div class="container my-1">
         <div class="progress">
           <div id="experience" class="progress-bar bg-success" role="progressbar" style="width: 0%">0%</div>
         </div>
       </div>
 
-      <p id="success-msg" class="py-2 bg-success text-center" hidden></p>
-      <p id="error-msg" class="py-2 bg-danger text-center" hidden></p>
+      <div class="container">
+        <p id="success-msg" class="py-2 bg-success text-center" hidden></p>
+        <p id="error-msg" class="py-2 bg-danger text-center" hidden></p>
+      </div>
 
       <pre id="debug-text"></pre>
 
@@ -72,7 +74,7 @@
         <canvas id="canvas" width="1360" height="765"></canvas>
       </div>
 
-      <div>
+      <div class="container">
         <!-- <a class="nav-link disabled" href="#" tabindex="-1">Store</a> -->
 
         <ul class="nav nav-tabs" role="tablist">
@@ -152,7 +154,7 @@
       </div>
 
       <div class="text-center text-white text-sm pb-1">
-        Copyright 2021
+        2021
       </div>
     </footer>
 

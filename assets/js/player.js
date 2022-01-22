@@ -156,6 +156,8 @@ class Player {
 
   render() {
     game.ctx.beginPath();
+    game.ctx.lineWidth = 0.5;
+    game.ctx.strokeStyle = '#000000';
     game.ctx.fillStyle = '#ffffff';
     game.ctx.rect(this.x, this.y, this.width, this.height);
     game.ctx.fill();
@@ -169,7 +171,6 @@ class Player {
         game.ctx.moveTo(this.x + (this.width/2), (this.y + (this.height/2)));
         game.ctx.lineTo(this.enemyTarget.x + (this.enemyTarget.width/2), (this.enemyTarget.y + (this.enemyTarget.height/2)));
         game.ctx.stroke();
-        game.ctx.strokeStyle = '#000000';
       }
     }
   }

@@ -7,6 +7,13 @@ store to buy ammo
 enemies
 xp bar
 
+store so can buy ammo
+enemies attack back
+heal while at base
+player death
+level up
+add portals to go to 1 other map
+
 # --------------------------------------
 
 # Players

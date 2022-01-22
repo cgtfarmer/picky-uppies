@@ -110,6 +110,8 @@ class GameMap {
     for (let i = 0; i < this.backgroundStarCoords.length; i++) {
       const coords = this.backgroundStarCoords[i];
       game.ctx.beginPath();
+      game.ctx.lineWidth = 0.5;
+      game.ctx.strokeStyle = '#000000';
       game.ctx.fillStyle = 'white';
       game.ctx.arc(coords[0], coords[1], 2, 0, 2 * Math.PI, false);
       game.ctx.fill();

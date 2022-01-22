@@ -41,6 +41,8 @@ class Enemy {
 
   render() {
     game.ctx.beginPath();
+    game.ctx.lineWidth = 0.5;
+    game.ctx.strokeStyle = '#000000';
     game.ctx.fillStyle = this.color;
     game.ctx.rect(this.x, this.y, this.width, this.height);
     game.ctx.fill();
@@ -51,7 +53,7 @@ class Enemy {
       targetHpUi.style.width = percentage;
       targetHpUi.innerHTML = percentage;
       game.ctx.beginPath();
-      // game.ctx.fillStyle = this.color;
+      game.ctx.lineWidth = 2;
       game.ctx.strokeStyle = '#ffffff';
       game.ctx.rect(
         this.x - this.targetOffset,
@@ -60,7 +62,6 @@ class Enemy {
         (this.height + (this.targetOffset * 2))
       );
       game.ctx.stroke();
-      game.ctx.strokeStyle = '#000000';
     }
   }
 }

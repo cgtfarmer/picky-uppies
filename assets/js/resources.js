@@ -9,6 +9,8 @@ class Resource {
 
   render() {
     game.ctx.beginPath();
+    game.ctx.lineWidth = 0.5;
+    game.ctx.strokeStyle = '#000000';
     game.ctx.fillStyle = this.color;
     game.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
     game.ctx.fill();
