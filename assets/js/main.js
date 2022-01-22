@@ -7,7 +7,7 @@ const MILLISECONDS_PER_SECOND = 1000;
 const playerLvlUi = document.querySelector('#player-lvl');
 const playerCardLvlUi = document.querySelector('#player-card-lvl');
 const targetCardLvlUi = document.querySelector('#target-card-lvl');
-const successMsgUi = document.querySelector('#success-msg');
+// const successMsgUi = document.querySelector('#success-msg');
 
 const experienceUi = document.querySelector('#experience');
 const ammunitionUi = document.querySelector('#ammunition');

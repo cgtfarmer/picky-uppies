@@ -37,7 +37,7 @@ class Loot {
     game.ctx.stroke();
   }
 
-  toString(x, y) {
+  toString() {
     let s = '';
     for (let i = 0; i < (this.rewards.length - 1); i++) {
       const reward = this.rewards[i];

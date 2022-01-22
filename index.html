@@ -40,6 +40,11 @@
         </div>
       </div>
 
+      <div id="flash" class="container my-1">
+        <p id="success-msg" class="py-2 bg-success text-center" hidden></p>
+        <p id="error-msg" class="py-2 bg-danger text-center" hidden></p>
+      </div>
+
       <div class="container d-flex justify-content-around my-1">
         <div>
           <label for="credits">Credits: </label>
@@ -57,86 +62,24 @@
         </div>
       </div>
 
-      <div class="container my-1">
-        <div class="progress">
-          <div id="experience" class="progress-bar bg-success" role="progressbar" style="width: 0%">0%</div>
-        </div>
-      </div>
-
-      <div class="container">
-        <p id="success-msg" class="py-2 bg-success text-center" hidden></p>
-        <p id="error-msg" class="py-2 bg-danger text-center" hidden></p>
-      </div>
-
       <pre id="debug-text"></pre>
 
       <div style="text-align: center;">
         <canvas id="canvas" width="1360" height="765"></canvas>
       </div>
 
-      <div class="container">
-        <!-- <a class="nav-link disabled" href="#" tabindex="-1">Store</a> -->
-
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#inventory" type="button" role="tab">Inventory</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#boosts" type="button" role="tab">Boosts</button>
-          </li>
-        </ul>
-
-        <div class="tab-content">
-          <div class="tab-pane fade show active" id="inventory" role="tabpanel">
-            <table class="table">
-              <thead class="table-dark">
-                <tr>
-                  <th>Name</th>
-                  <th>#</th>
-                  <th>Sell</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Prometium</td>
-                  <td id="prometium">0</td>
-                  <td>
-                    <div class="input-group">
-                      <input type="number" id="prometium-sell-input" class="form-control" value="0">
-                      <button class="btn btn-primary" onclick="game.store.sell('prometium');">Sell</button>
-                      <button href="#inventory" class="btn btn-link" onclick="game.store.maxSell('prometium');">Max</button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Endurium</td>
-                  <td id="endurium">0</td>
-                  <td>
-                    <div class="input-group">
-                      <input type="number" id="endurium-sell-input" class="form-control" value="0">
-                      <button class="btn btn-primary" onclick="game.store.sell('endurium');">Sell</button>
-                      <button href="#inventory" class="btn btn-link" onclick="game.store.maxSell('endurium');">Max</button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Terbium</td>
-                  <td id="terbium">0</td>
-                  <td>
-                    <div class="input-group">
-                      <input type="number" id="terbium-sell-input" class="form-control" value="0">
-                      <button class="btn btn-primary" onclick="game.store.sell('terbium');">Sell</button>
-                      <button href="#inventory" class="btn btn-link" onclick="game.store.maxSell('terbium');">Max</button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="tab-pane fade" id="boosts" role="tabpanel">
-          </div>
+      <div class="container my-1">
+        <div class="progress">
+          <div id="experience" class="progress-bar bg-success" role="progressbar" style="width: 0%">0%</div>
         </div>
+      </div>
+
+      <div class="container d-flex justify-content-around my-3">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#player-modal">Player</button>
+
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#store-modal">Store</button>
+
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#help-modal">Help</button>
       </div>
     </main>
 
@@ -158,10 +101,202 @@
       </div>
     </footer>
 
+    <div id="player-modal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="store-modal-header">Shop</h5>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <h3>Inventory</h3>
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+                  <th>Name</th>
+                  <th>#</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Prometium</td>
+                  <td id="prometium">0</td>
+                </tr>
+                <tr>
+                  <td>Endurium</td>
+                  <td id="endurium">0</td>
+                </tr>
+                <tr>
+                  <td>Terbium</td>
+                  <td id="terbium">0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="store-modal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="store-modal-header">Shop</h5>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#sell" type="button">Sell</button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#buy" type="button">Buy</button>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="sell">
+                <table class="table">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Name</th>
+                      <th>#</th>
+                      <th>Price</th>
+                      <th>Sell</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Prometium</td>
+                      <td id="prometium">0</td>
+                      <td id="prometium-sell-price">0</td>
+                      <td>
+                        <div class="input-group">
+                          <input type="number" id="prometium-sell-input" class="form-control" value="0">
+                          <button class="btn btn-primary" onclick="game.store.sell('prometium');">Sell</button>
+                          <button href="#inventory" class="btn btn-link" onclick="game.store.maxSell('prometium');">Max</button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Endurium</td>
+                      <td id="endurium">0</td>
+                      <td id="endurium-sell-price">0</td>
+                      <td>
+                        <div class="input-group">
+                          <input type="number" id="endurium-sell-input" class="form-control" value="0">
+                          <button class="btn btn-primary" onclick="game.store.sell('endurium');">Sell</button>
+                          <button href="#inventory" class="btn btn-link" onclick="game.store.maxSell('endurium');">Max</button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Terbium</td>
+                      <td id="terbium">0</td>
+                      <td id="terbium-sell-price">0</td>
+                      <td>
+                        <div class="input-group">
+                          <input type="number" id="terbium-sell-input" class="form-control" value="0">
+                          <button class="btn btn-primary" onclick="game.store.sell('terbium');">Sell</button>
+                          <button href="#inventory" class="btn btn-link" onclick="game.store.maxSell('terbium');">Max</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="tab-pane fade" id="buy" role="tabpanel">
+                <table class="table">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Name</th>
+                      <th>Cost</th>
+                      <th>Buy</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Ammunition x100</td>
+                      <td id="ammunition-buy-price">0</td>
+                      <td>
+                        <div class="input-group">
+                          <input type="number" id="prometium-sell-input" class="form-control" value="0">
+                          <button class="btn btn-primary" onclick="game.store.buy('ammunition', 100);">Buy</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="help-modal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="store-modal-header">Help</h5>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <h3>Keybindings</h3>
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+                  <th>Key</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>WASD, Arrow Keys</td>
+                  <td>Move</td>
+                </tr>
+                <tr>
+                  <td>Spacebar</td>
+                  <td>Collect Resources, Bonus Boxes, Loot</td>
+                </tr>
+                <tr>
+                  <td>J</td>
+                  <td>Activate Portals</td>
+                </tr>
+                <tr>
+                  <td>TAB</td>
+                  <td>Cycle Targets In Range</td>
+                </tr>
+                <tr>
+                  <td>F</td>
+                  <td>Attack Target</td>
+                </tr>
+                <tr>
+                  <td>Escape</td>
+                  <td>Stop Attacking, Clear Target Selection</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="assets/js/utilities.js"></script>
     <script src="assets/js/key_code.js"></script>
     <script src="assets/js/input_handler.js"></script>
+    <script src="assets/js/success_message.js"></script>
     <script src="assets/js/error_message.js"></script>
     <script src="assets/js/base.js"></script>
     <script src="assets/js/loot.js"></script>

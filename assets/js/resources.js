@@ -17,8 +17,8 @@ class Resource {
     game.ctx.stroke();
   }
 
-  toString(x, y) {
-    return `${this.constructor.name}(${this.x}, ${this.y})`;
+  toString() {
+    return `${this.constructor.name}: 1`;
   }
 }
 

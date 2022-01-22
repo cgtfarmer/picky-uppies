@@ -7,6 +7,14 @@ main {
   margin-right: 268px; */
 }
 
+#flash {
+  height: 40px;
+}
+
+#flash p {
+  margin-bottom: 0px;
+}
+
 #debug-text {
   margin: 0px;
 }
@@ -24,7 +32,11 @@ table {
   border-color: #000000 !important;
 }
 
-thead.table-dark th {
+div.target-card {
+  border: 1px solid #000000;
+}
+
+/* thead.table-dark th {
   border-top-color: #000000 !important;
   border-bottom-color: #000000 !important;
 }
@@ -41,9 +53,5 @@ ul.nav.nav-tabs li.nav-item button.nav-link.active {
 
 ul.nav.nav-tabs li.nav-item button.nav-link:hover {
   border-color: #000000 !important;
-}
-
-div.target-card {
-  border: 1px solid #000000;
-}
+} */
 

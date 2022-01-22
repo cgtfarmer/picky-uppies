@@ -131,6 +131,10 @@ class GameMap {
       portal.render();
     }
 
+    for (let loot of this.loot) {
+      loot.render();
+    }
+
     for (let bonusBox of this.bonusBoxes) {
       bonusBox.render();
     }

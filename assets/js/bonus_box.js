@@ -34,8 +34,14 @@ class BonusBox {
     game.ctx.stroke();
   }
 
-  toString(x, y) {
-    return `${this.constructor.name}(${this.x}, ${this.y})`;
+  toString() {
+    let s = '';
+    for (let i = 0; i < (this.rewards.length - 1); i++) {
+      const reward = this.rewards[i];
+      s += `${reward.name}: ${reward.quantity}, `;
+    }
+    s += `${this.rewards[this.rewards.length-1].name}: ${this.rewards[this.rewards.length-1].quantity}`;
+    return s;
   }
 }
 

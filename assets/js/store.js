@@ -73,7 +73,7 @@ class Store {
   }
 
   baseInRange() {
-    return (
+    return game.currentMap.base && (
       game.currentMap.base.x <= game.player.x &&
       game.player.x <= (game.currentMap.base.x + game.currentMap.base.width) &&
       game.currentMap.base.y <= game.player.y &&
