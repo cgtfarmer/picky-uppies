@@ -75,9 +75,9 @@
       </div>
 
       <div class="container d-flex justify-content-around my-3">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#player-modal">Player</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#player-modal" onclick="game.player.updateUi();">Player</button>
 
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#store-modal">Store</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#store-modal" onclick="game.store.updateUi();">Shop</button>
 
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#help-modal">Help</button>
       </div>
@@ -105,11 +105,42 @@
       <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="store-modal-header">Shop</h5>
+            <h5 class="modal-title" id="store-modal-header">Player</h5>
             <button class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
-            <h3>Inventory</h3>
+            <h3>Stats</h3>
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+                  <th>Stat</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Level</td>
+                  <td id="player-level">0</td>
+                </tr>
+                <tr>
+                  <td>HP</td>
+                  <td id="player-hp">0</td>
+                </tr>
+                <tr>
+                  <td>DPS</td>
+                  <td id="player-dps">0</td>
+                </tr>
+                <tr>
+                  <td>Speed</td>
+                  <td id="player-speed">0</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Inventory
+              (<span id="inventory-size">0</span> /
+              <span id="inventory-capacity">0</span>)
+            </h3>
             <table class="table">
               <thead class="table-dark">
                 <tr>
@@ -120,15 +151,15 @@
               <tbody>
                 <tr>
                   <td>Prometium</td>
-                  <td id="prometium">0</td>
+                  <td id="inventory-prometium">0</td>
                 </tr>
                 <tr>
                   <td>Endurium</td>
-                  <td id="endurium">0</td>
+                  <td id="inventory-endurium">0</td>
                 </tr>
                 <tr>
                   <td>Terbium</td>
-                  <td id="terbium">0</td>
+                  <td id="inventory-terbium">0</td>
                 </tr>
               </tbody>
             </table>
@@ -148,6 +179,8 @@
             <button class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
+            <p id="shop-error-msg" class="py-2 bg-danger text-center" hidden></p>
+
             <ul class="nav nav-tabs">
               <li class="nav-item">
                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#sell" type="button">Sell</button>
@@ -171,8 +204,8 @@
                   <tbody>
                     <tr>
                       <td>Prometium</td>
-                      <td id="prometium">0</td>
-                      <td id="prometium-sell-price">0</td>
+                      <td id="shop-prometium">0</td>
+                      <td id="shop-prometium-sell-price">0</td>
                       <td>
                         <div class="input-group">
                           <input type="number" id="prometium-sell-input" class="form-control" value="0">
@@ -183,8 +216,8 @@
                     </tr>
                     <tr>
                       <td>Endurium</td>
-                      <td id="endurium">0</td>
-                      <td id="endurium-sell-price">0</td>
+                      <td id="shop-endurium">0</td>
+                      <td id="shop-endurium-sell-price">0</td>
                       <td>
                         <div class="input-group">
                           <input type="number" id="endurium-sell-input" class="form-control" value="0">
@@ -195,8 +228,8 @@
                     </tr>
                     <tr>
                       <td>Terbium</td>
-                      <td id="terbium">0</td>
-                      <td id="terbium-sell-price">0</td>
+                      <td id="shop-terbium">0</td>
+                      <td id="shop-terbium-sell-price">0</td>
                       <td>
                         <div class="input-group">
                           <input type="number" id="terbium-sell-input" class="form-control" value="0">
@@ -221,12 +254,9 @@
                   <tbody>
                     <tr>
                       <td>Ammunition x100</td>
-                      <td id="ammunition-buy-price">0</td>
+                      <td id="shop-ammunition-buy-price">0</td>
                       <td>
-                        <div class="input-group">
-                          <input type="number" id="prometium-sell-input" class="form-control" value="0">
-                          <button class="btn btn-primary" onclick="game.store.buy('ammunition', 100);">Buy</button>
-                        </div>
+                        <button class="btn btn-primary" onclick="game.store.buy('ammunition', 100);">Buy</button>
                       </td>
                     </tr>
                   </tbody>
@@ -298,6 +328,7 @@
     <script src="assets/js/input_handler.js"></script>
     <script src="assets/js/success_message.js"></script>
     <script src="assets/js/error_message.js"></script>
+    <script src="assets/js/shop_error_message.js"></script>
     <script src="assets/js/base.js"></script>
     <script src="assets/js/loot.js"></script>
     <script src="assets/js/portal.js"></script>

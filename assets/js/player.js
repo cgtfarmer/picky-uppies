@@ -1,4 +1,9 @@
 class Player {
+  static levelUi = document.querySelector('#player-level');
+  static hpUi = document.querySelector('#player-hp');
+  static dpsUi = document.querySelector('#player-dps');
+  static speedUi = document.querySelector('#player-speed');
+
   constructor() {
     console.log('[Player] [Constructor]');
     this.width = 50;
@@ -169,6 +174,13 @@ class Player {
     } else {
       return false;
     }
+  }
+
+  updateUi() {
+    Player.levelUi.innerHTML = this.level;
+    Player.hpUi.innerHTML = this.health;
+    Player.dpsUi.innerHTML = this.dps;
+    Player.speedUi.innerHTML = this.maxSpeedX;
   }
 
   render() {

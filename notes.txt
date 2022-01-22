@@ -3,16 +3,22 @@ IMPORTANT: Absolutely screw this for now rofl. The complexity of this absolutely
 Next project should just be marginally more complex
 
 
-store to buy ammo
-enemies
-xp bar
+& store to buy ammo
+& enemies
+& xp bar
 
-store so can buy ammo
-enemies attack back
+enemies stop moving and attack back (skip the runaway phase)
 heal while at base
 player death
 level up
-add portals to go to 1 other map
+add a boss on 1-4?
+add aggressive enemies?
+add enemies higher level on other maps?
+make 2-3 different types of enemies?
+upgrades, increase dmg/speed/health/collectionBonus?
+add map name to top center of canvas
+
+# add portals to go to 1 other map
 
 # --------------------------------------
 

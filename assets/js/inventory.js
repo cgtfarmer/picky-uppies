@@ -1,10 +1,12 @@
 class Inventory {
+  static sizeUi = document.querySelector('#inventory-size');
+  static capacityUi = document.querySelector('#inventory-capacity');
   static creditsUi = document.querySelector('#credits');
   static uridiumUi = document.querySelector('#uridium');
   static ammunitionUi = document.querySelector('#ammunition');
-  static prometiumUi = document.querySelector('#prometium');
-  static enduriumUi = document.querySelector('#endurium');
-  static terbiumUi = document.querySelector('#terbium');
+  static prometiumUi = document.querySelector('#inventory-prometium');
+  static enduriumUi = document.querySelector('#inventory-endurium');
+  static terbiumUi = document.querySelector('#inventory-terbium');
 
   constructor() {
     this.credits = 1000;
@@ -18,9 +20,7 @@ class Inventory {
       'Ammunition': 1000
     }
 
-    this.updateCurrencyUi();
-    this.updateResourceUi();
-    this.updateAmmunitionUi();
+    this.updateUi();
   }
 
   addCredits(amount) {
@@ -89,7 +89,6 @@ class Inventory {
 
     this.stash[name] += 1;
     this.size += count;
-    this.updateResourceUi();
   }
 
   removeResource(name, count) {
@@ -105,8 +104,13 @@ class Inventory {
     }
 
     this.stash[name] -= count;
-    this.updateResourceUi();
     return true;
+  }
+
+  updateUi() {
+    this.updateCurrencyUi();
+    this.updateResourceUi();
+    this.updateAmmunitionUi();
   }
 
   updateCurrencyUi() {
@@ -117,6 +121,8 @@ class Inventory {
 
   updateResourceUi() {
     console.log('[Inventory] [Update Resource UI]');
+    Inventory.sizeUi.innerHTML = this.size;
+    Inventory.capacityUi.innerHTML = this.capacity;
     Inventory.prometiumUi.innerHTML = this.stash['Prometium'];
     Inventory.enduriumUi.innerHTML = this.stash['Endurium'];
     Inventory.terbiumUi.innerHTML = this.stash['Terbium'];

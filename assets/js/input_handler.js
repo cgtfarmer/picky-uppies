@@ -38,6 +38,7 @@ class InputHandler {
     this.keys[event.keyCode] = (event.type == InputHandler.keydownEvent);
     if (event.keyCode == KeyCode.spacebar) this.spaceHasBeenEvaluated = false;
     if (event.keyCode == KeyCode.tab) this.tabHasBeenEvaluated = false;
+    if (event.keyCode == KeyCode.esc) this.escHasBeenEvaluated = false;
     if (event.keyCode == KeyCode.j) this.jHasBeenEvaluated = false;
   }
 
@@ -70,11 +71,14 @@ class InputHandler {
     }
 
     if (this.keys[KeyCode.esc] && !this.escHasBeenEvaluated) {
+      console.log('[Input Handler] [Escape]');
       this.escHasBeenEvaluated = true;
 
       if (game.player.attackingEnemy) {
+        console.log('attackingEnemy');
         game.player.attackingEnemy = false;
       } else if (game.player.enemyTarget) {
+        console.log('enemyTarget');
         game.player.enemyTarget = null;
         targetUi.hidden = true;
       }

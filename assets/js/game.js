@@ -68,8 +68,7 @@ class Game {
     }
 
     if (this.player.attackingEnemy) {
-      this.player.inventory.stash['Ammunition'] -= 1;
-      ammunitionUi.innerHTML = this.player.inventory.stash['Ammunition'];
+      this.player.inventory.removeAmmunition(1);
 
       this.player.enemyTarget.health -= (
         this.player.dps * (this.tickerIncrement / MILLISECONDS_PER_SECOND)
