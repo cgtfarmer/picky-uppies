@@ -2,8 +2,12 @@ class Player {
   static targetUi = document.querySelector('#target');
   static targetCardLvlUi = document.querySelector('#target-card-lvl');
   static targetHpUi = document.querySelector('#target-hp');
+  static targetCardDamageUi = document.querySelector('#target-card-damage');
+  static playerCardDamageUi = document.querySelector('#player-card-damage');
   static levelUi = document.querySelector('#player-level');
+  static cardHpUi = document.querySelector('#player-card-hp');
   static hpUi = document.querySelector('#player-hp');
+  static maxHpUi = document.querySelector('#player-max-hp');
   static dpsUi = document.querySelector('#player-dps');
   static damageUi = document.querySelector('#player-damage');
   static accuracyUi = document.querySelector('#player-accuracy');
@@ -27,18 +31,21 @@ class Player {
     this.height = 50;
     this.x = 125;
     this.y = 125;
-    this.maxSpeedX = 10;
-    this.maxSpeedY = 10;
+    this.xAnchor = this.x + (this.width / 2);
+    this.yAnchor = this.y + (this.height / 2);
+    this.maxSpeedX = 10; // 10, 50
+    this.maxSpeedY = 10; // 10, 50
     this.speedX = 0;
     this.speedY = 0;
     this.health = 100;
+    this.maxHealth = 100;
     this.fireRate = 1.0;
-    this.damage = 10.0;
-    this.accuracy = 0.7;
+    this.damage = 10.0; // 10.0, 50.0
+    this.accuracy = 0.7; // 0.7, 1.7
     this.criticalRate = 0.1;
     this.criticalDamage = 0.5;
     this.dps = null;
-    this.attackRange = 125;
+    this.attackRange = 150;
     this.enemyTarget = null;
     this.attackingEnemy = false;
     this.fireTicker = 0;
@@ -48,6 +55,13 @@ class Player {
     this.inventory = new Inventory();
     this.updateDps();
     this.updateExperienceUi();
+  }
+
+  move() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.xAnchor = this.x + (this.width / 2);
+    this.yAnchor = this.y + (this.height / 2);
   }
 
   updateDps() {
@@ -61,8 +75,8 @@ class Player {
     this.experience += this.enemyTarget.experience;
 
     if (this.experience >= Player.experienceTable[this.level]) {
-      this.level += 1;
       this.experience -= Player.experienceTable[this.level];
+      this.level += 1;
       new SuccessMessage(`You are now level ${this.level}!`);
     }
 
@@ -70,7 +84,7 @@ class Player {
   }
 
   updateExperienceUi() {
-    const percentage = `${Math.round((this.experience / 100) * 100)}%`;
+    const percentage = `${Math.round((this.experience / Player.experienceTable[this.level]) * 100)}%`;
     Player.experienceUi.style.width = percentage;
     Player.experienceUi.innerHTML = percentage;
 
@@ -80,15 +94,23 @@ class Player {
   fire() {
     console.log('[Player] [Fire]');
     this.inventory.removeAmmunition(10);
+    const fireDamage = this.#computeFireDamage();
+    this.enemyTarget.health -= fireDamage;
+    Player.targetCardDamageUi.innerHTML = fireDamage;
+    window.setTimeout(() => {
+      Player.targetCardDamageUi.innerHTML = '';
+    }, 500);
+  }
 
+  #computeFireDamage() {
     if ((getRandomInt(1, 100) / 100) <= this.accuracy) {
       if ((getRandomInt(1, 100) / 100) <= this.criticalRate) {
-        this.enemyTarget.health -= (this.damage * (1 + this.criticalDamage));
+        return (this.damage * (1 + this.criticalDamage));
       } else {
-        this.enemyTarget.health -= this.damage;
+        return this.damage;
       }
     } else {
-      // TODO: Give notice that player missed
+      return 0;
     }
   }
 
@@ -192,22 +214,6 @@ class Player {
     }
   }
 
-  collectResource() {
-    console.log('[Player] [Collect Resource]');
-    if (this.inventory.size >= this.inventory.capacity) {
-      console.log('ERROR: Inventory is full');
-      return -1;
-    }
-
-    for (let i = 0; i < game.currentMap.resources.length; i++) {
-      const resource = game.currentMap.resources[i];
-      if (this.collectibleInRange(resource)) {
-        this.inventory.addResource(resource.constructor.name, 1)
-        return i;
-      }
-    }
-  }
-
   enemyInRange(enemy) {
     const msg = '[Player] [Enemy In Range]';
     if (
@@ -225,15 +231,17 @@ class Player {
   }
 
   portalInRange(portal) {
-    console.log('[Player] [Portal In Range]');
+    let s = '[Player] [Portal In Range]';
     if (
-      (this.x < portal.x) &&
-      (portal.x < (this.x + this.width)) &&
-      (this.y < portal.y) &&
-      (portal.y < (this.y + this.height))
+      ((portal.x - 10) < this.xAnchor) &&
+      (this.xAnchor < (portal.x + Portal.radius + 10)) &&
+      ((portal.y - 10) < this.yAnchor) &&
+      (this.yAnchor < (portal.y + Portal.radius + 10))
     ) {
+      console.log(`${s} true`);
       return true;
     } else {
+      console.log(`${s} false`);
       return false;
     }
   }
@@ -255,16 +263,24 @@ class Player {
   updateUi() {
     Player.levelUi.innerHTML = this.level;
     Player.hpUi.innerHTML = this.health;
+    Player.maxHpUi.innerHTML = this.maxHealth;
     Player.dpsUi.innerHTML = this.dps;
     Player.damageUi.innerHTML = this.damage;
     Player.fireRateUi.innerHTML = this.fireRate;
     Player.attackRangeUi.innerHTML = this.attackRange;
     Player.accuracyUi.innerHTML = this.accuracy;
     Player.criticalRateUi.innerHTML = this.criticalRate;
+    Player.criticalDamageUi.innerHTML = this.criticalDamage;
     Player.speedUi.innerHTML = this.maxSpeedX;
     Player.playerTotalExperienceUi.innerHTML = this.totalExperience;
     Player.playerCurrentExperienceUi.innerHTML = this.experience;
     Player.playerLevelExperienceUi.innerHTML = Player.experienceTable[this.level];
+  }
+
+  renderCardHp() {
+    const percentage = `${Math.round((this.health / this.maxHealth) * 100)}%`;
+    Player.cardHpUi.style.width = percentage;
+    Player.cardHpUi.innerHTML = percentage;
   }
 
   render() {
@@ -277,6 +293,8 @@ class Player {
     game.ctx.stroke();
 
     if (this.attackingEnemy) {
+      this.renderCardHp();
+
       if (getRandomInt(0, 3) != 0) {
         game.ctx.beginPath();
         game.ctx.strokeStyle = '#00ff00';

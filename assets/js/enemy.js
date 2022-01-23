@@ -11,7 +11,9 @@ class Enemy {
     this.speedY = getRandomInt(this.maxSpeedY * -1, this.maxSpeedY);
     this.maxHealth = 100;
     this.health = 100;
-    this.dps = 5;
+    this.damage = 3;
+    this.fireRate = 1.0;
+    this.fireTicker = 0;
     this.attackingPlayer = false;
     this.experience = 15;
     this.color = 'red';
@@ -25,6 +27,15 @@ class Enemy {
       { name: 'Terbium', maxQuantity: 2 }
     ];
     this.loot = this.generateRandomLoot();
+  }
+
+  fire() {
+    console.log('[Enemy] [Fire]');
+    game.player.health -= this.damage;
+    Player.playerCardDamageUi.innerHTML = this.damage;
+    window.setTimeout(() => {
+      Player.playerCardDamageUi.innerHTML = '';
+    }, 500);
   }
 
   die() {

@@ -7,6 +7,15 @@ class Base {
     this.color = '#bbbbbb';
   }
 
+  playerInRange() {
+    return (
+      this.x <= game.player.x &&
+      game.player.x <= (this.x + this.width) &&
+      this.y <= game.player.y &&
+      game.player.y <= (this.y + this.height)
+    )
+  }
+
   render() {
     game.ctx.beginPath();
     game.ctx.lineWidth = 0.5;

@@ -47,41 +47,64 @@ function main() {
     bonusBoxes: { count: 7 },
     enemies: { count: 10 }
   };
+  const map5Options = {
+    resources: {
+      count: 0,
+      selection: []
+    },
+    bonusBoxes: { count: 0 },
+    enemies: { count: 0 }
+  };
 
   game = new Game();
-  const map1 = new GameMap(Game.canvasWidth, Game.canvasHeight, map1Options);
-  const map2 = new GameMap(Game.canvasWidth, Game.canvasHeight, map2Options);
-  const map3 = new GameMap(Game.canvasWidth, Game.canvasHeight, map3Options);
-  const map4 = new GameMap(Game.canvasWidth, Game.canvasHeight, map4Options);
 
-  const portal1 = new Portal(Portal.mapCoordinates('bottomRight', map1), map2);
-  const portal2 = new Portal(Portal.mapCoordinates('topLeft', map2), map1);
-  const portal3 = new Portal(Portal.mapCoordinates('topRight', map2), map3);
-  const portal4 = new Portal(Portal.mapCoordinates('bottomRight', map2), map4);
-  const portal5 = new Portal(Portal.mapCoordinates('bottomLeft', map3), map2);
-  const portal6 = new Portal(Portal.mapCoordinates('topLeft', map4), map2);
-  portal1.toX = portal2.x;
-  portal1.toY = portal2.y;
-  portal2.toX = portal1.x;
-  portal2.toY = portal1.y;
-  portal3.toX = portal5.x;
-  portal3.toY = portal5.y;
-  portal4.toX = portal6.x;
-  portal4.toY = portal6.y;
-  portal5.toX = portal3.x;
-  portal5.toY = portal3.y;
-  portal6.toX = portal4.x;
-  portal6.toY = portal4.y;
+  const map1 = new GameMap('Map 1', Game.canvasWidth, Game.canvasHeight, map1Options);
+  const map2 = new GameMap('Map 2', Game.canvasWidth, Game.canvasHeight, map2Options);
+  const map3 = new GameMap('Map 3', Game.canvasWidth, Game.canvasHeight, map3Options);
+  const map4 = new GameMap('Map 4', Game.canvasWidth, Game.canvasHeight, map4Options);
+  const map5 = new GameMap('Map 5', Game.canvasWidth, Game.canvasHeight, map5Options);
 
-  map1.portals.push(portal1);
-  map2.portals.push(portal2);
-  map2.portals.push(portal3);
-  map2.portals.push(portal4);
-  map3.portals.push(portal5);
-  map4.portals.push(portal6);
+  const portal1 = new Portal(Portal.mapCoordinates('bottomRight', map1));
+  const portal2 = new Portal(Portal.mapCoordinates('topLeft', map2));
+  const portal3 = new Portal(Portal.mapCoordinates('topRight', map2));
+  const portal4 = new Portal(Portal.mapCoordinates('bottomRight', map2));
+  const portal5 = new Portal(Portal.mapCoordinates('bottomLeft', map3));
+  const portal6 = new Portal(Portal.mapCoordinates('topLeft', map4));
+  const portal7 = new Portal(Portal.mapCoordinates('bottomRight', map3));
+  const portal8 = new Portal(Portal.mapCoordinates('topRight', map4));
+  const portal9 = new Portal(Portal.mapCoordinates('bottomRight', map4));
+  const portal10 = new Portal(Portal.mapCoordinates('topLeft', map5));
 
-  game.maps.push(map1, map2, map3, map4);
+  map1.addPortal(portal1);
+  map2.addPortal(portal2);
+  map2.addPortal(portal3);
+  map2.addPortal(portal4);
+  map3.addPortal(portal5);
+  map3.addPortal(portal7);
+  map4.addPortal(portal6);
+  map4.addPortal(portal8);
+  map4.addPortal(portal9);
+  map5.addPortal(portal10);
+
+  Portal.link(portal1, portal2);
+  Portal.link(portal3, portal5);
+  Portal.link(portal4, portal6);
+  Portal.link(portal7, portal8);
+  Portal.link(portal9, portal10);
+
+  map5.portals[0].disabled = true;
+  map5.portals[0].hidden = true;
+
+  const boss = new Enemy((map5.width/2), (map5.height/2));
+  boss.width = 100;
+  boss.height = 100;
+  boss.health = 500;
+  boss.damage = 10;
+  map5.enemies.push(boss);
+
+  game.maps.push(map1, map2, map3, map4, map5);
   game.currentMap = map1;
+  // game.currentMap = map5;
   game.player = new Player();
   game.store = new Store();
   game.start();

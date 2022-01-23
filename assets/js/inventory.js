@@ -89,6 +89,7 @@ class Inventory {
 
     this.stash[name] += 1;
     this.size += count;
+    return true;
   }
 
   removeResource(name, count) {
@@ -104,6 +105,7 @@ class Inventory {
     }
 
     this.stash[name] -= count;
+    this.size -= count;
     return true;
   }
 

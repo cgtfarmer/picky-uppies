@@ -57,6 +57,7 @@ class InputHandler {
         const portal = game.currentMap.portals[i];
         if (game.player.portalInRange(portal)) {
           portal.jump();
+          break;
         }
       }
     }

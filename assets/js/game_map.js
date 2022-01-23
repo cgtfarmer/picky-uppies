@@ -14,8 +14,9 @@ class GameMap {
    *   },
    * }
    */
-  constructor(width, height, options) {
+  constructor(name, width, height, options) {
     console.log('[GameMap] [Constructor]');
+    this.name = name;
     this.width = width;
     this.height = height;
     this.resourceSelection = options.resources.selection;
@@ -110,6 +111,25 @@ class GameMap {
     }
   }
 
+  addPortal(portal) {
+    portal.map = this;
+    this.portals.push(portal);
+  }
+
+  renderName() {
+    game.ctx.beginPath();
+    game.ctx.lineWidth = 0.5;
+    game.ctx.strokeStyle = '#000000';
+    game.ctx.fillStyle = 'white';
+    // game.ctx.arc(coords[0], coords[1], coords[2], 0, 2 * Math.PI, false);
+    game.ctx.font = '30px Georgia'; // Arial
+    game.ctx.textAlign = 'center';
+    // game.ctx.strokeText(this.name, (this.width / 2), 15);
+    game.ctx.fillText(this.name, (this.width / 2), 25);
+    game.ctx.fill();
+    game.ctx.stroke();
+  }
+
   render() {
     // console.log(this.backgroundStarCoords);
     for (let i = 0; i < this.backgroundStarCoords.length; i++) {
@@ -146,6 +166,8 @@ class GameMap {
     for (let enemy of this.enemies) {
       enemy.render();
     }
+
+    this.renderName();
   }
 }
 

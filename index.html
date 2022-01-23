@@ -18,23 +18,37 @@
     <main class="d-flex flex-column justify-content-center">
       <div class="container mt-2">
         <div class="d-flex justify-content-between">
-          <div class="col-3 p-2 target-card">
-            <div class="d-flex justify-content-between">
-              <h4>Player</h4>
-              <h4>Lvl <span id="player-card-lvl">1</span></h4>
-            </div>
-            <div class="progress">
-              <div class="progress-bar bg-danger" role="progressbar" style="width: 100%">100%</div>
+          <div class="col-5">
+            <div class="row align-items-center">
+              <div class="col p-2 target-card">
+                <div class="d-flex justify-content-between">
+                  <h4>Player</h4>
+                  <h4>Lvl <span id="player-card-lvl">1</span></h4>
+                </div>
+                <div class="progress">
+                  <div id="player-card-hp" class="progress-bar bg-danger" role="progressbar" style="width: 100%">100%</div>
+                </div>
+              </div>
+              <div class="col">
+                <h3 id="player-card-damage" class="text-danger"></h3>
+              </div>
             </div>
           </div>
 
-          <div id="target" class="col-3 p-2 target-card" hidden>
-            <div class="d-flex justify-content-between">
-              <h4>Target</h4>
-              <h4>Lvl <span id="target-card-lvl">1</span></h4>
-            </div>
-            <div class="progress">
-              <div id="target-hp" class="progress-bar bg-danger" role="progressbar" style="width: 75%">75%</div>
+          <div id="target" class="col-5" hidden>
+            <div class="row align-items-center">
+              <div class="col text-end">
+                <h3 id="target-card-damage" class="text-danger"></h3>
+              </div>
+              <div class="col p-2 target-card">
+                <div class="d-flex justify-content-between">
+                  <h4>Target</h4>
+                  <h4>Lvl <span id="target-card-lvl">1</span></h4>
+                </div>
+                <div class="progress">
+                  <div id="target-hp" class="progress-bar bg-danger" role="progressbar" style="width: 75%">75%</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -97,7 +111,7 @@
       </div>
 
       <div class="text-center text-white text-sm pb-1">
-        2022
+        <span>2022</span>
       </div>
     </footer>
 
@@ -136,6 +150,10 @@
                 <tr>
                   <td>HP</td>
                   <td id="player-hp">0</td>
+                </tr>
+                <tr>
+                  <td>Max HP</td>
+                  <td id="player-max-hp">0</td>
                 </tr>
                 <tr>
                   <td>DPS</td>
@@ -306,10 +324,38 @@
                   </thead>
                   <tbody>
                     <tr>
+                      <td>Uridium x10</td>
+                      <td id="shop-uridium-buy-price">0</td>
+                      <td>
+                        <button class="btn btn-primary" onclick="game.store.buy('uridium');">Buy</button>
+                      </td>
+                    </tr>
+                    <tr>
                       <td>Ammunition x100</td>
                       <td id="shop-ammunition-buy-price">0</td>
                       <td>
-                        <button class="btn btn-primary" onclick="game.store.buy('ammunition', 100);">Buy</button>
+                        <button class="btn btn-primary" onclick="game.store.buy('ammunition');">Buy</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>HP Up</td>
+                      <td id="shop-hp-up-buy-price">0</td>
+                      <td>
+                        <button class="btn btn-primary" onclick="game.store.buy('hpUp');">Buy</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Damage Up</td>
+                      <td id="shop-damage-up-buy-price">0</td>
+                      <td>
+                        <button class="btn btn-primary" onclick="game.store.buy('damageUp');">Buy</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Accuracy Up</td>
+                      <td id="shop-accuracy-up-buy-price">0</td>
+                      <td>
+                        <button class="btn btn-primary" onclick="game.store.buy('accuracyUp');">Buy</button>
                       </td>
                     </tr>
                   </tbody>
@@ -332,41 +378,89 @@
             <button class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
-            <h3>Keybindings</h3>
-            <table class="table">
-              <thead class="table-dark">
-                <tr>
-                  <th>Key</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>WASD, Arrow Keys</td>
-                  <td>Move</td>
-                </tr>
-                <tr>
-                  <td>Spacebar</td>
-                  <td>Collect Resources, Bonus Boxes, Loot</td>
-                </tr>
-                <tr>
-                  <td>J</td>
-                  <td>Activate Portals</td>
-                </tr>
-                <tr>
-                  <td>TAB</td>
-                  <td>Cycle Targets In Range</td>
-                </tr>
-                <tr>
-                  <td>F</td>
-                  <td>Attack Target</td>
-                </tr>
-                <tr>
-                  <td>Escape</td>
-                  <td>Stop Attacking, Clear Target Selection</td>
-                </tr>
-              </tbody>
-            </table>
+            <div>
+              <h3>Keybindings</h3>
+              <table class="table">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Key</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>WASD, Arrow Keys</td>
+                    <td>Move</td>
+                  </tr>
+                  <tr>
+                    <td>Spacebar</td>
+                    <td>Collect Resources, Bonus Boxes, Loot</td>
+                  </tr>
+                  <tr>
+                    <td>J</td>
+                    <td>Activate Portals</td>
+                  </tr>
+                  <tr>
+                    <td>TAB</td>
+                    <td>Cycle Targets In Range</td>
+                  </tr>
+                  <tr>
+                    <td>F</td>
+                    <td>Attack Target</td>
+                  </tr>
+                  <tr>
+                    <td>Escape</td>
+                    <td>Stop Attacking, Clear Target Selection</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div>
+                <h3>FAQ</h3>
+                <table class="table">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Q</th>
+                      <th>A</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Is this game complete?</td>
+                      <td>No. There are many features/improvements I'd like to add/make when I have the time/desire to do so.</td>
+                    </tr>
+                    <tr>
+                      <td>My health is low, what do I do?</td>
+                      <td>You regain health by returning to the base.</td>
+                    </tr>
+                    <tr>
+                      <td>I ran out of ammunition and I don't have enough credits to buy any more. What do I do?</td>
+                      <td>You can collect bonus boxes, which sometimes reward ammunition.</td>
+                    </tr>
+                    <tr>
+                      <td>I can't figure out how to play this on my phone. What do I do?</td>
+                      <td>The game requires keyboard inputs, so you can probably only get it to work on a computer.</td>
+                    </tr>
+                    <tr>
+                      <td>I can't see the game and extra UI elements above/below the page?</td>
+                      <td>Windows: Hold Control and press - to zoom out the page. Mac: Hold Command and press - to zoom out the page.</td>
+                    </tr>
+                    <tr>
+                      <td>All my progress resets when I refresh or close/reopen the game. What do I do?</td>
+                      <td>Nothing. That's how it is for now.</td>
+                    </tr>
+                    <tr>
+                      <td>Why is this game called Light Orbit?</td>
+                      <td>I based this small game off of a browser game called Dark Orbit.</td>
+                    </tr>
+                    <tr>
+                      <td>I found a bug, what do I do?</td>
+                      <td>Feel free to send me an email about it, my address is at the bottom of the page. No promises that I'll get to it.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Done</button>

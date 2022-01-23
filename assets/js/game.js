@@ -28,8 +28,7 @@ class Game {
     this.player.speedX = 0;
     this.player.speedY = 0;
     this.inputHandler.performKeyActions();
-    this.player.x += this.player.speedX;
-    this.player.y += this.player.speedY;
+    this.player.move();
 
     for (let enemy of this.currentMap.enemies) {
       enemy.move();
@@ -44,6 +43,16 @@ class Game {
           this.player.fireTicker += this.tickerIncrement;
         }
 
+        if ((this.player.enemyTarget.fireTicker / 1000) >= this.player.enemyTarget.fireRate) {
+          this.player.enemyTarget.fire();
+          this.player.enemyTarget.fireTicker = 0;
+        } else {
+          this.player.enemyTarget.fireTicker += this.tickerIncrement;
+        }
+
+        // TODO: What happens if you switch targets while
+        //       attacking a different target?
+
         if (this.player.enemyTarget.health <= 0) {
           this.player.attackingEnemy = false;
 
@@ -55,9 +64,36 @@ class Game {
 
           this.player.cancelTarget();
         }
+
+        if (this.player.health <= 0) {
+          this.player.attackingEnemy = false;
+
+          this.player.cancelTarget();
+
+          if (this.player.inventory.credits >= 1000) {
+            this.player.inventory.removeCredits(1000);
+            new ErrorMessage('You died. You have lost 1000 credits');
+          } else {
+            this.player.inventory.removeCredits(this.player.inventory.credits);
+            new ErrorMessage(`You died. You have lost ${this.player.inventory.credits} credits`);
+          }
+
+          this.player.health = 0;
+          game.currentMap = this.maps[0];
+          game.player.x = this.currentMap.base.x;
+          game.player.y = this.currentMap.base.y;
+        }
       } else {
         this.player.attackingEnemy = false;
       }
+    }
+
+    if (this.currentMap.base &&
+        this.currentMap.base.playerInRange() &&
+        !this.player.attackingEnemy &&
+        (this.player.health < this.player.maxHealth)) {
+      this.player.health += 1;
+      this.player.renderCardHp();
     }
 
     this.renderFrame();
