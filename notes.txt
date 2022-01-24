@@ -149,3 +149,40 @@ mapId
 x
 y
 
+# -----------------------------------------------------------------------------
+
+# Loose ends priorities
+
+add attack range level up?
+  should attack range/resource collection range be the same thing?
+
+what if there was a stun CD?
+  combined with attack range increase, you could pretty much kite
+
+what about rockets?
+
+what about repairing away from base?
+  what about a health potion or something?
+  purchase the ability to heal at portals?
+
+boss hp says 460% or something stupid - need to fix that, possibly show the actual HP number too
+
+migrate the player/enemy portrait cards into the canvas?
+
+add health bars above player/enemy during combat
+
+add dmg numbers into canvas during combat
+
+implement circling, where your range outranks the enemy's, enabling attacking without receiving dmg?
+
+add stat increases on level up
+
+add enemy targetting via mouse
+
+what if there was good AoE and a very long-range, weak attack for pulling enemies?
+
+what if I made this or another game like a Diablo-oriented pwnfest?
+  pulling piles of crap, nuking it down with AoE, gobbling up the nommage, etc.
+
+add starting menu w/ ability to save/load/new game?
+

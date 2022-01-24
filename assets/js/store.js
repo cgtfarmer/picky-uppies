@@ -15,6 +15,7 @@ class Store {
   static hpUpPriceUi = document.querySelector('#shop-hp-up-buy-price');
   static damageUpPriceUi = document.querySelector('#shop-damage-up-buy-price');
   static accuracyUpPriceUi = document.querySelector('#shop-accuracy-up-buy-price');
+  static attackRangeUpPriceUi = document.querySelector('#shop-attack-range-up-buy-price');
   static uridiumPriceUi = document.querySelector('#shop-uridium-buy-price');
 
   constructor() {
@@ -44,6 +45,10 @@ class Store {
         'sell': { 'credits': 0, 'uridium': 0 },
       },
       'accuracyUp': {
+        'buy': { 'credits': 0, 'uridium': 100 },
+        'sell': { 'credits': 0, 'uridium': 0 },
+      },
+      'attackRangeUp': {
         'buy': { 'credits': 0, 'uridium': 100 },
         'sell': { 'credits': 0, 'uridium': 0 },
       },
@@ -91,6 +96,14 @@ class Store {
           game.player.accuracy += 0.1;
           game.player.updateDps();
           new ShopSuccessMessage('Received: Accuracy increase +0.1');
+        } else {
+          console.log('ERROR: Insufficient Uridium supply for this trade');
+        }
+        break;
+      case 'attackRangeUp':
+        if (game.player.inventory.removeUridium(this.prices.attackRangeUp.buy.uridium)) {
+          game.player.attackRange += 10;
+          new ShopSuccessMessage('Received: Attack range increase +10');
         } else {
           console.log('ERROR: Insufficient Uridium supply for this trade');
         }
@@ -182,6 +195,7 @@ class Store {
     Store.hpUpPriceUi.innerHTML = `${this.prices.hpUp.buy.uridium}U`;
     Store.damageUpPriceUi.innerHTML = `${this.prices.damageUp.buy.uridium}U`;
     Store.accuracyUpPriceUi.innerHTML = `${this.prices.accuracyUp.buy.uridium}U`;
+    Store.attackRangeUpPriceUi.innerHTML = `${this.prices.attackRangeUp.buy.uridium}U`;
   }
 }
 

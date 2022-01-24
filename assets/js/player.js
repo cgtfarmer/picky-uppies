@@ -78,6 +78,12 @@ class Player {
       this.experience -= Player.experienceTable[this.level];
       this.level += 1;
       new SuccessMessage(`You are now level ${this.level}!`);
+      this.maxHealth += 10;
+      this.health = this.maxHealth;
+      this.damage += 1;
+      this.criticalRate += 0.025;
+      this.criticalDamage += 0.05;
+      this.fireRate -= 0.5;
     }
 
     this.updateExperienceUi();
