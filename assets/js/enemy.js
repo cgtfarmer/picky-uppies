@@ -69,14 +69,32 @@ class Enemy {
   }
 
   #getTickVelocity() {
-    const newDirection = getRandomInt(0, 15);
-    if (newDirection == 0) {
-      if (getRandomInt(1, 10) <= 4) {
-        this.speedX = 0;
-        this.speedY = 0;
+    if (game.player.attackingEnemy && (game.player.enemyTarget == this)) {
+      if (game.player.x < this.x) {
+        this.speedX = (this.maxSpeedX * -1);
+      } else if (game.player.x > this.x) {
+        this.speedX = this.maxSpeedX;
       } else {
-        this.speedX = getRandomInt(this.maxSpeedX * -1, this.maxSpeedX);
-        this.speedY = getRandomInt(this.maxSpeedY * -1, this.maxSpeedY);
+        this.speedX = 0;
+      }
+
+      if (game.player.y < this.y) {
+        this.speedY = (this.maxSpeedY * -1);
+      } else if (game.player.y > this.y) {
+        this.speedY = this.maxSpeedY;
+      } else {
+        this.speedY = 0;
+      }
+    } else {
+      const newDirection = getRandomInt(0, 15);
+      if (newDirection == 0) {
+        if (getRandomInt(1, 10) <= 4) {
+          this.speedX = 0;
+          this.speedY = 0;
+        } else {
+          this.speedX = getRandomInt(this.maxSpeedX * -1, this.maxSpeedX);
+          this.speedY = getRandomInt(this.maxSpeedY * -1, this.maxSpeedY);
+        }
       }
     }
   }
