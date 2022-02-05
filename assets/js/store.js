@@ -76,7 +76,7 @@ class Store {
         break;
       case 'hpUp':
         if (game.player.inventory.removeUridium(this.prices.hpUp.buy.uridium)) {
-          game.player.maxHealth += 10;
+          game.player.modifyMaxHealth(25);
           new ShopSuccessMessage('Received: HP increase +25');
         } else {
           console.log('ERROR: Insufficient Uridium supply for this trade');
@@ -84,7 +84,7 @@ class Store {
         break;
       case 'damageUp':
         if (game.player.inventory.removeUridium(this.prices.damageUp.buy.uridium)) {
-          game.player.damage += 2.5;
+          game.player.damage += 5;
           game.player.updateDps();
           new ShopSuccessMessage('Received: Damage increase +5');
         } else {

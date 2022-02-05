@@ -1,11 +1,5 @@
 class Player {
-  static targetUi = document.querySelector('#target');
-  static targetCardLvlUi = document.querySelector('#target-card-lvl');
-  static targetHpUi = document.querySelector('#target-hp');
-  static targetCardDamageUi = document.querySelector('#target-card-damage');
-  static playerCardDamageUi = document.querySelector('#player-card-damage');
   static levelUi = document.querySelector('#player-level');
-  static cardHpUi = document.querySelector('#player-card-hp');
   static hpUi = document.querySelector('#player-hp');
   static maxHpUi = document.querySelector('#player-max-hp');
   static dpsUi = document.querySelector('#player-dps');
@@ -16,7 +10,6 @@ class Player {
   static criticalRateUi = document.querySelector('#player-critical-rate');
   static criticalDamageUi = document.querySelector('#player-critical-damage');
   static speedUi = document.querySelector('#player-speed');
-  static playerCardLvlUi = document.querySelector('#player-card-lvl');
   static playerTotalExperienceUi = document.querySelector('#player-total-experience');
   static playerCurrentExperienceUi = document.querySelector('#player-current-experience');
   static playerLevelExperienceUi = document.querySelector('#player-level-experience');
@@ -50,8 +43,8 @@ class Player {
     this.attackingEnemy = false;
     this.fireTicker = 0;
     this.level = 1;
-    this.totalExperience = 10;
-    this.experience = 10;
+    this.totalExperience = 0;
+    this.experience = 0;
     this.inventory = new Inventory();
     this.updateDps();
     this.updateExperienceUi();
@@ -78,27 +71,27 @@ class Player {
       this.experience -= Player.experienceTable[this.level];
       this.level += 1;
       new SuccessMessage(`You are now level ${this.level}!`);
-      this.maxHealth += 10;
-      this.health = this.maxHealth;
+      this.modifyMaxHealth(10)
+      this.setHealth(this.maxHealth);
       this.damage += 1;
       this.criticalRate += 0.025;
       this.criticalDamage += 0.05;
-      this.fireRate -= 0.5;
+      this.fireRate -= 0.05;
     }
 
     this.updateExperienceUi();
   }
 
   updateExperienceUi() {
-    const percentage = `${Math.round((this.experience / Player.experienceTable[this.level]) * 100)}%`;
-    Player.experienceUi.style.width = percentage;
-    Player.experienceUi.innerHTML = percentage;
+    // const percentage = `${Math.round((this.experience / Player.experienceTable[this.level]) * 100)}%`;
+    // Player.experienceUi.style.width = percentage;
+    // Player.experienceUi.innerHTML = percentage;
 
     game.experienceBar.maxValue = Player.experienceTable[this.level];
     game.experienceBar.value = this.experience;
     game.experienceBar.level = this.level;
 
-    Player.playerCardLvlUi.innerHTML = this.level;
+    // Player.playerCardLvlUi.innerHTML = this.level;
   }
 
   fire() {
@@ -124,10 +117,12 @@ class Player {
     console.log('[Player] [Target Nearest Enemy]');
     for (let i = 0; i < game.currentMap.enemies.length; i++) {
       const enemy = game.currentMap.enemies[i];
-      if (this.enemyInRange(enemy) && enemy != this.enemyTarget) {
+      if (this.enemyInRange(enemy) && (enemy != this.enemyTarget)) {
         this.enemyTarget = enemy;
-        Player.targetCardLvlUi.innerHTML = this.enemyTarget.level;
-        Player.targetUi.hidden = false;
+        game.targetPortrait.healthBar.maxValue = this.enemyTarget.maxHealth;
+        game.targetPortrait.healthBar.value = this.enemyTarget.health;
+        // Player.targetCardLvlUi.innerHTML = this.enemyTarget.level;
+        // Player.targetUi.hidden = false;
         return true;
       }
     }
@@ -137,7 +132,7 @@ class Player {
 
   attackEnemyTarget() {
     console.log('[Player] [Attack Enemy Target]');
-    if (this.enemyTarget) {
+    if (this.enemyTarget && this.enemyInRange(this.enemyTarget)) {
       this.attackingEnemy = true;
       return true;
     }
@@ -151,7 +146,7 @@ class Player {
 
   cancelTarget() {
     this.enemyTarget = null;
-    Player.targetUi.hidden = true;
+    // Player.targetUi.hidden = true;
   }
 
   collect() {
@@ -283,10 +278,19 @@ class Player {
     Player.playerLevelExperienceUi.innerHTML = Player.experienceTable[this.level];
   }
 
-  modifyHealth(value) {
-    this.health += value;
+  setHealth(value) {
+    this.health = value;
     game.playerPortrait.healthBar.value = this.health;
-    // this.renderCardHp();
+  }
+
+  modifyHealth(value) {
+    if ((this.health + value) < this.maxHealth) {
+      this.health += value;
+    } else {
+      this.health = this.maxHealth;
+    }
+
+    game.playerPortrait.healthBar.value = this.health;
 
     // Player.playerCardDamageUi.innerHTML = value;
     // window.setTimeout(() => {
@@ -294,10 +298,9 @@ class Player {
     // }, 500);
   }
 
-  renderCardHp() {
-    const percentage = `${Math.round((this.health / this.maxHealth) * 100)}%`;
-    Player.cardHpUi.style.width = percentage;
-    Player.cardHpUi.innerHTML = percentage;
+  modifyMaxHealth(value) {
+    this.maxHealth += value;
+    game.playerPortrait.healthBar.maxValue = this.maxHealth;
   }
 
   render() {
@@ -310,8 +313,6 @@ class Player {
     game.ctx.stroke();
 
     if (this.attackingEnemy) {
-      this.renderCardHp();
-
       if (getRandomInt(0, 3) != 0) {
         game.ctx.beginPath();
         game.ctx.strokeStyle = '#00ff00';

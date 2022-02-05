@@ -15,7 +15,7 @@ class Enemy {
     this.fireRate = 1.0;
     this.fireTicker = 0;
     this.attackingPlayer = false;
-    this.experience = 15;
+    this.experience = 15; // 15
     this.color = 'red';
     this.level = 1;
     this.targetOffset = 10;
@@ -37,7 +37,7 @@ class Enemy {
 
   modifyHealth(value) {
     this.health += value;
-    game.enemyPortrait.healthBar.value = this.health;
+    game.targetPortrait.healthBar.value = this.health;
 
     // Player.targetCardDamageUi.innerHTML = value;
     // window.setTimeout(() => {
@@ -138,9 +138,9 @@ class Enemy {
     game.ctx.stroke();
 
     if (this == game.player.enemyTarget) {
-      const percentage = `${Math.round((this.health / this.maxHealth) * 100)}%`;
-      Player.targetHpUi.style.width = percentage;
-      Player.targetHpUi.innerHTML = percentage;
+      // const percentage = `${Math.round((this.health / this.maxHealth) * 100)}%`;
+      // Player.targetHpUi.style.width = percentage;
+      // Player.targetHpUi.innerHTML = percentage;
       game.ctx.beginPath();
       game.ctx.lineWidth = 2;
       game.ctx.strokeStyle = '#ffffff';

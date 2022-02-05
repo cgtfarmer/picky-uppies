@@ -16,44 +16,6 @@
     </nav>
 
     <main class="d-flex flex-column justify-content-center">
-      <div class="container mt-2">
-        <div class="d-flex justify-content-between">
-          <div class="col-5">
-            <div class="row align-items-center">
-              <div class="col p-2 target-card">
-                <div class="d-flex justify-content-between">
-                  <h4>Player</h4>
-                  <h4>Lvl <span id="player-card-lvl">1</span></h4>
-                </div>
-                <div class="progress">
-                  <div id="player-card-hp" class="progress-bar bg-danger" role="progressbar" style="width: 100%">100%</div>
-                </div>
-              </div>
-              <div class="col">
-                <h3 id="player-card-damage" class="text-danger"></h3>
-              </div>
-            </div>
-          </div>
-
-          <div id="target" class="col-5" hidden>
-            <div class="row align-items-center">
-              <div class="col text-end">
-                <h3 id="target-card-damage" class="text-danger"></h3>
-              </div>
-              <div class="col p-2 target-card">
-                <div class="d-flex justify-content-between">
-                  <h4>Target</h4>
-                  <h4>Lvl <span id="target-card-lvl">1</span></h4>
-                </div>
-                <div class="progress">
-                  <div id="target-hp" class="progress-bar bg-danger" role="progressbar" style="width: 75%">75%</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="container flash-container my-1">
         <p id="success-msg" class="py-2 bg-success text-center" hidden></p>
         <p id="error-msg" class="py-2 bg-danger text-center" hidden></p>
@@ -82,13 +44,7 @@
         <canvas id="canvas" width="1360" height="765"></canvas>
       </div>
 
-      <div class="container my-1">
-        <div class="progress">
-          <div id="experience" class="progress-bar bg-success" role="progressbar" style="width: 0%">0%</div>
-        </div>
-      </div>
-
-      <div class="container d-flex justify-content-around my-3">
+      <div class="container d-flex justify-content-around mt-2 mb-3">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#player-modal" onclick="game.player.updateUi(); game.player.inventory.updateResourceUi();">Player</button>
 
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#store-modal" onclick="game.store.updateUi();">Shop</button>

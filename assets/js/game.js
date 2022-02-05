@@ -21,11 +21,11 @@ class Game {
     );
     this.playerPortrait.name = 'Player';
 
-    this.enemyPortrait = new Portrait(
+    this.targetPortrait = new Portrait(
       (Game.canvasWidth * (2/3)) - (300 / 2) + 50,
       5
     );
-    this.enemyPortrait.name = 'Enemy';
+    this.targetPortrait.name = 'Enemy';
 
     this.experienceBar = new ExperienceBar(
       10,
@@ -126,7 +126,9 @@ class Game {
     this.player.render();
 
     this.playerPortrait.render();
-    this.enemyPortrait.render();
+
+    if (this.player.enemyTarget) this.targetPortrait.render();
+
     this.experienceBar.render();
   }
 
