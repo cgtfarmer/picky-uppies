@@ -98,6 +98,7 @@ function main() {
   const boss = new Enemy((map5.width/2), (map5.height/2));
   boss.width = 100;
   boss.height = 100;
+  boss.maxHealth = 500;
   boss.health = 500;
   boss.damage = 10;
   map5.enemies.push(boss);

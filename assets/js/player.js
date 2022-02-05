@@ -26,8 +26,8 @@ class Player {
     this.y = 125;
     this.xAnchor = this.x + (this.width / 2);
     this.yAnchor = this.y + (this.height / 2);
-    this.maxSpeedX = 10; // 10, 50
-    this.maxSpeedY = 10; // 10, 50
+    this.maxSpeedX = 50; // 10, 50
+    this.maxSpeedY = 50; // 10, 50
     this.speedX = 0;
     this.speedY = 0;
     this.health = 100;
