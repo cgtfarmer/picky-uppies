@@ -63,6 +63,7 @@ class InputHandler {
     }
 
     if (this.keys[KeyCode.tab] && !this.tabHasBeenEvaluated) {
+      console.log(game.experienceBar);
       this.tabHasBeenEvaluated = true;
       game.player.targetNearestEnemy();
     }

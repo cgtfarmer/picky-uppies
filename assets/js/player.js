@@ -26,8 +26,8 @@ class Player {
     this.y = 125;
     this.xAnchor = this.x + (this.width / 2);
     this.yAnchor = this.y + (this.height / 2);
-    this.maxSpeedX = 50; // 10, 50
-    this.maxSpeedY = 50; // 10, 50
+    this.maxSpeedX = 10; // 10, 50
+    this.maxSpeedY = 10; // 10, 50
     this.speedX = 0;
     this.speedY = 0;
     this.health = 100;
@@ -87,9 +87,14 @@ class Player {
     // Player.experienceUi.style.width = percentage;
     // Player.experienceUi.innerHTML = percentage;
 
-    game.experienceBar.maxValue = Player.experienceTable[this.level];
-    game.experienceBar.value = this.experience;
-    game.experienceBar.level = this.level;
+    // game.experienceBar.level = this.level;
+    // game.experienceBar.maxValue = Player.experienceTable[this.level];
+    // game.experienceBar.value = this.experience;
+    game.experienceBar.update(
+      this.level,
+      this.experience,
+      Player.experienceTable[this.level]
+    );
 
     // Player.playerCardLvlUi.innerHTML = this.level;
   }
@@ -119,8 +124,10 @@ class Player {
       const enemy = game.currentMap.enemies[i];
       if (this.enemyInRange(enemy) && (enemy != this.enemyTarget)) {
         this.enemyTarget = enemy;
-        game.targetPortrait.healthBar.maxValue = this.enemyTarget.maxHealth;
-        game.targetPortrait.healthBar.value = this.enemyTarget.health;
+        game.targetPortrait.healthBar.update(
+          this.enemyTarget.maxHealth,
+          this.enemyTarget.health
+        );
         // Player.targetCardLvlUi.innerHTML = this.enemyTarget.level;
         // Player.targetUi.hidden = false;
         return true;
@@ -280,7 +287,7 @@ class Player {
 
   setHealth(value) {
     this.health = value;
-    game.playerPortrait.healthBar.value = this.health;
+    game.playerPortrait.healthBar.update(this.health, this.maxHealth);
   }
 
   modifyHealth(value) {
@@ -290,7 +297,7 @@ class Player {
       this.health = this.maxHealth;
     }
 
-    game.playerPortrait.healthBar.value = this.health;
+    game.playerPortrait.healthBar.update(this.health, this.maxHealth);
 
     // Player.playerCardDamageUi.innerHTML = value;
     // window.setTimeout(() => {
@@ -300,7 +307,7 @@ class Player {
 
   modifyMaxHealth(value) {
     this.maxHealth += value;
-    game.playerPortrait.healthBar.maxValue = this.maxHealth;
+    game.playerPortrait.healthBar.update(this.health, this.maxHealth);
   }
 
   render() {

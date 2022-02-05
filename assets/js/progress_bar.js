@@ -9,53 +9,45 @@ class ProgressBar {
     this.bgColor = bgColor;
     this.value = 100;
     this.maxValue = 100;
-  }
 
-  renderBackground() {
-    game.ctx.beginPath();
-    game.ctx.lineWidth = 0.5;
-    game.ctx.strokeStyle = '#000000';
-    game.ctx.fillStyle = this.bgColor;
-    game.ctx.rect(this.x, this.y, this.width, this.height);
-    game.ctx.fill();
-    game.ctx.stroke();
-  }
+    this.background = new Rectangle(
+      this.x,
+      this.y,
+      this.width,
+      this.height,
+      this.bgColor
+    );
 
-  renderForeground() {
-    game.ctx.beginPath();
-    game.ctx.lineWidth = 0.5;
-    game.ctx.strokeStyle = '#000000';
-    game.ctx.fillStyle = this.color;
-    game.ctx.rect(
+    this.foreground = new Rectangle(
       this.x,
       this.y,
       this.width * (this.value / this.maxValue),
-      this.height
+      this.height,
+      this.color
     );
-    game.ctx.fill();
-    game.ctx.stroke();
+
+    this.text = new Text(
+      this.x + (this.width / 2),
+      this.y + (this.height / 2) + 5,
+      `${this.value} / ${this.maxValue}`,
+      15,
+      '#ffffff',
+      'center'
+    );
   }
 
-  renderText() {
-    game.ctx.beginPath();
-    game.ctx.lineWidth = 0.5;
-    game.ctx.strokeStyle = '#000000';
-    game.ctx.fillStyle = '#ffffff';
-    game.ctx.font = '15px Georgia';
-    game.ctx.textAlign = 'center';
-    game.ctx.fillText(
-      `${this.value} / ${this.maxValue}`,
-      this.x + (this.width / 2),
-      this.y + (this.height / 2) + 5
-    );
-    game.ctx.fill();
-    game.ctx.stroke();
+  update(value, maxValue) {
+    console.log('[Progress Bar] [Update]');
+    this.value = value;
+    this.maxValue = maxValue;
+    this.foreground.width = this.width * (this.value / this.maxValue),
+    this.text.content = `${this.value} / ${this.maxValue}`;
   }
 
   render() {
-    this.renderBackground();
-    this.renderForeground();
-    this.renderText();
+    this.background.render();
+    this.foreground.render();
+    this.text.render();
   }
 }
 

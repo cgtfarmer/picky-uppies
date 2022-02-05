@@ -16,7 +16,7 @@ class Enemy {
     this.fireTicker = 0;
     this.attackingPlayer = false;
     this.experience = 15; // 15
-    this.color = 'red';
+    this.color = '#ff0000';
     this.level = 1;
     this.targetOffset = 10;
     this.lootTable = [
@@ -27,6 +27,10 @@ class Enemy {
       { name: 'Terbium', maxQuantity: 2 }
     ];
     this.loot = this.generateRandomLoot();
+
+    // this.sprite = new Rectangle(
+    //   this.x, this.y, this.width, this.height, this.color
+    // );
   }
 
   fire() {
@@ -36,8 +40,9 @@ class Enemy {
   }
 
   modifyHealth(value) {
+    console.log('[Enemy] [Modify Health]');
     this.health += value;
-    game.targetPortrait.healthBar.value = this.health;
+    game.targetPortrait.healthBar.update(this.health, this.maxHealth);
 
     // Player.targetCardDamageUi.innerHTML = value;
     // window.setTimeout(() => {
@@ -46,6 +51,7 @@ class Enemy {
   }
 
   die() {
+    console.log('[Enemy] [Die]');
     for (let i = 0; i < game.currentMap.enemies.length; i++) {
       // console.log(`${i}: ${this.currentMap.enemies[i].health} ${this.player.enemyTarget.health}`);
       if (game.currentMap.enemies[i] == game.player.enemyTarget) {
@@ -65,7 +71,6 @@ class Enemy {
     console.log(`[Enemy] [Drop Loot] (${this.x}, ${this.y})`);
     this.loot.x = this.x;
     this.loot.y = this.y;
-    console.log(`[Enemy] [Drop Loot] 2: (${this.loot.x}, ${this.loot.y})`);
     game.currentMap.loot.push(this.loot);
   }
 
@@ -136,6 +141,7 @@ class Enemy {
     game.ctx.rect(this.x, this.y, this.width, this.height);
     game.ctx.fill();
     game.ctx.stroke();
+    // this.sprite.render();
 
     if (this == game.player.enemyTarget) {
       // const percentage = `${Math.round((this.health / this.maxHealth) * 100)}%`;
