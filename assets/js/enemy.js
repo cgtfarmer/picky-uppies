@@ -31,11 +31,18 @@ class Enemy {
 
   fire() {
     console.log('[Enemy] [Fire]');
-    game.player.health -= this.damage;
-    Player.playerCardDamageUi.innerHTML = this.damage;
-    window.setTimeout(() => {
-      Player.playerCardDamageUi.innerHTML = '';
-    }, 500);
+    game.player.modifyHealth(this.damage * -1);
+    // game.player.health -= this.damage;
+  }
+
+  modifyHealth(value) {
+    this.health += value;
+    game.enemyPortrait.healthBar.value = this.health;
+
+    // Player.targetCardDamageUi.innerHTML = value;
+    // window.setTimeout(() => {
+    //   Player.targetCardDamageUi.innerHTML = '';
+    // }, 500);
   }
 
   die() {

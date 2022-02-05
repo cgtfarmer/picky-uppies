@@ -14,6 +14,25 @@ class Game {
     this.maps = [];
     this.currentMap = null;
     this.inputHandler = new InputHandler();
+
+    this.playerPortrait = new Portrait(
+      (Game.canvasWidth * (1/3)) - (300 / 2) - 50,
+      5
+    );
+    this.playerPortrait.name = 'Player';
+
+    this.enemyPortrait = new Portrait(
+      (Game.canvasWidth * (2/3)) - (300 / 2) + 50,
+      5
+    );
+    this.enemyPortrait.name = 'Enemy';
+
+    this.experienceBar = new ExperienceBar(
+      10,
+      Game.canvasHeight - 20,
+      Game.canvasWidth - 20,
+      20
+    );
   }
 
   start() {
@@ -92,8 +111,7 @@ class Game {
         this.currentMap.base.playerInRange() &&
         !this.player.attackingEnemy &&
         (this.player.health < this.player.maxHealth)) {
-      this.player.health += 1;
-      this.player.renderCardHp();
+      this.player.modifyHealth(1);
     }
 
     this.renderFrame();
@@ -106,6 +124,10 @@ class Game {
     this.currentMap.render();
 
     this.player.render();
+
+    this.playerPortrait.render();
+    this.enemyPortrait.render();
+    this.experienceBar.render();
   }
 
   clearFrame() {

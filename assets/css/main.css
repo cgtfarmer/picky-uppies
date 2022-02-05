@@ -7,11 +7,11 @@ main {
   margin-right: 268px; */
 }
 
-#flash {
+.flash-container {
   height: 40px;
 }
 
-#flash p {
+.flash-container p {
   margin-bottom: 0px;
 }
 

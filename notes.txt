@@ -1,3 +1,24 @@
+Character
+  Player
+    Sprite img shouldn't be chosen in player.move()?
+  NPC
+Portrait
+Nameplate (health bar and name (optional))
+
+Base => Shop
+Portal => MapLink
+
+UIElement
+  Button
+  ProgressBar
+  TextInput
+  Div
+
+game.setTimeout
+
+
+# --------------------------------------
+
 IMPORTANT: Absolutely screw this for now rofl. The complexity of this absolutely exploded way beyond what I'm ready for. All I want out of this is a single map, a single player, my 10 cycling resources just like I had, and maybe 5 cycling enemies to kill that move around and attack back. Maybe build out a simple repair button and then probs leave it at that - end of the project
 
 Next project should just be marginally more complex
@@ -185,4 +206,16 @@ what if I made this or another game like a Diablo-oriented pwnfest?
   pulling piles of crap, nuking it down with AoE, gobbling up the nommage, etc.
 
 add starting menu w/ ability to save/load/new game?
+
+# --------------------------------------
+
+You win on boss kill
+
+Enemy aggression on 1-4
+
+& Success banner no move screen
+
+Fix health not healing after level up or HP up?
+
+Fix 460% health or whatever
 

@@ -94,6 +94,10 @@ class Player {
     Player.experienceUi.style.width = percentage;
     Player.experienceUi.innerHTML = percentage;
 
+    game.experienceBar.maxValue = Player.experienceTable[this.level];
+    game.experienceBar.value = this.experience;
+    game.experienceBar.level = this.level;
+
     Player.playerCardLvlUi.innerHTML = this.level;
   }
 
@@ -101,11 +105,7 @@ class Player {
     console.log('[Player] [Fire]');
     this.inventory.removeAmmunition(10);
     const fireDamage = this.#computeFireDamage();
-    this.enemyTarget.health -= fireDamage;
-    Player.targetCardDamageUi.innerHTML = fireDamage;
-    window.setTimeout(() => {
-      Player.targetCardDamageUi.innerHTML = '';
-    }, 500);
+    this.enemyTarget.modifyHealth(fireDamage * -1);
   }
 
   #computeFireDamage() {
@@ -281,6 +281,17 @@ class Player {
     Player.playerTotalExperienceUi.innerHTML = this.totalExperience;
     Player.playerCurrentExperienceUi.innerHTML = this.experience;
     Player.playerLevelExperienceUi.innerHTML = Player.experienceTable[this.level];
+  }
+
+  modifyHealth(value) {
+    this.health += value;
+    game.playerPortrait.healthBar.value = this.health;
+    // this.renderCardHp();
+
+    // Player.playerCardDamageUi.innerHTML = value;
+    // window.setTimeout(() => {
+    //   Player.playerCardDamageUi.innerHTML = '';
+    // }, 500);
   }
 
   renderCardHp() {
