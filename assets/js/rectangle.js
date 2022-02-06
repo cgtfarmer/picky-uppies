@@ -1,12 +1,21 @@
 class Rectangle {
   constructor(x, y, width, height, color) {
-    this.x = x;
-    this.y = y;
     this.width = width;
     this.height = height;
+    this.x = x;
+    this.y = y;
+    this.xAnchor = (x + (this.width / 2));
+    this.yAnchor = (y + (this.height / 2));
     this.lineWidth = 0.5;
     this.strokeColor = '#000000';
     this.fillColor = color;
+  }
+
+  updatePosition(x, y) {
+    this.x = x;
+    this.y = y;
+    this.xAnchor = (x + (this.width / 2));
+    this.yAnchor = (y + (this.height / 2));
   }
 
   render() {

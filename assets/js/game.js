@@ -99,8 +99,8 @@ class Game {
 
           this.player.health = 0;
           game.currentMap = this.maps[0];
-          game.player.x = this.currentMap.base.x;
-          game.player.y = this.currentMap.base.y;
+          game.player.sprite.x = this.currentMap.base.x;
+          game.player.sprite.y = this.currentMap.base.y;
         }
       } else {
         this.player.attackingEnemy = false;
@@ -139,8 +139,8 @@ class Game {
   updateDebugText() {
     Game.debugText.innerHTML = `
       # DEBUG
-      x: ${this.player.x}
-      y: ${this.player.y}
+      x: ${this.player.sprite.x}
+      y: ${this.player.sprite.y}
       xp: ${this.player.experience}
       attacking: ${this.player.attackingEnemy}
       target: ${this.player.enemyTarget}

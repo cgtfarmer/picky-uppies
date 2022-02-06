@@ -16,16 +16,16 @@ class Player {
   static experienceUi = document.querySelector('#experience');
   static experienceTable = [
     0, 100, 175, 300, 500, 800, 1300, 1750, 3000, 5000, 0
-  ]
+  ];
 
   constructor() {
     console.log('[Player] [Constructor]');
-    this.width = 50;
-    this.height = 50;
-    this.x = 125;
-    this.y = 125;
-    this.xAnchor = this.x + (this.width / 2);
-    this.yAnchor = this.y + (this.height / 2);
+
+    this.sprite = new Rectangle(
+      125, 125, 50, 50, '#ffffff'
+    );
+    this.sprite.xAnchor = this.sprite.x + (this.sprite.width / 2);
+    this.sprite.yAnchor = this.sprite.y + (this.sprite.height / 2);
     this.maxSpeedX = 10; // 10, 50
     this.maxSpeedY = 10; // 10, 50
     this.speedX = 0;
@@ -48,13 +48,23 @@ class Player {
     this.inventory = new Inventory();
     this.updateDps();
     this.updateExperienceUi();
+
+    // this.sprite.width = 50;
+    // this.sprite.height = 50;
+    // this.sprite.x = 125;
+    // this.sprite.y = 125;
   }
 
   move() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-    this.xAnchor = this.x + (this.width / 2);
-    this.yAnchor = this.y + (this.height / 2);
+    this.sprite.updatePosition(
+      this.sprite.x + this.speedX,
+      this.sprite.y + this.speedY
+    );
+
+    // this.sprite.x += this.speedX;
+    // this.sprite.y += this.speedY;
+    // this.sprite.xAnchor = this.sprite.x + (this.sprite.width / 2);
+    // this.sprite.yAnchor = this.sprite.y + (this.sprite.height / 2);
   }
 
   updateDps() {
@@ -225,10 +235,10 @@ class Player {
   enemyInRange(enemy) {
     const msg = '[Player] [Enemy In Range]';
     if (
-      ((this.x - this.attackRange) < enemy.x) &&
-      ((enemy.x + enemy.width) < (this.x + this.width + this.attackRange)) &&
-      ((this.y - this.attackRange) < enemy.y) &&
-      ((enemy.y + enemy.height) < (this.y + this.height + this.attackRange))
+      ((this.sprite.x - this.attackRange) < enemy.sprite.x) &&
+      ((enemy.sprite.x + enemy.sprite.width) < (this.sprite.x + this.sprite.width + this.attackRange)) &&
+      ((this.sprite.y - this.attackRange) < enemy.sprite.y) &&
+      ((enemy.sprite.y + enemy.sprite.height) < (this.sprite.y + this.sprite.height + this.attackRange))
     ) {
       console.log(`${msg} true`);
       return true;
@@ -238,29 +248,17 @@ class Player {
     }
   }
 
-  portalInRange(portal) {
-    let s = '[Player] [Portal In Range]';
-    if (
-      ((portal.x - 10) < this.xAnchor) &&
-      (this.xAnchor < (portal.x + Portal.radius + 10)) &&
-      ((portal.y - 10) < this.yAnchor) &&
-      (this.yAnchor < (portal.y + Portal.radius + 10))
-    ) {
-      console.log(`${s} true`);
-      return true;
-    } else {
-      console.log(`${s} false`);
-      return false;
-    }
-  }
-
   collectibleInRange(collectible) {
     console.log('[Player] [Collectible In Range]');
     if (
-      (this.x < collectible.x) &&
-      (collectible.x < (this.x + this.width)) &&
-      (this.y < collectible.y) &&
-      (collectible.y < (this.y + this.height))
+      (this.sprite.x < collectible.sprite.xAnchor) &&
+      (collectible.sprite.xAnchor < (this.sprite.x + this.sprite.width)) &&
+      (this.sprite.y < collectible.sprite.yAnchor) &&
+      (collectible.sprite.yAnchor < (this.sprite.y + this.sprite.height))
+      // (this.sprite.x < collectible.sprite.x) &&
+      // (collectible.sprite.x < (this.sprite.x + this.sprite.width)) &&
+      // (this.sprite.y < collectible.sprite.y) &&
+      // (collectible.sprite.y < (this.sprite.y + this.sprite.height))
     ) {
       return true;
     } else {
@@ -311,21 +309,22 @@ class Player {
   }
 
   render() {
-    game.ctx.beginPath();
-    game.ctx.lineWidth = 0.5;
-    game.ctx.strokeStyle = '#000000';
-    game.ctx.fillStyle = '#ffffff';
-    game.ctx.rect(this.x, this.y, this.width, this.height);
-    game.ctx.fill();
-    game.ctx.stroke();
+    // game.ctx.beginPath();
+    // game.ctx.lineWidth = 0.5;
+    // game.ctx.strokeStyle = '#000000';
+    // game.ctx.fillStyle = '#ffffff';
+    // game.ctx.rect(this.sprite.x, this.sprite.y, this.sprite.width, this.sprite.height);
+    // game.ctx.fill();
+    // game.ctx.stroke();
+    this.sprite.render();
 
     if (this.attackingEnemy) {
       if (getRandomInt(0, 3) != 0) {
         game.ctx.beginPath();
         game.ctx.strokeStyle = '#00ff00';
         game.ctx.lineWidth = 2.0;
-        game.ctx.moveTo(this.x + (this.width/2), (this.y + (this.height/2)));
-        game.ctx.lineTo(this.enemyTarget.x + (this.enemyTarget.width/2), (this.enemyTarget.y + (this.enemyTarget.height/2)));
+        game.ctx.moveTo(this.sprite.x + (this.sprite.width/2), (this.sprite.y + (this.sprite.height/2)));
+        game.ctx.lineTo(this.enemyTarget.sprite.x + (this.enemyTarget.sprite.width/2), (this.enemyTarget.sprite.y + (this.enemyTarget.sprite.height/2)));
         game.ctx.stroke();
       }
     }

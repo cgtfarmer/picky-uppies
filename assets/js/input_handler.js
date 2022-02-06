@@ -55,7 +55,7 @@ class InputHandler {
 
       for (let i = 0; i < game.currentMap.portals.length; i++) {
         const portal = game.currentMap.portals[i];
-        if (game.player.portalInRange(portal)) {
+        if (portal.playerInRange()) {
           portal.jump();
           break;
         }
@@ -63,7 +63,6 @@ class InputHandler {
     }
 
     if (this.keys[KeyCode.tab] && !this.tabHasBeenEvaluated) {
-      console.log(game.experienceBar);
       this.tabHasBeenEvaluated = true;
       game.player.targetNearestEnemy();
     }

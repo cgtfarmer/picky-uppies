@@ -1,10 +1,6 @@
 class Enemy {
   constructor(x, y) {
     console.log('[Enemy] [Constructor]');
-    this.width = 40;
-    this.height = 40;
-    this.x = x;
-    this.y = y;
     this.maxSpeedX = 3;
     this.maxSpeedY = 3;
     this.speedX = getRandomInt(this.maxSpeedX * -1, this.maxSpeedX);
@@ -16,7 +12,6 @@ class Enemy {
     this.fireTicker = 0;
     this.attackingPlayer = false;
     this.experience = 15; // 15
-    this.color = '#ff0000';
     this.level = 1;
     this.targetOffset = 10;
     this.lootTable = [
@@ -28,9 +23,9 @@ class Enemy {
     ];
     this.loot = this.generateRandomLoot();
 
-    // this.sprite = new Rectangle(
-    //   this.x, this.y, this.width, this.height, this.color
-    // );
+    this.sprite = new Rectangle(
+      x, y, 40, 40, '#ff0000'
+    );
   }
 
   fire() {
@@ -68,9 +63,8 @@ class Enemy {
   }
 
   dropLoot() {
-    console.log(`[Enemy] [Drop Loot] (${this.x}, ${this.y})`);
-    this.loot.x = this.x;
-    this.loot.y = this.y;
+    console.log(`[Enemy] [Drop Loot] (${this.sprite.x}, ${this.sprite.y})`);;
+    this.loot.spawn(this.sprite.x, this.sprite.y);
     game.currentMap.loot.push(this.loot);
   }
 
@@ -78,21 +72,29 @@ class Enemy {
     this.#getTickVelocity();
 
     this.#truncateMapBoundaryVelocity();
+
+    // this.sprite.x += this.speedX;
+    // this.sprite.y += this.speedY;
+
+    this.sprite.updatePosition(
+      this.sprite.x + this.speedX,
+      this.sprite.y + this.speedY,
+    );
   }
 
   #getTickVelocity() {
     if (game.player.attackingEnemy && (game.player.enemyTarget == this)) {
-      if (game.player.x < this.x) {
+      if (game.player.sprite.x < this.sprite.x) {
         this.speedX = (this.maxSpeedX * -1);
-      } else if (game.player.x > this.x) {
+      } else if (game.player.sprite.x > this.sprite.x) {
         this.speedX = this.maxSpeedX;
       } else {
         this.speedX = 0;
       }
 
-      if (game.player.y < this.y) {
+      if (game.player.sprite.y < this.sprite.y) {
         this.speedY = (this.maxSpeedY * -1);
-      } else if (game.player.y > this.y) {
+      } else if (game.player.sprite.y > this.sprite.y) {
         this.speedY = this.maxSpeedY;
       } else {
         this.speedY = 0;
@@ -115,33 +117,29 @@ class Enemy {
     // TODO: I should probably make a reference to the map this
     //       enemy belongs to, instead of assuming that map is the current map
     if (
-      ((this.x + this.speedX) < 0) ||
-      ((this.x + this.speedX) > (game.currentMap.width - this.width))
+      ((this.sprite.x + this.speedX) < 0) ||
+      ((this.sprite.x + this.speedX) > (game.currentMap.width - this.sprite.width))
     ) {
       this.speedX = 0;
-    } else {
-      this.x += this.speedX;
     }
 
     if (
-      ((this.y + this.speedY) < 0) ||
-      ((this.y + this.speedY) > (game.currentMap.height - this.height))
+      ((this.sprite.y + this.speedY) < 0) ||
+      ((this.sprite.y + this.speedY) > (game.currentMap.height - this.sprite.height))
     ) {
       this.speedY = 0;
-    } else {
-      this.y += this.speedY;
     }
   }
 
   render() {
-    game.ctx.beginPath();
-    game.ctx.lineWidth = 0.5;
-    game.ctx.strokeStyle = '#000000';
-    game.ctx.fillStyle = this.color;
-    game.ctx.rect(this.x, this.y, this.width, this.height);
-    game.ctx.fill();
-    game.ctx.stroke();
-    // this.sprite.render();
+    // game.ctx.beginPath();
+    // game.ctx.lineWidth = 0.5;
+    // game.ctx.strokeStyle = '#000000';
+    // game.ctx.fillStyle = this.color;
+    // game.ctx.rect(this.sprite.x, this.sprite.y, this.sprite.width, this.sprite.height);
+    // game.ctx.fill();
+    // game.ctx.stroke();
+    this.sprite.render();
 
     if (this == game.player.enemyTarget) {
       // const percentage = `${Math.round((this.health / this.maxHealth) * 100)}%`;
@@ -151,10 +149,10 @@ class Enemy {
       game.ctx.lineWidth = 2;
       game.ctx.strokeStyle = '#ffffff';
       game.ctx.rect(
-        this.x - this.targetOffset,
-        this.y - this.targetOffset,
-        (this.width + (this.targetOffset * 2)),
-        (this.height + (this.targetOffset * 2))
+        this.sprite.x - this.targetOffset,
+        this.sprite.y - this.targetOffset,
+        (this.sprite.width + (this.targetOffset * 2)),
+        (this.sprite.height + (this.targetOffset * 2))
       );
       game.ctx.stroke();
     }

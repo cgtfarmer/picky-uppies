@@ -6,14 +6,15 @@ class BonusBox {
   ];
 
   constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.width = 30;
-    this.height = 30;
-    this.color = 'cyan';
+    // this.x = x;
+    // this.y = y;
+    // this.width = 30;
+    // this.height = 30;
+    // this.color = 'cyan';
     this.rewardCount = getRandomInt(1, 5);
     this.rewards = [];
     this.initRandomRewards();
+    this.sprite = new Rectangle(x, y, 30, 30, 'cyan');
   }
 
   initRandomRewards() {
@@ -25,13 +26,14 @@ class BonusBox {
   }
 
   render() {
-    game.ctx.beginPath();
-    game.ctx.lineWidth = 0.5;
-    game.ctx.strokeStyle = '#000000';
-    game.ctx.fillStyle = this.color;
-    game.ctx.rect(this.x, this.y, this.width, this.height);
-    game.ctx.fill();
-    game.ctx.stroke();
+    this.sprite.render();
+    // game.ctx.beginPath();
+    // game.ctx.lineWidth = 0.5;
+    // game.ctx.strokeStyle = '#000000';
+    // game.ctx.fillStyle = this.color;
+    // game.ctx.rect(this.x, this.y, this.width, this.height);
+    // game.ctx.fill();
+    // game.ctx.stroke();
   }
 
   toString() {

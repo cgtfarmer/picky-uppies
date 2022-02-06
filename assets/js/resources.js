@@ -1,20 +1,25 @@
 class Resource {
   constructor(x, y, color, sellValue) {
-    this.x = x;
-    this.y = y;
-    this.radius = 10;
-    this.color = color;
+    // this.x = x;
+    // this.y = y;
+    // this.radius = 10;
+    // this.color = color;
     this.sellValue = sellValue;
+    this.sprite = new Circle(
+      x, y, 10, color
+    );
   }
 
   render() {
-    game.ctx.beginPath();
-    game.ctx.lineWidth = 0.5;
-    game.ctx.strokeStyle = '#000000';
-    game.ctx.fillStyle = this.color;
-    game.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-    game.ctx.fill();
-    game.ctx.stroke();
+    this.sprite.render();
+
+    // game.ctx.beginPath();
+    // game.ctx.lineWidth = 0.5;
+    // game.ctx.strokeStyle = '#000000';
+    // game.ctx.fillStyle = this.color;
+    // game.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+    // game.ctx.fill();
+    // game.ctx.stroke();
   }
 
   toString() {
