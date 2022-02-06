@@ -10,10 +10,10 @@ class Base {
 
   playerInRange() {
     return (
-      this.sprite.x <= game.player.sprite.x &&
-      game.player.sprite.x <= (this.sprite.x + this.sprite.width) &&
-      this.sprite.y <= game.player.sprite.y &&
-      game.player.y <= (this.sprite.y + this.sprite.height)
+      this.sprite.x <= game.player.sprite.xAnchor &&
+      game.player.sprite.xAnchor <= (this.sprite.x + this.sprite.width) &&
+      this.sprite.y <= game.player.sprite.yAnchor &&
+      game.player.sprite.yAnchor <= (this.sprite.y + this.sprite.height)
     )
   }
 
