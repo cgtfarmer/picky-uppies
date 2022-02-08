@@ -104,8 +104,8 @@ class Game {
 
           this.player.health = 0;
           game.currentMap = this.maps[0];
-          game.player.sprite.x = this.currentMap.base.x;
-          game.player.sprite.y = this.currentMap.base.y;
+          game.player.sprite.x = this.currentMap.base.sprite.xAnchor;
+          game.player.sprite.y = this.currentMap.base.sprite.yAnchor;
         }
       } else {
         this.player.attackingEnemy = false;

@@ -8,7 +8,7 @@ class EventLog {
     this.background = new Rectangle(
       10,
       Game.canvasHeight - (this.lines * this.fontSize) - 45,
-      425,
+      450,
       ((this.lines * this.fontSize) + this.fontSize + this.padding - 3),
       '#ffffff'
     )
