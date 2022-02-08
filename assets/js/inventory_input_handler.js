@@ -8,8 +8,6 @@ class InputHandler {
     KeyCode.spacebar,
     KeyCode.tab,
     KeyCode.esc,
-    KeyCode.f,
-    KeyCode.j,
     KeyCode.i,
     KeyCode.leftArrow,
     KeyCode.rightArrow,
@@ -22,7 +20,6 @@ class InputHandler {
     this.spaceHasBeenEvaluated = false;
     this.tabHasBeenEvaluated = false;
     this.escHasBeenEvaluated = false;
-    this.jHasBeenEvaluated = false;
     this.iHasBeenEvaluated = false;
   }
 
@@ -102,20 +99,18 @@ class InputHandler {
 
       if (results['type'] == 'resource') {
         new SuccessMessage(`Received: ${game.currentMap.resources[results['index']].toString()}`);
-        game.eventLog.addMessage(`Received: ${game.currentMap.resources[results['index']].toString()}`);
         game.currentMap.resources.splice(results['index'], 1);
         game.currentMap.generateRandomResource();
       } else if (results['type'] == 'bonusBox') {
         new SuccessMessage(`Received: ${game.currentMap.bonusBoxes[results['index']].toString()}`);
-        game.eventLog.addMessage(`Received: ${game.currentMap.bonusBoxes[results['index']].toString()}`);
         game.currentMap.bonusBoxes.splice(results['index'], 1);
         game.currentMap.generateRandomBonusBox();
       } else if (results['type'] == 'loot') {
         new SuccessMessage(`Received: ${game.currentMap.loot[results['index']].toString()}`);
-        game.eventLog.addMessage(`Received: ${game.currentMap.loot[results['index']].toString()}`);
         game.currentMap.loot.splice(results['index'], 1);
       }
     }
   }
 }
+
 

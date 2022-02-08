@@ -22,13 +22,22 @@ class Loot {
     for (let i = 0; i < this.rewardCount; i++) {
       const randomIndex = getRandomInt(0, this.lootTable.length - 1);
       const selection = this.lootTable[randomIndex];
-      this.rewards.push({
-        name: selection.name,
-        quantity: getRandomInt(
+
+      const preexistingReward = this.rewards.find(e => e.name == selection.name);
+      if (preexistingReward) {
+        preexistingReward.quantity += getRandomInt(
           selection.maxQuantity * 0.2,
           selection.maxQuantity
         )
-      });
+      } else {
+        this.rewards.push({
+          name: selection.name,
+          quantity: getRandomInt(
+            selection.maxQuantity * 0.2,
+            selection.maxQuantity
+          )
+        });
+      }
     }
   }
 

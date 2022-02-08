@@ -1,29 +1,12 @@
 class InputHandler {
   static keydownEvent = 'keydown';
   static listeningKeys = [
-    KeyCode.w,
-    KeyCode.a,
-    KeyCode.s,
-    KeyCode.d,
-    KeyCode.spacebar,
-    KeyCode.tab,
-    KeyCode.esc,
-    KeyCode.f,
-    KeyCode.j,
-    KeyCode.i,
-    KeyCode.leftArrow,
-    KeyCode.rightArrow,
     KeyCode.upArrow,
     KeyCode.downArrow
   ];
 
   constructor() {
     this.keys = {};
-    this.spaceHasBeenEvaluated = false;
-    this.tabHasBeenEvaluated = false;
-    this.escHasBeenEvaluated = false;
-    this.jHasBeenEvaluated = false;
-    this.iHasBeenEvaluated = false;
   }
 
   registerKey(event) {
@@ -102,20 +85,26 @@ class InputHandler {
 
       if (results['type'] == 'resource') {
         new SuccessMessage(`Received: ${game.currentMap.resources[results['index']].toString()}`);
-        game.eventLog.addMessage(`Received: ${game.currentMap.resources[results['index']].toString()}`);
         game.currentMap.resources.splice(results['index'], 1);
         game.currentMap.generateRandomResource();
       } else if (results['type'] == 'bonusBox') {
         new SuccessMessage(`Received: ${game.currentMap.bonusBoxes[results['index']].toString()}`);
-        game.eventLog.addMessage(`Received: ${game.currentMap.bonusBoxes[results['index']].toString()}`);
         game.currentMap.bonusBoxes.splice(results['index'], 1);
         game.currentMap.generateRandomBonusBox();
       } else if (results['type'] == 'loot') {
         new SuccessMessage(`Received: ${game.currentMap.loot[results['index']].toString()}`);
-        game.eventLog.addMessage(`Received: ${game.currentMap.loot[results['index']].toString()}`);
         game.currentMap.loot.splice(results['index'], 1);
       }
     }
   }
 }
+
+
+/*
+create key actions
+map them to keys
+
+register/unregister keys async on IO
+perform key actions on each tick by iterating through a collection and calling their actions somehow
+*/
 

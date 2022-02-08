@@ -14,6 +14,9 @@ class Game {
     this.maps = [];
     this.currentMap = null;
     this.inputHandler = new InputHandler();
+    // this.inventoryInputHandler = new InventoryInputHandler();
+    this.inventoryScreen = false;
+    this.eventLog = new EventLog();
 
     this.playerPortrait = new Portrait(
       (Game.canvasWidth * (1/3)) - (300 / 2) - 50,
@@ -92,9 +95,11 @@ class Game {
           if (this.player.inventory.credits >= 1000) {
             this.player.inventory.removeCredits(1000);
             new ErrorMessage('You died. You have lost 1000 credits');
+            game.eventLog.addMessage('You died. You have lost 1000 credits');
           } else {
             this.player.inventory.removeCredits(this.player.inventory.credits);
             new ErrorMessage(`You died. You have lost ${this.player.inventory.credits} credits`);
+            game.eventLog.addMessage(`You died. You have lost ${this.player.inventory.credits} credits`);
           }
 
           this.player.health = 0;
@@ -121,15 +126,20 @@ class Game {
   renderFrame() {
     this.clearFrame();
 
-    this.currentMap.render();
+    if (this.inventoryScreen) {
+    } else {
+      this.currentMap.render();
 
-    this.player.render();
+      this.player.render();
 
-    this.playerPortrait.render();
+      this.playerPortrait.render();
 
-    if (this.player.enemyTarget) this.targetPortrait.render();
+      if (this.player.enemyTarget) this.targetPortrait.render();
 
-    this.experienceBar.render();
+      this.experienceBar.render();
+
+      this.eventLog.render();
+    }
   }
 
   clearFrame() {

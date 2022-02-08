@@ -9,6 +9,7 @@ class Rectangle {
     this.lineWidth = 0.5;
     this.strokeColor = '#000000';
     this.fillColor = color;
+    this.fill = true;
   }
 
   updatePosition(x, y) {
@@ -24,7 +25,9 @@ class Rectangle {
     game.ctx.strokeStyle = this.strokeColor;
     game.ctx.fillStyle = this.fillColor;
     game.ctx.rect(this.x, this.y, this.width, this.height);
-    game.ctx.fill();
+    if (this.fill) {
+      game.ctx.fill();
+    }
     game.ctx.stroke();
   }
 }

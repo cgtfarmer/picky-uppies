@@ -80,7 +80,8 @@ class Player {
     if (this.experience >= Player.experienceTable[this.level]) {
       this.experience -= Player.experienceTable[this.level];
       this.level += 1;
-      new SuccessMessage(`You are now level ${this.level}!`);
+      new SuccessMessage(`You are now level ${this.level}! Your stats have increased`);
+      game.eventLog.addMessage(`You are now level ${this.level}! Your stats have increased`);
       this.modifyMaxHealth(10)
       this.setHealth(this.maxHealth);
       this.damage += 1;
@@ -134,9 +135,10 @@ class Player {
       const enemy = game.currentMap.enemies[i];
       if (this.enemyInRange(enemy) && (enemy != this.enemyTarget)) {
         this.enemyTarget = enemy;
+        game.targetPortrait.name = this.enemyTarget.name;
         game.targetPortrait.healthBar.update(
-          this.enemyTarget.maxHealth,
-          this.enemyTarget.health
+          this.enemyTarget.health,
+          this.enemyTarget.maxHealth
         );
         // Player.targetCardLvlUi.innerHTML = this.enemyTarget.level;
         // Player.targetUi.hidden = false;

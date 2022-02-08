@@ -96,6 +96,7 @@ function main() {
   map5.portals[0].hidden = true;
 
   const boss = new Enemy((map5.width/2), (map5.height/2));
+  boss.name = 'Boss';
   boss.width = 100;
   boss.height = 100;
   boss.maxHealth = 500;

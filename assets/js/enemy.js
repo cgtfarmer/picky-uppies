@@ -3,6 +3,7 @@ class Enemy {
     console.log('[Enemy] [Constructor]');
     this.maxSpeedX = 3;
     this.maxSpeedY = 3;
+    this.name = 'Struener';
     this.speedX = getRandomInt(this.maxSpeedX * -1, this.maxSpeedX);
     this.speedY = getRandomInt(this.maxSpeedY * -1, this.maxSpeedY);
     this.maxHealth = 100;
@@ -50,6 +51,7 @@ class Enemy {
     for (let i = 0; i < game.currentMap.enemies.length; i++) {
       // console.log(`${i}: ${this.currentMap.enemies[i].health} ${this.player.enemyTarget.health}`);
       if (game.currentMap.enemies[i] == game.player.enemyTarget) {
+        game.eventLog.addMessage(`You killed: ${game.player.enemyTarget.name}. +${game.player.enemyTarget.experience} XP`);
         this.dropLoot();
         game.currentMap.enemies.splice(i, 1);
         break;

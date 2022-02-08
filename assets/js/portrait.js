@@ -2,7 +2,7 @@ class Portrait {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.backgroundColor = '#cccccc';
+    this.backgroundColor = '#cccccc90';
     this.width = 300;
     this.height = 65;
     this.offset = 5;

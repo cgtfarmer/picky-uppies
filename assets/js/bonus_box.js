@@ -1,8 +1,8 @@
 class BonusBox {
   static options = [
-    { name: 'Credits', quantity: 100 },
-    { name: 'Uridium', quantity: 10 },
-    { name: 'Ammunition', quantity: 25 }
+    { 'name': 'Credits', 'quantity': 100 },
+    { 'name': 'Uridium', 'quantity': 10 },
+    { 'name': 'Ammunition', 'quantity': 25 }
   ];
 
   constructor(x, y) {
@@ -13,15 +13,29 @@ class BonusBox {
     // this.color = 'cyan';
     this.rewardCount = getRandomInt(1, 5);
     this.rewards = [];
+    console.log('START--');
+    console.log(this.rewards.length);
+    console.log(this.rewards);
     this.initRandomRewards();
     this.sprite = new Rectangle(x, y, 30, 30, 'cyan');
   }
 
   initRandomRewards() {
+    console.log('[Bonux Box] [Init Random Rewards]');
     for (let i = 0; i < this.rewardCount; i++) {
       const randomIndex = getRandomInt(0, BonusBox.options.length - 1);
       const selection = BonusBox.options[randomIndex];
-      this.rewards.push(selection);
+
+      const preexistingReward =
+        this.rewards.find(e => (e['name'] == selection['name']));
+      if (preexistingReward) {
+        preexistingReward['quantity'] += selection['quantity'];
+      } else {
+        this.rewards.push({
+          'name': selection['name'],
+          'quantity': selection['quantity'],
+        });
+      }
     }
   }
 
