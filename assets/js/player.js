@@ -67,6 +67,27 @@ class Player {
     // this.sprite.yAnchor = this.sprite.y + (this.sprite.height / 2);
   }
 
+  die() {
+    this.attackingEnemy = false;
+
+    this.cancelTarget();
+
+    if (this.inventory.credits >= 1000) {
+      this.inventory.removeCredits(1000);
+      new ErrorMessage('You died. You have lost 1000 credits');
+      game.eventLog.addMessage('You died. You have lost 1000 credits');
+    } else {
+      this.inventory.removeCredits(this.inventory.credits);
+      new ErrorMessage(`You died. You have lost ${this.inventory.credits} credits`);
+      game.eventLog.addMessage(`You died. You have lost ${this.inventory.credits} credits`);
+    }
+
+    this.health = 0;
+    game.currentMap = game.maps[0];
+    game.sprite.x = game.currentMap.base.sprite.xAnchor;
+    game.sprite.y = game.currentMap.base.sprite.yAnchor;
+  }
+
   updateDps() {
     this.dps = Math.round(
       this.damage * this.fireRate * (1.0 + this.criticalRate) * this.accuracy * 100
@@ -151,7 +172,7 @@ class Player {
 
   attackEnemyTarget() {
     console.log('[Player] [Attack Enemy Target]');
-    if (this.enemyTarget && this.enemyInRange(this.enemyTarget)) {
+    if (this.enemyTarget) {
       this.attackingEnemy = true;
       return true;
     }
@@ -235,17 +256,17 @@ class Player {
   }
 
   enemyInRange(enemy) {
-    const msg = '[Player] [Enemy In Range]';
+    // const msg = '[Player] [Enemy In Range]';
     if (
-      ((this.sprite.x - this.attackRange) < enemy.sprite.x) &&
-      ((enemy.sprite.x + enemy.sprite.width) < (this.sprite.x + this.sprite.width + this.attackRange)) &&
-      ((this.sprite.y - this.attackRange) < enemy.sprite.y) &&
-      ((enemy.sprite.y + enemy.sprite.height) < (this.sprite.y + this.sprite.height + this.attackRange))
+      ((this.sprite.xAnchor - this.attackRange) < enemy.sprite.xAnchor) &&
+      (enemy.sprite.xAnchor < (this.sprite.xAnchor + this.attackRange)) &&
+      ((this.sprite.yAnchor - this.attackRange) < enemy.sprite.yAnchor) &&
+      (enemy.sprite.yAnchor < (this.sprite.yAnchor + this.attackRange))
     ) {
-      console.log(`${msg} true`);
+      // console.log(`${msg} true`);
       return true;
     } else {
-      console.log(`${msg} false`);
+      // console.log(`${msg} false`);
       return false;
     }
   }
@@ -320,15 +341,19 @@ class Player {
     // game.ctx.stroke();
     this.sprite.render();
 
-    if (this.attackingEnemy) {
-      if (getRandomInt(0, 3) != 0) {
-        game.ctx.beginPath();
-        game.ctx.strokeStyle = '#00ff00';
-        game.ctx.lineWidth = 2.0;
-        game.ctx.moveTo(this.sprite.x + (this.sprite.width/2), (this.sprite.y + (this.sprite.height/2)));
-        game.ctx.lineTo(this.enemyTarget.sprite.x + (this.enemyTarget.sprite.width/2), (this.enemyTarget.sprite.y + (this.enemyTarget.sprite.height/2)));
-        game.ctx.stroke();
-      }
+    if (this.attackingEnemy && this.enemyInRange(this.enemyTarget)) {
+      this.renderAttackAnimation();
+    }
+  }
+
+  renderAttackAnimation() {
+    if (getRandomInt(0, 3) != 0) {
+      game.ctx.beginPath();
+      game.ctx.strokeStyle = '#00ff00';
+      game.ctx.lineWidth = 2.0;
+      game.ctx.moveTo(this.sprite.x + (this.sprite.width/2), (this.sprite.y + (this.sprite.height/2)));
+      game.ctx.lineTo(this.enemyTarget.sprite.x + (this.enemyTarget.sprite.width/2), (this.enemyTarget.sprite.y + (this.enemyTarget.sprite.height/2)));
+      game.ctx.stroke();
     }
   }
 }

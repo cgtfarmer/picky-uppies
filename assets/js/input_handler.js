@@ -22,6 +22,7 @@ class InputHandler {
     this.spaceHasBeenEvaluated = false;
     this.tabHasBeenEvaluated = false;
     this.escHasBeenEvaluated = false;
+    this.fHasBeenEvaluated = false;
     this.jHasBeenEvaluated = false;
     this.iHasBeenEvaluated = false;
   }
@@ -41,6 +42,7 @@ class InputHandler {
     if (event.keyCode == KeyCode.spacebar) this.spaceHasBeenEvaluated = false;
     if (event.keyCode == KeyCode.tab) this.tabHasBeenEvaluated = false;
     if (event.keyCode == KeyCode.esc) this.escHasBeenEvaluated = false;
+    if (event.keyCode == KeyCode.f) this.fHasBeenEvaluated = false;
     if (event.keyCode == KeyCode.j) this.jHasBeenEvaluated = false;
     if (event.keyCode == KeyCode.i) this.iHasBeenEvaluated = false;
   }
@@ -54,6 +56,7 @@ class InputHandler {
     if (this.keys[KeyCode.s] || this.keys[KeyCode.downArrow]) { game.player.speedY = game.player.maxSpeedY; }
 
     if (this.keys[KeyCode.j] && !this.jHasBeenEvaluated) {
+      console.log('[Input Handler] [j]');
       this.jHasBeenEvaluated = true;
 
       for (let i = 0; i < game.currentMap.portals.length; i++) {
@@ -66,6 +69,7 @@ class InputHandler {
     }
 
     if (this.keys[KeyCode.tab] && !this.tabHasBeenEvaluated) {
+      console.log('[Input Handler] [Tab]');
       this.tabHasBeenEvaluated = true;
       game.player.targetNearestEnemy();
     }
@@ -81,11 +85,18 @@ class InputHandler {
       }
     }
 
-    if (this.keys[KeyCode.f]) {
-      game.player.attackEnemyTarget();
+    if (this.keys[KeyCode.f] && !this.fHasBeenEvaluated) {
+      console.log('[Input Handler] [f]');
+      this.fHasBeenEvaluated = true;
+      if (!game.player.attackingEnemy) {
+        game.player.attackEnemyTarget();
+      } else {
+        game.player.cancelAttack();
+      }
     }
 
     if (this.keys[KeyCode.i] && !this.iHasBeenEvaluated) {
+      console.log('[Input Handler] [i]');
       this.iHasBeenEvaluated = true;
 
       if (game.inventoryScreen) {
@@ -96,6 +107,7 @@ class InputHandler {
     }
 
     if (this.keys[KeyCode.spacebar] && !this.spaceHasBeenEvaluated) {
+      console.log('[Input Handler] [Space]');
       this.spaceHasBeenEvaluated = true;
       const results = game.player.collect();
       if (results == -1) return;

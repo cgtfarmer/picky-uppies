@@ -102,6 +102,7 @@ function main() {
   boss.maxHealth = 500;
   boss.health = 500;
   boss.damage = 10;
+  boss.attackRange = 150;
   map5.enemies.push(boss);
 
   game.maps.push(map1, map2, map3, map4, map5);

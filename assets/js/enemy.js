@@ -11,6 +11,10 @@ class Enemy {
     this.damage = 3;
     this.fireRate = 1.0;
     this.fireTicker = 0;
+    this.demeanor = 'neutral'; // friendly, neutral, aggressive
+    this.attackRange = 125;
+    this.aggroRange = 150;
+    this.disengageRange = 250;
     this.attackingPlayer = false;
     this.experience = 15; // 15
     this.level = 1;
@@ -27,6 +31,22 @@ class Enemy {
     this.sprite = new Rectangle(
       x, y, 40, 40, '#ff0000'
     );
+  }
+
+  playerInRange(enemy) {
+    // const msg = '[Enemy] [Player In Range]';
+    if (
+      ((this.sprite.xAnchor - this.attackRange) < game.player.sprite.xAnchor) &&
+      (game.player.sprite.xAnchor < (this.sprite.xAnchor + this.attackRange)) &&
+      ((this.sprite.yAnchor - this.attackRange) < game.player.sprite.yAnchor) &&
+      (game.player.sprite.yAnchor < (this.sprite.yAnchor + this.attackRange))
+    ) {
+      // console.log(`${msg} true`);
+      return true;
+    } else {
+      // console.log(`${msg} false`);
+      return false;
+    }
   }
 
   fire() {
@@ -75,9 +95,6 @@ class Enemy {
 
     this.#truncateMapBoundaryVelocity();
 
-    // this.sprite.x += this.speedX;
-    // this.sprite.y += this.speedY;
-
     this.sprite.updatePosition(
       this.sprite.x + this.speedX,
       this.sprite.y + this.speedY,
@@ -85,33 +102,71 @@ class Enemy {
   }
 
   #getTickVelocity() {
-    if (game.player.attackingEnemy && (game.player.enemyTarget == this)) {
-      if (game.player.sprite.x < this.sprite.x) {
-        this.speedX = (this.maxSpeedX * -1);
-      } else if (game.player.sprite.x > this.sprite.x) {
-        this.speedX = this.maxSpeedX;
-      } else {
-        this.speedX = 0;
-      }
-
-      if (game.player.sprite.y < this.sprite.y) {
-        this.speedY = (this.maxSpeedY * -1);
-      } else if (game.player.sprite.y > this.sprite.y) {
-        this.speedY = this.maxSpeedY;
-      } else {
-        this.speedY = 0;
-      }
+    if (this.attackingPlayer) {
+      this.#pursuePlayer();
     } else {
-      const newDirection = getRandomInt(0, 15);
-      if (newDirection == 0) {
-        if (getRandomInt(1, 10) <= 4) {
-          this.speedX = 0;
-          this.speedY = 0;
-        } else {
-          this.speedX = getRandomInt(this.maxSpeedX * -1, this.maxSpeedX);
-          this.speedY = getRandomInt(this.maxSpeedY * -1, this.maxSpeedY);
-        }
+      this.#performNormalMotion();
+    }
+  }
+
+  playerInAggroRange() {
+    if (
+      ((this.sprite.xAnchor - this.aggroRange) < game.player.sprite.xAnchor) &&
+      (game.player.sprite.xAnchor < (this.sprite.xAnchor + this.aggroRange)) &&
+      ((this.sprite.yAnchor - this.aggroRange) < game.player.sprite.yAnchor) &&
+      (game.player.sprite.yAnchor < (this.sprite.yAnchor + this.aggroRange))
+    ) {
+      // console.log(`${msg} true`);
+      return true;
+    } else {
+      // console.log(`${msg} false`);
+      return false;
+    }
+  }
+
+  playerInDisengageRange() {
+    if (
+      ((this.sprite.xAnchor - this.disengageRange) < game.player.sprite.xAnchor) &&
+      (game.player.sprite.xAnchor < (this.sprite.xAnchor + this.disengageRange)) &&
+      ((this.sprite.yAnchor - this.disengageRange) < game.player.sprite.yAnchor) &&
+      (game.player.sprite.yAnchor < (this.sprite.yAnchor + this.disengageRange))
+    ) {
+      // console.log(`${msg} true`);
+      return true;
+    } else {
+      // console.log(`${msg} false`);
+      return false;
+    }
+  }
+
+  #performNormalMotion() {
+    const newDirection = getRandomInt(0, 15);
+    if (newDirection == 0) {
+      if (getRandomInt(1, 10) <= 4) {
+        this.speedX = 0;
+        this.speedY = 0;
+      } else {
+        this.speedX = getRandomInt(this.maxSpeedX * -1, this.maxSpeedX);
+        this.speedY = getRandomInt(this.maxSpeedY * -1, this.maxSpeedY);
       }
+    }
+  }
+
+  #pursuePlayer() {
+    if (game.player.sprite.x < this.sprite.x) {
+      this.speedX = (this.maxSpeedX * -1);
+    } else if (game.player.sprite.x > this.sprite.x) {
+      this.speedX = this.maxSpeedX;
+    } else {
+      this.speedX = 0;
+    }
+
+    if (game.player.sprite.y < this.sprite.y) {
+      this.speedY = (this.maxSpeedY * -1);
+    } else if (game.player.sprite.y > this.sprite.y) {
+      this.speedY = this.maxSpeedY;
+    } else {
+      this.speedY = 0;
     }
   }
 

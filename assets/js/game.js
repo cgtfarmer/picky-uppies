@@ -17,6 +17,14 @@ class Game {
     // this.inventoryInputHandler = new InventoryInputHandler();
     this.inventoryScreen = false;
     this.eventLog = new EventLog();
+    this.attackingMsg = new Text(
+      (Game.canvasWidth / 2),
+      55,
+      'Attacking',
+      20,
+      '#ff0000',
+      'center'
+    );
 
     this.playerPortrait = new Portrait(
       (Game.canvasWidth * (1/3)) - (300 / 2) - 50,
@@ -54,61 +62,42 @@ class Game {
 
     for (let enemy of this.currentMap.enemies) {
       enemy.move();
-    }
 
-    if (this.player.attackingEnemy) {
-      if (this.player.enemyInRange(this.player.enemyTarget)) {
-        if ((this.player.fireTicker / 1000) >= this.player.fireRate) {
-          this.player.fire();
-          this.player.fireTicker = 0;
-        } else {
-          this.player.fireTicker += this.tickerIncrement;
-        }
+      if (enemy.attackingPlayer) {
+        if (enemy.playerInDisengageRange()) {
+          if(enemy.playerInRange()) {
+            this.handleEnemyAttack(enemy);
 
-        if ((this.player.enemyTarget.fireTicker / 1000) >= this.player.enemyTarget.fireRate) {
-          this.player.enemyTarget.fire();
-          this.player.enemyTarget.fireTicker = 0;
-        } else {
-          this.player.enemyTarget.fireTicker += this.tickerIncrement;
-        }
-
-        // TODO: What happens if you switch targets while
-        //       attacking a different target?
-
-        if (this.player.enemyTarget.health <= 0) {
-          this.player.attackingEnemy = false;
-
-          this.player.addExperience(this.player.enemyTarget.experience);
-
-          this.player.enemyTarget.die();
-
-          this.currentMap.enemies.push(this.currentMap.generateRandomEnemy());
-
-          this.player.cancelTarget();
-        }
-
-        if (this.player.health <= 0) {
-          this.player.attackingEnemy = false;
-
-          this.player.cancelTarget();
-
-          if (this.player.inventory.credits >= 1000) {
-            this.player.inventory.removeCredits(1000);
-            new ErrorMessage('You died. You have lost 1000 credits');
-            game.eventLog.addMessage('You died. You have lost 1000 credits');
-          } else {
-            this.player.inventory.removeCredits(this.player.inventory.credits);
-            new ErrorMessage(`You died. You have lost ${this.player.inventory.credits} credits`);
-            game.eventLog.addMessage(`You died. You have lost ${this.player.inventory.credits} credits`);
+            if (this.player.health <= 0) {
+              this.player.die();
+            }
           }
-
-          this.player.health = 0;
-          game.currentMap = this.maps[0];
-          game.player.sprite.x = this.currentMap.base.sprite.xAnchor;
-          game.player.sprite.y = this.currentMap.base.sprite.yAnchor;
+        } else {
+          console.log('Player exceeded disengage range, cancelling enemy attack');
+          enemy.attackingPlayer = false;
         }
       } else {
+        if (enemy.demeanor == 'aggressive' && enemy.playerInAggroRange()) {
+          console.log('Player entered aggro range on aggressive enemy, initiating enemy attack');
+          enemy.attackingPlayer = true;
+        }
+      }
+    }
+
+    if (this.player.attackingEnemy &&
+        this.player.enemyInRange(this.player.enemyTarget)) {
+      this.handlePlayerAttack();
+
+      if (this.player.enemyTarget.health <= 0) {
         this.player.attackingEnemy = false;
+
+        this.player.addExperience(this.player.enemyTarget.experience);
+
+        this.player.enemyTarget.die();
+
+        this.currentMap.enemies.push(this.currentMap.generateRandomEnemy());
+
+        this.player.cancelTarget();
       }
     }
 
@@ -121,6 +110,26 @@ class Game {
 
     this.renderFrame();
     // this.updateDebugText();
+  }
+
+  handlePlayerAttack() {
+    if ((this.player.fireTicker / 1000) >= this.player.fireRate) {
+      this.player.fire();
+      this.player.fireTicker = 0;
+      console.log('Player completed attack on enemy, initiating enemy attack');
+      this.player.enemyTarget.attackingPlayer = true;
+    } else {
+      this.player.fireTicker += this.tickerIncrement;
+    }
+  }
+
+  handleEnemyAttack(enemy) {
+    if ((enemy.fireTicker / 1000) >= enemy.fireRate) {
+      enemy.fire();
+      enemy.fireTicker = 0;
+    } else {
+      enemy.fireTicker += this.tickerIncrement;
+    }
   }
 
   renderFrame() {
@@ -139,6 +148,10 @@ class Game {
       this.experienceBar.render();
 
       this.eventLog.render();
+
+      if (this.player.attackingEnemy) {
+        this.attackingMsg.render();
+      }
     }
   }
 
