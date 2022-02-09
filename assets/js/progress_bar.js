@@ -41,7 +41,7 @@ class ProgressBar {
     this.value = value;
     this.maxValue = maxValue;
     this.foreground.width = this.width * (this.value / this.maxValue),
-    this.text.content = `${this.value} / ${this.maxValue}`;
+    this.text.content = `${Math.round(this.value)} / ${Math.round(this.maxValue)}`;
   }
 
   render() {
