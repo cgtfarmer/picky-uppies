@@ -1,18 +1,9 @@
-add higher lvl enemies on higher maps
-make enemies aggressive on higher maps
 add level up flash msg (also important messages)
-make boss faster, much longer attack range
 if inventory full, and selling, still can't pick up items
 add thin autoattack progress bar
-when die on other map, doesn't spawn you correctly?
 add dmg numbers
 spread out log lines
 add attack queueing mechanism
-
-add 2nd enemy type
-add devos to map 3
-add sibs to map 4
-make boss way bossier on map 5
 
 add partial loot pickup to respect inventory space
 add speed increase
@@ -63,11 +54,6 @@ game.setTimeout
 IMPORTANT: Absolutely screw this for now rofl. The complexity of this absolutely exploded way beyond what I'm ready for. All I want out of this is a single map, a single player, my 10 cycling resources just like I had, and maybe 5 cycling enemies to kill that move around and attack back. Maybe build out a simple repair button and then probs leave it at that - end of the project
 
 Next project should just be marginally more complex
-
-
-& store to buy ammo
-& enemies
-& xp bar
 
 enemies stop moving and attack back (skip the runaway phase)
 heal while at base
@@ -213,10 +199,7 @@ y
 
 # -----------------------------------------------------------------------------
 
-# Loose ends priorities
-
-add attack range level up?
-  should attack range/resource collection range be the same thing?
+should attack range/resource collection range be the same thing?
 
 what if there was a stun CD?
   combined with attack range increase, you could pretty much kite
@@ -227,17 +210,9 @@ what about repairing away from base?
   what about a health potion or something?
   purchase the ability to heal at portals?
 
-boss hp says 460% or something stupid - need to fix that, possibly show the actual HP number too
-
-migrate the player/enemy portrait cards into the canvas?
-
 add health bars above player/enemy during combat
 
 add dmg numbers into canvas during combat
-
-implement circling, where your range outranks the enemy's, enabling attacking without receiving dmg?
-
-add stat increases on level up
 
 add enemy targetting via mouse
 
@@ -252,11 +227,27 @@ add starting menu w/ ability to save/load/new game?
 
 You win on boss kill
 
-Enemy aggression on 1-4
 
+# --------------------------------------
+
+
+& store to buy ammo
+& enemies
+& xp bar
+& boss hp says 460% or something stupid - need to fix that, possibly show the actual HP number too
+& migrate the player/enemy portrait cards into the canvas?
+& implement circling, where your range outranks the enemy's, enabling attacking without receiving dmg?
+& add stat increases on level up
+& add attack range level up?
+& add higher lvl enemies on higher maps
+& make enemies aggressive on higher maps
+& make boss faster, much longer attack range
+& when die on other map, doesn't spawn you correctly?
+& add 2nd enemy type
+& add devos to map 3
+& add sibs to map 4
+& make boss way bossier on map 5
+& Enemy aggression on 1-4
 & Success banner no move screen
-
-Fix health not healing after level up or HP up?
-
-Fix 460% health or whatever
-
+& Fix health not healing after level up or HP up?
+& Fix 460% health or whatever

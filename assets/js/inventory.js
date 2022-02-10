@@ -87,7 +87,7 @@ class Inventory {
       return false;
     }
 
-    this.stash[name] += 1;
+    this.stash[name] += count;
     this.size += count;
     return true;
   }
