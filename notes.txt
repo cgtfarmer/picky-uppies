@@ -1,3 +1,44 @@
+add higher lvl enemies on higher maps
+make enemies aggressive on higher maps
+add level up flash msg (also important messages)
+make boss faster, much longer attack range
+if inventory full, and selling, still can't pick up items
+add thin autoattack progress bar
+when die on other map, doesn't spawn you correctly?
+add dmg numbers
+spread out log lines
+add attack queueing mechanism
+
+add 2nd enemy type
+add devos to map 3
+add sibs to map 4
+make boss way bossier on map 5
+
+add partial loot pickup to respect inventory space
+add speed increase
+add enemy aggro
+add enemy lvl differences w/ stats & loot
+when beat boss, don't respawn tiny enemy :P
+abilities:
+  add rocket CD
+  add temporary speed increase CD
+  super long range pull move that does basically no dmg?
+  radial AoE blast outward from player?
+  take no dmg for 3 seconds?
+  45 second invis?
+talents:
+  on kill, get 10 hp over 10 seconds
+  multiplier for picking up resources
+  % dmg increase
+  % speed increase
+  enable slow healing @ portals
+  % increase to bonus boxes
+  % increase to loot drops
+add defense stat?
+consider increasing FPS?
+
+# -----------------------------------------------------------------------------
+
 Character
   Player
     Sprite img shouldn't be chosen in player.move()?

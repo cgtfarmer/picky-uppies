@@ -56,15 +56,41 @@ class GameMap {
 
   initEnemies(options) {
     console.log('[GameMap] [Init Enemies]');
-    for (let i = 0; i < options.count; i++) {
-      this.enemies.push(this.generateRandomEnemy());
+    for (let i = 0; i < options.length; i++) {
+      for (let j = 0; j < options[i].count; j++) {
+        const randomEnemy = this.generateRandomEnemy(options[i].type, options[i].level);
+        console.log(randomEnemy);
+        this.enemies.push(randomEnemy);
+      }
     }
   }
 
-  generateRandomEnemy() {
+  generateRandomEnemy(type, level) {
     const x = getRandomInt(0, (this.width - GameMap.offset));
     const y = getRandomInt(0, (this.height - GameMap.offset));
-    return new Enemy(x, y);
+
+    switch(type) {
+      case 'Struener':
+        return new Struener(x, y, level);
+        break;
+      case 'Lordakia':
+        return new Lordakia(x, y, level);
+        break;
+      case 'Devolarium':
+        return new Devolarium(x, y, level);
+        break;
+      case 'Sibelon':
+        return new Sibelon(x, y, level);
+        break;
+      case 'Kristallon':
+        return new Kristallon(x, y, level);
+        break;
+      case 'Kristallin':
+        return new Kristallin(x, y, level);
+        break;
+      default:
+        console.log('ERROR: Invalid enemy selection');
+    }
   }
 
   initBonusBoxes(options) {

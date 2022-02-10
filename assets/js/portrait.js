@@ -7,6 +7,7 @@ class Portrait {
     this.height = 65;
     this.offset = 5;
     this.name = '';
+    this.level = 0;
     this.healthBar = new HealthBar(
       this.x + this.offset,
       this.y + (this.height - 25 - this.offset),
@@ -21,10 +22,26 @@ class Portrait {
     game.ctx.strokeStyle = '#000000';
     game.ctx.fillStyle = '#000000';
     game.ctx.font = '25px Georgia';
-    game.ctx.textAlign = 'center';
+    game.ctx.textAlign = 'start';
     game.ctx.fillText(
       this.name,
-      this.x + (this.width / 2),
+      this.x + this.offset,
+      this.y + 25
+    );
+    game.ctx.fill();
+    game.ctx.stroke();
+  }
+
+  renderLevel() {
+    game.ctx.beginPath();
+    game.ctx.lineWidth = 0.5;
+    game.ctx.strokeStyle = '#000000';
+    game.ctx.fillStyle = '#000000';
+    game.ctx.font = '25px Georgia';
+    game.ctx.textAlign = 'end';
+    game.ctx.fillText(
+      `Lvl ${this.level}`,
+      this.x + this.width - this.offset,
       this.y + 25
     );
     game.ctx.fill();
@@ -60,6 +77,8 @@ class Portrait {
     this.healthBar.render();
 
     this.renderName();
+
+    this.renderLevel();
   }
 }
 

@@ -21,7 +21,9 @@ function main() {
       selection: [0]
     },
     bonusBoxes: { count: 1 },
-    enemies: { count: 2 }
+    enemies: [
+      { type: 'Struener', level: 1, count: 2 }
+    ]
   };
   const map2Options = {
     resources: {
@@ -29,7 +31,10 @@ function main() {
       selection: [0, 1]
     },
     bonusBoxes: { count: 3 },
-    enemies: { count: 3 }
+    enemies: [
+      { type: 'Struener', level: 2, count: 3 },
+      { type: 'Lordakia', level: 1, count: 3 }
+    ]
   };
   const map3Options = {
     resources: {
@@ -37,7 +42,11 @@ function main() {
       selection: [0, 1, 2]
     },
     bonusBoxes: { count: 5 },
-    enemies: { count: 5 }
+    enemies: [
+      { type: 'Struener', level: 2, count: 2 },
+      { type: 'Lordakia', level: 2, count: 3 },
+      { type: 'Devolarium', level: 3, count: 1 }
+    ]
   };
   const map4Options = {
     resources: {
@@ -45,7 +54,11 @@ function main() {
       selection: [1, 2]
     },
     bonusBoxes: { count: 7 },
-    enemies: { count: 10 }
+    enemies: [
+      { type: 'Struener', level: 3, count: 5 },
+      { type: 'Lordakia', level: 3, count: 5 },
+      { type: 'Sibelon', level: 3, count: 1 }
+    ]
   };
   const map5Options = {
     resources: {
@@ -53,7 +66,10 @@ function main() {
       selection: []
     },
     bonusBoxes: { count: 0 },
-    enemies: { count: 0 }
+    enemies: [
+      { type: 'Kristallon', level: 5, count: 1 },
+      { type: 'Kristallin', level: 4, count: 3 }
+    ]
   };
 
   game = new Game();
@@ -95,20 +111,11 @@ function main() {
   map5.portals[0].disabled = true;
   map5.portals[0].hidden = true;
 
-  const boss = new Enemy((map5.width/2), (map5.height/2));
-  boss.name = 'Boss';
-  boss.sprite.width = 100;
-  boss.sprite.height = 100;
-  boss.maxHealth = 500;
-  boss.health = 500;
-  boss.damage = 10;
-  boss.attackRange = 150;
-  map5.enemies.push(boss);
-
   game.maps.push(map1, map2, map3, map4, map5);
   game.currentMap = map1;
   // game.currentMap = map5;
   game.player = new Player();
+  game.playerPortrait.level = game.player.level;
   game.store = new Store();
   game.start();
 }

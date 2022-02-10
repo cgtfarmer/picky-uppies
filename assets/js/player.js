@@ -69,7 +69,6 @@ class Player {
 
   die() {
     this.attackingEnemy = false;
-
     this.cancelTarget();
 
     if (this.inventory.credits >= 1000) {
@@ -84,8 +83,8 @@ class Player {
 
     this.health = 0;
     game.currentMap = game.maps[0];
-    game.sprite.x = game.currentMap.base.sprite.xAnchor;
-    game.sprite.y = game.currentMap.base.sprite.yAnchor;
+    game.player.sprite.x = game.currentMap.base.sprite.xAnchor;
+    game.player.sprite.y = game.currentMap.base.sprite.yAnchor;
   }
 
   updateDps() {
@@ -157,6 +156,7 @@ class Player {
       if (this.enemyInRange(enemy) && (enemy != this.enemyTarget)) {
         this.enemyTarget = enemy;
         game.targetPortrait.name = this.enemyTarget.name;
+        game.targetPortrait.level = this.enemyTarget.level;
         game.targetPortrait.healthBar.update(
           this.enemyTarget.health,
           this.enemyTarget.maxHealth
@@ -209,6 +209,7 @@ class Player {
 
     if (this.inventory.size >= this.inventory.capacity) {
       console.log('ERROR: Inventory is full');
+      game.eventLog.addMessage('ERROR: Your inventory is full. Sell your resources at the base');
       return -1;
     }
 

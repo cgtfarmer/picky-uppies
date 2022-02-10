@@ -95,7 +95,12 @@ class Game {
 
         this.player.enemyTarget.die();
 
-        this.currentMap.enemies.push(this.currentMap.generateRandomEnemy());
+        this.currentMap.enemies.push(
+          this.currentMap.generateRandomEnemy(
+            this.player.enemyTarget.name,
+            this.player.enemyTarget.level
+          )
+        );
 
         this.player.cancelTarget();
       }

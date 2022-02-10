@@ -13,9 +13,6 @@ class BonusBox {
     // this.color = 'cyan';
     this.rewardCount = getRandomInt(1, 5);
     this.rewards = [];
-    console.log('START--');
-    console.log(this.rewards.length);
-    console.log(this.rewards);
     this.initRandomRewards();
     this.sprite = new Rectangle(x, y, 30, 30, 'cyan');
   }
