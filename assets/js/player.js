@@ -39,6 +39,7 @@ class Player {
     this.criticalDamage = 0.5;
     this.dps = null;
     this.attackRange = 150;
+    this.targettingRange = 300;
     this.enemyTarget = null;
     this.attackingEnemy = false;
     this.fireTicker = 0;
@@ -49,10 +50,99 @@ class Player {
     this.updateDps();
     this.updateExperienceUi();
 
-    // this.sprite.width = 50;
-    // this.sprite.height = 50;
-    // this.sprite.x = 125;
-    // this.sprite.y = 125;
+    this.autoAttackAbility = new Ability('Auto Attack', 1, 1, this.attackRange);
+    this.rocketAbility = new Ability('Rocket', 10, 2, 200);
+    this.currentAbility = this.autoAttackAbility;
+    this.abilityTimer = 0;
+  }
+
+  startAutoAttack() {
+    console.log('[Player] [Start Auto Attack]');
+    if (!this.enemyTarget) {
+      game.eventLog.addMessage('ERROR: No target selected');
+      return;
+    }
+
+    this.abilityTimer = 0;
+    this.currentAbility = this.autoAttackAbility;
+    game.castBar.update(this.abilityTimer, this.currentAbility.castTime);
+    game.castBar.updateText(this.currentAbility.name);
+    this.attackingEnemy = true;
+  }
+
+  cancelAutoAttack() {
+    console.log('[Player] [Cancel Auto Attack]');
+    this.abilityTimer = 0;
+    game.castBar.update(this.abilityTimer, this.currentAbility.castTime);
+    this.attackingEnemy = false;
+  }
+
+  cast(abilityName) {
+    console.log('[Player] [Cast]');
+    if (!this.enemyTarget) {
+      game.eventLog.addMessage('ERROR: No target selected');
+      return;
+    }
+
+    switch(abilityName) {
+      case 'Rocket':
+        this.currentAbility = this.rocketAbility;
+        break;
+      default:
+        console.log('ERROR: Invalid ability name provided');
+        return;
+    }
+
+    if (this.enemyInRange(this.enemyTarget)) {
+      this.cancelAutoAttack();
+      this.attackingEnemy = true;
+      game.castBar.updateText(this.currentAbility.name);
+    } else {
+      this.currentAbility = this.autoAttackAbility;
+      game.eventLog.addMessage('ERROR: Target out of range');
+    }
+  }
+
+  advanceCastTime() {
+    // console.log('[Player] [Advance Cast Time]');
+    this.abilityTimer += (game.tickerIncrement / 1000);
+    game.castBar.update(this.abilityTimer, this.currentAbility.castTime);
+    // console.log(this.abilityTimer);
+    if (this.abilityTimer > this.currentAbility.castTime) {
+      if (this.enemyInRange(this.enemyTarget)) {
+        this.currentAbility.perform();
+        game.player.startAutoAttack();
+      } else {
+        game.eventLog.addMessage('ERROR: Target out of range');
+        this.cancelCast();
+      }
+    }
+  }
+
+  delayCastTime() {
+  }
+
+  cancelCast() {
+    console.log('[Player] [Cancel Cast]');
+    if (this.abilityTimer == 0
+     && this.currentAbility == this.autoAttackAbility) return;
+
+    this.abilityTimer = 0;
+    this.currentAbility = this.autoAttackAbility;
+    game.castBar.updateText(this.currentAbility.name);
+    game.castBar.update(this.abilityTimer, this.currentAbility.castTime);
+  }
+
+  computeAbilityDamage() {
+    if ((getRandomInt(1, 100) / 100) <= this.accuracy) {
+      if ((getRandomInt(1, 100) / 100) <= this.criticalRate) {
+        return (this.currentAbility.damage * this.damage * (1 + this.criticalDamage));
+      } else {
+        return this.currentAbility.damage * this.damage;
+      }
+    } else {
+      return 0;
+    }
   }
 
   move() {
@@ -68,7 +158,7 @@ class Player {
   }
 
   die() {
-    this.attackingEnemy = false;
+    console.log('[Player] [Die]');
     this.cancelTarget();
 
     if (this.inventory.credits >= 1000) {
@@ -93,9 +183,9 @@ class Player {
     ) / 100;
   }
 
-  addExperience() {
-    this.totalExperience += this.enemyTarget.experience;
-    this.experience += this.enemyTarget.experience;
+  addExperience(experience) {
+    this.totalExperience += experience;
+    this.experience += experience;
 
     if (this.experience >= Player.experienceTable[this.level]) {
       this.experience -= Player.experienceTable[this.level];
@@ -127,6 +217,8 @@ class Player {
       Player.experienceTable[this.level]
     );
 
+    game.playerPortrait.level = this.level;
+
     // Player.playerCardLvlUi.innerHTML = this.level;
   }
 
@@ -153,7 +245,7 @@ class Player {
     console.log('[Player] [Target Nearest Enemy]');
     for (let i = 0; i < game.currentMap.enemies.length; i++) {
       const enemy = game.currentMap.enemies[i];
-      if (this.enemyInRange(enemy) && (enemy != this.enemyTarget)) {
+      if (this.enemyInTargettingRange(enemy) && (enemy != this.enemyTarget)) {
         this.enemyTarget = enemy;
         game.targetPortrait.name = this.enemyTarget.name;
         game.targetPortrait.level = this.enemyTarget.level;
@@ -181,10 +273,12 @@ class Player {
 
   cancelAttack() {
     console.log('[Player] [Cancel Attack]');
+    this.cancelCast();
     this.attackingEnemy = false;
   }
 
   cancelTarget() {
+    this.cancelAttack();
     this.enemyTarget = null;
     // Player.targetUi.hidden = true;
   }
@@ -256,13 +350,33 @@ class Player {
     }
   }
 
+  enemyInTargettingRange(enemy) {
+    if (
+      ((this.sprite.xAnchor - this.targettingRange) < enemy.sprite.xAnchor) &&
+      (enemy.sprite.xAnchor < (this.sprite.xAnchor + this.targettingRange)) &&
+      ((this.sprite.yAnchor - this.targettingRange) < enemy.sprite.yAnchor) &&
+      (enemy.sprite.yAnchor < (this.sprite.yAnchor + this.targettingRange))
+    ) {
+      // console.log(`${msg} true`);
+      return true;
+    } else {
+      // console.log(`${msg} false`);
+      return false;
+    }
+  }
+
   enemyInRange(enemy) {
     // const msg = '[Player] [Enemy In Range]';
     if (
-      ((this.sprite.xAnchor - this.attackRange) < enemy.sprite.xAnchor) &&
-      (enemy.sprite.xAnchor < (this.sprite.xAnchor + this.attackRange)) &&
-      ((this.sprite.yAnchor - this.attackRange) < enemy.sprite.yAnchor) &&
-      (enemy.sprite.yAnchor < (this.sprite.yAnchor + this.attackRange))
+      ((this.sprite.xAnchor - this.currentAbility.range) < enemy.sprite.xAnchor) &&
+      (enemy.sprite.xAnchor < (this.sprite.xAnchor + this.currentAbility.range)) &&
+      ((this.sprite.yAnchor - this.currentAbility.range) < enemy.sprite.yAnchor) &&
+      (enemy.sprite.yAnchor < (this.sprite.yAnchor + this.currentAbility.range))
+
+      // ((this.sprite.xAnchor - this.attackRange) < enemy.sprite.xAnchor) &&
+      // (enemy.sprite.xAnchor < (this.sprite.xAnchor + this.attackRange)) &&
+      // ((this.sprite.yAnchor - this.attackRange) < enemy.sprite.yAnchor) &&
+      // (enemy.sprite.yAnchor < (this.sprite.yAnchor + this.attackRange))
     ) {
       // console.log(`${msg} true`);
       return true;
@@ -342,20 +456,24 @@ class Player {
     // game.ctx.stroke();
     this.sprite.render();
 
-    if (this.attackingEnemy && this.enemyInRange(this.enemyTarget)) {
-      this.renderAttackAnimation();
-    }
+    // if (this.attackingEnemy && this.enemyInRange(this.enemyTarget)) {
+    //   this.renderAttackAnimation();
+    //   // this.currentAbility.render();
+    // }
   }
 
-  renderAttackAnimation() {
-    if (getRandomInt(0, 3) != 0) {
-      game.ctx.beginPath();
-      game.ctx.strokeStyle = '#00ff00';
-      game.ctx.lineWidth = 2.0;
-      game.ctx.moveTo(this.sprite.x + (this.sprite.width/2), (this.sprite.y + (this.sprite.height/2)));
-      game.ctx.lineTo(this.enemyTarget.sprite.x + (this.enemyTarget.sprite.width/2), (this.enemyTarget.sprite.y + (this.enemyTarget.sprite.height/2)));
-      game.ctx.stroke();
-    }
-  }
+  // renderAttackAnimation() {
+  //   if (this.currentAbility == this.autoAttackAbility) {
+  //     if (getRandomInt(0, 3) != 0) {
+  //       game.ctx.beginPath();
+  //       game.ctx.strokeStyle = '#00ff00';
+  //       game.ctx.lineWidth = 2.0;
+  //       game.ctx.moveTo(this.sprite.x + (this.sprite.width/2), (this.sprite.y + (this.sprite.height/2)));
+  //       game.ctx.lineTo(this.enemyTarget.sprite.x + (this.enemyTarget.sprite.width/2), (this.enemyTarget.sprite.y + (this.enemyTarget.sprite.height/2)));
+  //       game.ctx.stroke();
+  //     }
+  //   } else {
+  //   }
+  // }
 }
 

@@ -44,6 +44,13 @@ class Game {
       Game.canvasWidth - 20,
       20
     );
+
+    this.castBar = new CastBar(
+      (Game.canvasWidth / 2) - (300 / 2),
+      Game.canvasHeight - 250,
+      300,
+      30
+    );
   }
 
   start() {
@@ -84,26 +91,20 @@ class Game {
       }
     }
 
-    if (this.player.attackingEnemy &&
-        this.player.enemyInRange(this.player.enemyTarget)) {
-      this.handlePlayerAttack();
+    if (this.player.attackingEnemy) {
+      // TODO: CHECK THIS OUT. Reinstate?
+      // if (this.player.enemyInRange(this.player.enemyTarget)) {
 
-      if (this.player.enemyTarget.health <= 0) {
-        this.player.attackingEnemy = false;
+      this.player.advanceCastTime();
 
-        this.player.addExperience(this.player.enemyTarget.experience);
+      // } else {
+      //   this.player.cancelCast();
+      // }
+    }
 
-        this.player.enemyTarget.die();
-
-        this.currentMap.enemies.push(
-          this.currentMap.generateRandomEnemy(
-            this.player.enemyTarget.name,
-            this.player.enemyTarget.level
-          )
-        );
-
-        this.player.cancelTarget();
-      }
+    for (let projectile of this.currentMap.projectiles) {
+      // console.log(projectile);
+      projectile.move();
     }
 
     if (this.currentMap.base &&
@@ -156,6 +157,7 @@ class Game {
 
       if (this.player.attackingEnemy) {
         this.attackingMsg.render();
+        this.castBar.render();
       }
     }
   }

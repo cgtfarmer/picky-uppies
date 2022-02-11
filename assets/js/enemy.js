@@ -68,15 +68,32 @@ class Enemy {
 
   die() {
     console.log('[Enemy] [Die]');
-    for (let i = 0; i < game.currentMap.enemies.length; i++) {
+    const index = game.currentMap.enemies.findIndex(enemy => enemy == this);
+    // for (let i = 0; i < game.currentMap.enemies.length; i++) {
       // console.log(`${i}: ${this.currentMap.enemies[i].health} ${this.player.enemyTarget.health}`);
-      if (game.currentMap.enemies[i] == game.player.enemyTarget) {
-        game.eventLog.addMessage(`You killed: ${game.player.enemyTarget.name}. +${game.player.enemyTarget.experience} XP`);
-        this.dropLoot();
-        game.currentMap.enemies.splice(i, 1);
-        break;
-      }
+      //if (game.currentMap.enemies[i] == game.player.enemyTarget) {
+    game.eventLog.addMessage(`You killed: ${this.name}. +${this.experience} XP`);
+
+    game.player.addExperience(this.experience);
+
+    this.dropLoot();
+
+    if (game.player.enemyTarget == this) {
+      game.player.cancelTarget();
     }
+
+    game.currentMap.enemies.splice(index, 1);
+
+    game.currentMap.enemies.push(
+      game.currentMap.generateRandomEnemy(
+        this.name,
+        this.level
+      )
+    );
+
+    // break;
+      // }
+    // }
   }
 
   generateRandomLoot() {
@@ -153,36 +170,56 @@ class Enemy {
   }
 
   #pursuePlayer() {
-    if (game.player.sprite.x < this.sprite.x) {
-      this.speedX = (this.maxSpeedX * -1);
-    } else if (game.player.sprite.x > this.sprite.x) {
-      this.speedX = this.maxSpeedX;
-    } else {
-      this.speedX = 0;
+    const xDelta = game.player.sprite.xAnchor - this.sprite.xAnchor;
+    const yDelta = game.player.sprite.yAnchor - this.sprite.yAnchor;
+
+    // Get vector magnitude (hypotenuse) w/ pythagorean theorem
+    const magnitude = Math.sqrt(
+      Math.pow(xDelta, 2) + Math.pow(yDelta, 2)
+    );
+
+    // If magnitude is within boundary, accept final speeds
+    if (magnitude <= this.maxSpeedX) {
+      this.speedX = xDelta;
+      this.speedY = yDelta;
+      return
     }
 
-    if (game.player.sprite.y < this.sprite.y) {
-      this.speedY = (this.maxSpeedY * -1);
-    } else if (game.player.sprite.y > this.sprite.y) {
-      this.speedY = this.maxSpeedY;
-    } else {
-      this.speedY = 0;
-    }
+    // Find modifier to scale down to maxSpeed w/ (maxSpeed/hyp)
+    const scalingModifer = this.maxSpeedX / magnitude;
+
+    // Apply modifier to x/y sides of triangle
+    this.speedX = xDelta * scalingModifer;
+    this.speedY = yDelta * scalingModifer;
+
+    // if (game.player.sprite.xAnchor < this.sprite.xAnchor) {
+    //   this.speedX = (this.maxSpeedX * -1);
+    // } else if (game.player.sprite.xAnchor > this.sprite.xAnchor) {
+    //   this.speedX = this.maxSpeedX;
+    // } else {
+    //   this.speedX = 0;
+    // }
+
+    // if (game.player.sprite.yAnchor < this.sprite.yAnchor) {
+    //   this.speedY = (this.maxSpeedY * -1);
+    // } else if (game.player.sprite.yAnchor > this.sprite.yAnchor) {
+    //   this.speedY = this.maxSpeedY;
+    // } else {
+    //   this.speedY = 0;
+    // }
   }
 
   #truncateMapBoundaryVelocity() {
-    // TODO: I should probably make a reference to the map this
-    //       enemy belongs to, instead of assuming that map is the current map
     if (
       ((this.sprite.x + this.speedX) < 0) ||
-      ((this.sprite.x + this.speedX) > (game.currentMap.width - this.sprite.width))
+      ((this.sprite.x + this.sprite.width + this.speedX) > game.currentMap.width)
     ) {
       this.speedX = 0;
     }
 
     if (
       ((this.sprite.y + this.speedY) < 0) ||
-      ((this.sprite.y + this.speedY) > (game.currentMap.height - this.sprite.height))
+      ((this.sprite.y + this.sprite.height + this.speedY) > game.currentMap.height)
     ) {
       this.speedY = 0;
     }

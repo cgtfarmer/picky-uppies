@@ -122,3 +122,76 @@ function main() {
 
 main();
 
+
+// testXY() {
+//   // 55, 77
+//
+//   // 22, 31
+//   // =
+//   // (77 - 31)
+//   // (55 - 22)
+//   // =
+//   // 46
+//   // 33
+//   // =
+//   // 1.393
+//
+//   // ~~~
+//   // 1.4 = 10
+//   // 1     x
+//   // =
+//   // 1.4x = 10
+//   // =
+//   // x = 10/1.4
+//   // # --------------------------------------
+//   // 0.6 = x
+//   // 1     10
+//   // =
+//   // 10*0.6 = x
+// # --------------------------------------
+//     -1.4 = 10
+//     1      x
+//     =
+//     -1.4x = 10
+//     =
+//     x = 10/-1.4
+//
+//   const xDelta = this.target.sprite.xAnchor - this.sprite.xAnchor;
+//   const yDelta = this.target.sprite.yAnchor - this.sprite.yAnchor;
+//   const slope = (yDelta / xDelta);
+//   // 1.4 = 46/33
+//   // 0.6 = 30/50
+//   // -1.4
+//   // -0.6
+//
+//   if (Math.abs(xDelta) <= this.maxSpeedX &&
+//       Math.abs(yDelta) <= this.maxSpeedY) {
+//     this.speedX = xDelta;
+//     this.speedY = yDelta;
+//   }
+//
+//   if (Math.abs(yDelta) > Math.abs(xDelta)) {
+//     this.speedY = this.maxSpeedY;
+//     this.speedX = this.maxSpeedX / slope;
+//   } else {
+//     this.speedX = this.maxSpeedX;
+//     this.speedY = this.maxSpeedY * slope;
+//   }
+// }
+//
+// textXY(0, 0, 1, 3);
+// textXY(0, 0, 3, 3);
+// textXY(0, 0, 3, 1);
+//
+// textXY(0, 0, 3, -1);
+// textXY(0, 0, 3, -3);
+// textXY(0, 0, 1, -3);
+//
+// textXY(0, 0, -1, -3);
+// textXY(0, 0, -3, -3);
+// textXY(0, 0, -3, -1);
+//
+// textXY(0, 0, -3, 1);
+// textXY(0, 0, -3, 3);
+// textXY(0, 0, -1, 3);
+

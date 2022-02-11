@@ -1,15 +1,24 @@
-add level up flash msg (also important messages)
-if inventory full, and selling, still can't pick up items
+TRIGGER PERFORMED ABILITY TO BE RENDERED IN GAME TICKER THING
+
+
+# --------------------------------------
+
+Ryan killed a Lordakia through another dimension from map 1 to map 2 ROFL
+
+multiple levels at once doesn't work
+
+big enemy can spawn on border and be stuck
+
+player portrait level no workie
+
+add attack queueing mechanism
 add thin autoattack progress bar
 add dmg numbers
-spread out log lines
-add attack queueing mechanism
 
+add level up flash msg (also important messages)
+spread out log lines
 add partial loot pickup to respect inventory space
-add speed increase
-add enemy aggro
-add enemy lvl differences w/ stats & loot
-when beat boss, don't respawn tiny enemy :P
+
 abilities:
   add rocket CD
   add temporary speed increase CD
@@ -17,6 +26,8 @@ abilities:
   radial AoE blast outward from player?
   take no dmg for 3 seconds?
   45 second invis?
+  a dot
+
 talents:
   on kill, get 10 hp over 10 seconds
   multiplier for picking up resources
@@ -25,6 +36,7 @@ talents:
   enable slow healing @ portals
   % increase to bonus boxes
   % increase to loot drops
+
 add defense stat?
 consider increasing FPS?
 
@@ -251,3 +263,7 @@ You win on boss kill
 & Success banner no move screen
 & Fix health not healing after level up or HP up?
 & Fix 460% health or whatever
+& if inventory full, and selling, still can't pick up items
+& add enemy aggro
+& add enemy lvl differences w/ stats & loot
+& when beat boss, don't respawn tiny enemy :P

@@ -6,6 +6,11 @@ class KeyCode {
   static upArrow = 38;
   static rightArrow = 39;
   static downArrow = 40;
+  static num1 = 49;
+  static num2 = 50;
+  static num3 = 51;
+  static num4 = 52;
+  static num5 = 53;
   static a = 65;
   static b = 66;
   static c = 67;

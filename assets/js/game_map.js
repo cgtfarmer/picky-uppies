@@ -35,6 +35,7 @@ class GameMap {
     this.base = null;
     this.portals = [];
     this.backgroundStarCoords = [];
+    this.projectiles = [];
 
     if (options.base) {
       this.base = new Base(options.base.x, options.base.y);
@@ -59,38 +60,49 @@ class GameMap {
     for (let i = 0; i < options.length; i++) {
       for (let j = 0; j < options[i].count; j++) {
         const randomEnemy = this.generateRandomEnemy(options[i].type, options[i].level);
-        console.log(randomEnemy);
+        // console.log(randomEnemy);
         this.enemies.push(randomEnemy);
       }
     }
   }
 
   generateRandomEnemy(type, level) {
-    const x = getRandomInt(0, (this.width - GameMap.offset));
-    const y = getRandomInt(0, (this.height - GameMap.offset));
-
+    let enemy = null;
     switch(type) {
       case 'Struener':
-        return new Struener(x, y, level);
+        enemy = new Struener(0, 0, level);
         break;
       case 'Lordakia':
-        return new Lordakia(x, y, level);
+        enemy = new Lordakia(0, 0, level);
         break;
       case 'Devolarium':
-        return new Devolarium(x, y, level);
+        enemy = new Devolarium(0, 0, level);
         break;
       case 'Sibelon':
-        return new Sibelon(x, y, level);
+        enemy = new Sibelon(0, 0, level);
         break;
       case 'Kristallon':
-        return new Kristallon(x, y, level);
+        enemy = new Kristallon(0, 0, level);
         break;
       case 'Kristallin':
-        return new Kristallin(x, y, level);
+        enemy = new Kristallin(0, 0, level);
         break;
       default:
         console.log('ERROR: Invalid enemy selection');
+        return;
     }
+
+    const x = getRandomInt(
+      (0 + enemy.sprite.width),
+      (this.width - enemy.sprite.width)
+    );
+    const y = getRandomInt(
+      (0 + enemy.sprite.height),
+      (this.height - enemy.sprite.width)
+    );
+
+    enemy.sprite.updatePosition(x, y);
+    return enemy;
   }
 
   initBonusBoxes(options) {
@@ -191,6 +203,10 @@ class GameMap {
 
     for (let enemy of this.enemies) {
       enemy.render();
+    }
+
+    for (let projectile of this.projectiles) {
+      projectile.render();
     }
 
     this.renderName();

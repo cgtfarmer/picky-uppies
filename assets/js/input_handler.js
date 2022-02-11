@@ -14,7 +14,12 @@ class InputHandler {
     KeyCode.leftArrow,
     KeyCode.rightArrow,
     KeyCode.upArrow,
-    KeyCode.downArrow
+    KeyCode.downArrow,
+    KeyCode.num1,
+    KeyCode.num2,
+    KeyCode.num3,
+    KeyCode.num4,
+    KeyCode.num5,
   ];
 
   constructor() {
@@ -25,6 +30,11 @@ class InputHandler {
     this.fHasBeenEvaluated = false;
     this.jHasBeenEvaluated = false;
     this.iHasBeenEvaluated = false;
+    this.num1HasBeenEvaluated = false;
+    this.num2HasBeenEvaluated = false;
+    this.num3HasBeenEvaluated = false;
+    this.num4HasBeenEvaluated = false;
+    this.num5HasBeenEvaluated = false;
   }
 
   registerKey(event) {
@@ -45,6 +55,11 @@ class InputHandler {
     if (event.keyCode == KeyCode.f) this.fHasBeenEvaluated = false;
     if (event.keyCode == KeyCode.j) this.jHasBeenEvaluated = false;
     if (event.keyCode == KeyCode.i) this.iHasBeenEvaluated = false;
+    if (event.keyCode == KeyCode.num1) this.num1HasBeenEvaluated = false;
+    if (event.keyCode == KeyCode.num2) this.num2HasBeenEvaluated = false;
+    if (event.keyCode == KeyCode.num3) this.num3HasBeenEvaluated = false;
+    if (event.keyCode == KeyCode.num4) this.num4HasBeenEvaluated = false;
+    if (event.keyCode == KeyCode.num5) this.num5HasBeenEvaluated = false;
   }
 
   performKeyActions() {
@@ -89,9 +104,9 @@ class InputHandler {
       console.log('[Input Handler] [f]');
       this.fHasBeenEvaluated = true;
       if (!game.player.attackingEnemy) {
-        game.player.attackEnemyTarget();
+        game.player.startAutoAttack();
       } else {
-        game.player.cancelAttack();
+        game.player.cancelAutoAttack();
       }
     }
 
@@ -128,6 +143,33 @@ class InputHandler {
         game.currentMap.loot.splice(results['index'], 1);
       }
     }
+
+    if (this.keys[KeyCode.num1] && !this.num1HasBeenEvaluated) {
+      console.log('[Input Handler] [1]');
+      this.num1HasBeenEvaluated = true;
+
+      game.player.cast('Rocket');
+    }
+
+    // if (this.keys[KeyCode.num2] && !this.num2HasBeenEvaluated) {
+    //   console.log('[Input Handler] [1]');
+    //   this.num2HasBeenEvaluated = true;
+    // }
+
+    // if (this.keys[KeyCode.num3] && !this.num3HasBeenEvaluated) {
+    //   console.log('[Input Handler] [1]');
+    //   this.num3HasBeenEvaluated = true;
+    // }
+
+    // if (this.keys[KeyCode.num4] && !this.num4HasBeenEvaluated) {
+    //   console.log('[Input Handler] [1]');
+    //   this.num4HasBeenEvaluated = true;
+    // }
+
+    // if (this.keys[KeyCode.num5] && !this.num5HasBeenEvaluated) {
+    //   console.log('[Input Handler] [1]');
+    //   this.num5HasBeenEvaluated = true;
+    // }
   }
 }
 
