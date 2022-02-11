@@ -38,7 +38,7 @@ class Player {
     this.criticalRate = 0.1;
     this.criticalDamage = 0.5;
     this.dps = null;
-    this.attackRange = 150;
+    this.attackRange = 0; // 150
     this.targettingRange = 300;
     this.enemyTarget = null;
     this.attackingEnemy = false;
@@ -50,8 +50,8 @@ class Player {
     this.updateDps();
     this.updateExperienceUi();
 
-    this.autoAttackAbility = new Ability('Auto Attack', 1, 1, this.attackRange);
-    this.rocketAbility = new Ability('Rocket', 10, 2, 200);
+    this.autoAttackAbility = new AutoAttackAbility();
+    this.rocketAbility = new RocketAbility();
     this.currentAbility = this.autoAttackAbility;
     this.abilityTimer = 0;
   }
@@ -133,12 +133,24 @@ class Player {
     game.castBar.update(this.abilityTimer, this.currentAbility.castTime);
   }
 
-  computeAbilityDamage() {
+  computeAbilityDamage(abilityName) {
+    let ability = null;
+    switch(abilityName) {
+      case 'Auto Attack':
+        ability = this.autoAttackAbility;
+        break;
+      case 'Rocket':
+        ability = this.rocketAbility;
+        break;
+      default:
+        console.log('ERROR: Invalid ability name');
+    }
+
     if ((getRandomInt(1, 100) / 100) <= this.accuracy) {
       if ((getRandomInt(1, 100) / 100) <= this.criticalRate) {
-        return (this.currentAbility.damage * this.damage * (1 + this.criticalDamage));
+        return (ability.damage + this.damage) * (1 + this.criticalDamage);
       } else {
-        return this.currentAbility.damage * this.damage;
+        return (ability.damage + this.damage);
       }
     } else {
       return 0;

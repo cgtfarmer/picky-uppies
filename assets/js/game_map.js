@@ -201,12 +201,12 @@ class GameMap {
       resource.render();
     }
 
-    for (let enemy of this.enemies) {
-      enemy.render();
-    }
-
     for (let projectile of this.projectiles) {
       projectile.render();
+    }
+
+    for (let enemy of this.enemies) {
+      enemy.render();
     }
 
     this.renderName();

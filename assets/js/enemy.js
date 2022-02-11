@@ -84,6 +84,9 @@ class Enemy {
 
     game.currentMap.enemies.splice(index, 1);
 
+    for (let projectile of game.currentMap.projectiles) {
+    }
+
     game.currentMap.enemies.push(
       game.currentMap.generateRandomEnemy(
         this.name,

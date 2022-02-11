@@ -6,17 +6,16 @@ class Ability {
     this.range = range;
   }
 
+  generateSprite() {
+    console.log('[Ability] [Generate Sprite]');
+
+    console.log('ERROR: Override this method');
+  }
+
   perform() {
     console.log('[Ability] [Perform]');
 
-    game.currentMap.projectiles.push(
-      new Projectile(
-        game.player.sprite.xAnchor,
-        game.player.sprite.yAnchor,
-        game.player.enemyTarget,
-        game.player.computeAbilityDamage()
-      )
-    );
+    game.currentMap.projectiles.push(this.generateSprite());
   }
 }
 

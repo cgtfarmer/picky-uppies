@@ -1,12 +1,12 @@
 class Projectile {
   constructor(x, y, target, damage) {
-    this.maxSpeedX = 10;
-    this.maxSpeedY = 10;
+    this.maxSpeedX = 20;
+    this.maxSpeedY = 20;
     this.speedX = 0;
     this.speedY = 0;
     this.damage = damage;
     this.target = target;
-    this.sprite = new Rectangle(x, y, 10, 10, '#00ff00');
+    this.sprite = new Rectangle(x, y, 45, 5, '#00ff00');
   }
 
   move() {
@@ -70,6 +70,10 @@ class Projectile {
     // Attempt 4
     const xDelta = this.target.sprite.xAnchor - this.sprite.xAnchor;
     const yDelta = this.target.sprite.yAnchor - this.sprite.yAnchor;
+
+    // Set sprite rotation
+    this.sprite.rotation = Math.atan(yDelta / xDelta);
+    console.log(this.sprite.rotation);
 
     // Get vector magnitude (hypotenuse) w/ pythagorean theorem
     const magnitude = Math.sqrt(
@@ -155,6 +159,7 @@ class Projectile {
   }
 
   render() {
+    // this.sprite.rotation = 20;
     this.sprite.render();
     // game.ctx.beginPath();
     // game.ctx.strokeStyle = '#00ff00';
