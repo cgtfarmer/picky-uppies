@@ -7,10 +7,9 @@ class EventLog {
     this.lines = 10;
     this.background = new Rectangle(
       10,
-      Game.canvasHeight - (this.lines * this.fontSize) - 45,
+      Game.canvasHeight - (this.lines * (this.fontSize + 5)) - 45,
       450,
-      ((this.lines * this.fontSize) + this.fontSize + this.padding - 3),
-      '#ffffff'
+      ((this.lines * (this.fontSize + 5)) + this.fontSize + this.padding - 3), '#ffffff'
     )
     this.background.strokeColor = '#ffffff';
     this.background.fill = false;
@@ -24,7 +23,7 @@ class EventLog {
         this.messages[i].y = (
           this.background.y +
           this.fontSize +
-          (i * this.fontSize) +
+          (i * (this.fontSize + 5)) +
           this.padding
         )
       }
@@ -35,7 +34,7 @@ class EventLog {
         this.background.x + this.padding,
         this.background.y +
           this.fontSize +
-          (this.messages.length * this.fontSize) +
+          (this.messages.length * (this.fontSize + 5)) +
           this.padding,
         msg,
         this.fontSize,

@@ -199,7 +199,8 @@ class Player {
     this.totalExperience += experience;
     this.experience += experience;
 
-    if (this.experience >= Player.experienceTable[this.level]) {
+    // if (this.experience >= Player.experienceTable[this.level]) {
+    while (this.experience >= Player.experienceTable[this.level]) {
       this.experience -= Player.experienceTable[this.level];
       this.level += 1;
       new SuccessMessage(`You are now level ${this.level}! Your stats have increased`);

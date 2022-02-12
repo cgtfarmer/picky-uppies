@@ -1,7 +1,7 @@
 class ExperienceBar extends ProgressBar {
   constructor(x, y, width, height) {
     console.log('[Experience Bar] [Constructor]');
-    super(x, y, width, height, '#00c000', '#555555');
+    super(x, y, width, height, '#00c00090', '#55555590');
     this.level = 0;
   }
 

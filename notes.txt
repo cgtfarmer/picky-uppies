@@ -1,30 +1,16 @@
-& TRIGGER PERFORMED ABILITY TO BE RENDERED IN GAME TICKER THING
-
-& add separate animation for rocket
-
-& figure out how to rotate/render the laser beam
-  & ctx.rotate(20 * Math.PI / 180);
 
 add dmg numbers
 
 add UI tracker for rocket CD
 
-
-Ryan killed a Lordakia through another dimension from map 1 to map 2 ROFL
-big enemy can spawn on border and be stuck
-player portrait level no workie
-
-
-multiple levels at once doesn't work
+& multiple levels at once doesn't work
 add level up flash msg (also important messages)
-spread out log lines
 add partial loot pickup to respect inventory space
 
 # --------------------------------------
 
 & add attack queueing mechanism
 & add thin autoattack progress bar - nah, this is fine
-
 
 abilities:
   add rocket CD
@@ -277,3 +263,19 @@ You win on boss kill
 & add enemy aggro
 & add enemy lvl differences w/ stats & loot
 & when beat boss, don't respawn tiny enemy :P
+
+& TRIGGER PERFORMED ABILITY TO BE RENDERED IN GAME TICKER THING
+
+& add separate animation for rocket
+
+& figure out how to rotate/render the laser beam
+  & ctx.rotate(20 * Math.PI / 180);
+
+& Ryan killed a Lordakia through another dimension from map 1 to map 2 ROFL
+& big enemy can spawn on border and be stuck
+& player portrait level no workie
+
+& spread out log lines
+
+& experience bar transparent
+
