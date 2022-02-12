@@ -73,7 +73,7 @@ class Projectile {
 
     // Set sprite rotation
     this.sprite.rotation = Math.atan(yDelta / xDelta);
-    console.log(this.sprite.rotation);
+    // console.log(this.sprite.rotation);
 
     // Get vector magnitude (hypotenuse) w/ pythagorean theorem
     const magnitude = Math.sqrt(

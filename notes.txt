@@ -1,9 +1,9 @@
 & TRIGGER PERFORMED ABILITY TO BE RENDERED IN GAME TICKER THING
 
-add separate animation for rocket
+& add separate animation for rocket
 
-figure out how to rotate/render the laser beam
-  ctx.rotate(20 * Math.PI / 180);
+& figure out how to rotate/render the laser beam
+  & ctx.rotate(20 * Math.PI / 180);
 
 add dmg numbers
 
@@ -34,6 +34,8 @@ abilities:
   take no dmg for 3 seconds?
   45 second invis?
   a dot
+  AoE freeze
+    w/ attacking still or possibly full stun
 
 talents:
   on kill, get 10 hp over 10 seconds
@@ -41,6 +43,7 @@ talents:
   % dmg increase
   % speed increase
   enable slow healing @ portals
+  enable selling @ portals?
   % increase to bonus boxes
   % increase to loot drops
 

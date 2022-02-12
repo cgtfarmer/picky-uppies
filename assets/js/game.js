@@ -145,7 +145,7 @@ class Game {
     } else {
       this.currentMap.render();
 
-      this.player.render();
+      // this.player.render();
 
       this.playerPortrait.render();
 

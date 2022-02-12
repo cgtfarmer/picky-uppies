@@ -398,6 +398,27 @@ class Player {
     }
   }
 
+  enemyInAutoAttackRange(enemy) {
+    // const msg = '[Player] [Enemy In Range]';
+    if (
+      ((this.sprite.xAnchor - this.autoAttackAbility.range) < enemy.sprite.xAnchor) &&
+      (enemy.sprite.xAnchor < (this.sprite.xAnchor + this.autoAttackAbility.range)) &&
+      ((this.sprite.yAnchor - this.autoAttackAbility.range) < enemy.sprite.yAnchor) &&
+      (enemy.sprite.yAnchor < (this.sprite.yAnchor + this.autoAttackAbility.range))
+
+      // ((this.sprite.xAnchor - this.attackRange) < enemy.sprite.xAnchor) &&
+      // (enemy.sprite.xAnchor < (this.sprite.xAnchor + this.attackRange)) &&
+      // ((this.sprite.yAnchor - this.attackRange) < enemy.sprite.yAnchor) &&
+      // (enemy.sprite.yAnchor < (this.sprite.yAnchor + this.attackRange))
+    ) {
+      // console.log(`${msg} true`);
+      return true;
+    } else {
+      // console.log(`${msg} false`);
+      return false;
+    }
+  }
+
   collectibleInRange(collectible) {
     console.log('[Player] [Collectible In Range]');
     if (

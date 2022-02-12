@@ -205,6 +205,8 @@ class GameMap {
       projectile.render();
     }
 
+    game.player.render();
+
     for (let enemy of this.enemies) {
       enemy.render();
     }

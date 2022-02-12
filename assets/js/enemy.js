@@ -181,6 +181,13 @@ class Enemy {
       Math.pow(xDelta, 2) + Math.pow(yDelta, 2)
     );
 
+    // Stop advancing upon reaching player border
+    if (magnitude < (this.sprite.height + 10)) {
+      this.speedX = 0;
+      this.speedY = 0;
+      return;
+    }
+
     // If magnitude is within boundary, accept final speeds
     if (magnitude <= this.maxSpeedX) {
       this.speedX = xDelta;
@@ -244,7 +251,12 @@ class Enemy {
       // Player.targetHpUi.innerHTML = percentage;
       game.ctx.beginPath();
       game.ctx.lineWidth = 2;
-      game.ctx.strokeStyle = '#ffffff';
+      // game.player.autoAttackAbility.range + game.player.attackRange
+      if (game.player.enemyInAutoAttackRange(this)) {
+        game.ctx.strokeStyle = '#00ff00';
+      } else {
+        game.ctx.strokeStyle = '#ffffff';
+      }
       game.ctx.rect(
         this.sprite.x - this.targetOffset,
         this.sprite.y - this.targetOffset,
