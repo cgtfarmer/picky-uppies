@@ -7,6 +7,8 @@ add UI tracker for rocket CD
 add level up flash msg (also important messages)
 add partial loot pickup to respect inventory space
 
+You win on boss kill
+
 # --------------------------------------
 
 & add attack queueing mechanism
@@ -32,6 +34,7 @@ talents:
   enable selling @ portals?
   % increase to bonus boxes
   % increase to loot drops
+  resource collection range increase?
 
 add defense stat?
 consider increasing FPS?
@@ -62,19 +65,6 @@ game.setTimeout
 IMPORTANT: Absolutely screw this for now rofl. The complexity of this absolutely exploded way beyond what I'm ready for. All I want out of this is a single map, a single player, my 10 cycling resources just like I had, and maybe 5 cycling enemies to kill that move around and attack back. Maybe build out a simple repair button and then probs leave it at that - end of the project
 
 Next project should just be marginally more complex
-
-enemies stop moving and attack back (skip the runaway phase)
-heal while at base
-player death
-level up
-add a boss on 1-4?
-add aggressive enemies?
-add enemies higher level on other maps?
-make 2-3 different types of enemies?
-upgrades, increase dmg/speed/health/collectionBonus?
-add map name to top center of canvas
-
-# add portals to go to 1 other map
 
 # --------------------------------------
 
@@ -212,7 +202,7 @@ should attack range/resource collection range be the same thing?
 what if there was a stun CD?
   combined with attack range increase, you could pretty much kite
 
-what about rockets?
+& what about rockets?
 
 what about repairing away from base?
   what about a health potion or something?
@@ -221,8 +211,6 @@ what about repairing away from base?
 add health bars above player/enemy during combat
 
 add dmg numbers into canvas during combat
-
-add enemy targetting via mouse
 
 what if there was good AoE and a very long-range, weak attack for pulling enemies?
 
@@ -233,7 +221,6 @@ add starting menu w/ ability to save/load/new game?
 
 # --------------------------------------
 
-You win on boss kill
 
 
 # --------------------------------------
@@ -279,3 +266,18 @@ You win on boss kill
 
 & experience bar transparent
 
+
+& enemies stop moving and attack back (skip the runaway phase)
+& heal while at base
+& player death
+& level up
+& add a boss on 1-4?
+& add aggressive enemies?
+& add enemies higher level on other maps?
+& make 2-3 different types of enemies?
+& upgrades, increase dmg/speed/health/collectionBonus?
+& add map name to top center of canvas
+
+& add portals to go to 1 other map
+
+& add enemy targetting via mouse

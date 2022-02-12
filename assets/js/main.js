@@ -195,3 +195,27 @@ main();
 // textXY(0, 0, -3, 3);
 // textXY(0, 0, -1, 3);
 
+function mouseTargetEnemy(event) {
+  const rect = Game.canvas.getBoundingClientRect();
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+  console.log("x: " + x + " y: " + y)
+
+  for (let enemy of game.currentMap.enemies) {
+    if (
+      (enemy.sprite.x < x) &&
+      (x < (enemy.sprite.x + enemy.sprite.width)) &&
+      (enemy.sprite.y < y) &&
+      (y < (enemy.sprite.y + enemy.sprite.height))
+    ) {
+      game.player.enemyTarget = enemy;
+      game.targetPortrait.name = game.player.enemyTarget.name;
+      game.targetPortrait.level = game.player.enemyTarget.level;
+      game.targetPortrait.healthBar.update(
+        game.player.enemyTarget.health,
+        game.player.enemyTarget.maxHealth
+      );
+    }
+  }
+}
+
