@@ -6,11 +6,13 @@ class AutoAttackAbility extends Ability {
   generateSprite() {
     console.log('[Auto Attack Ability] [Generate Sprite]');
 
+    const [damage, criticalHit] = game.player.computeAbilityDamage(this.name);
     return new LaserSprite(
       game.player.sprite.xAnchor,
       game.player.sprite.yAnchor,
       game.player.enemyTarget,
-      game.player.computeAbilityDamage(this.name)
+      damage,
+      criticalHit
     );
   }
 }

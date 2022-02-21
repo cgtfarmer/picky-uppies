@@ -68,6 +68,9 @@ class Game {
       300,
       30
     );
+
+    this.abilityBar = new AbilityBar();
+    this.cooldownAbilities = [];
   }
 
   start() {
@@ -135,6 +138,10 @@ class Game {
       this.player.modifyHealth(1);
     }
 
+    for (let ability of this.cooldownAbilities) {
+      ability.advanceCooldown(this.tickerIncrement);
+    }
+
     this.renderFrame();
     // this.updateDebugText();
   }
@@ -194,6 +201,8 @@ class Game {
         this.attackingMsg.render();
         this.castBar.render();
       }
+
+      this.abilityBar.render();
     }
   }
 

@@ -1,6 +1,6 @@
 class LaserSprite extends Projectile {
-  constructor(x, y, target, damage) {
-    super(x, y, target, damage);
+  constructor(x, y, target, damage, criticalHit) {
+    super(x, y, target, damage, criticalHit);
     this.maxSpeedX = 20;
     this.maxSpeedY = 20;
     this.speedX = 0;

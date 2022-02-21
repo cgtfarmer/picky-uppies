@@ -9,7 +9,7 @@ class EventLog {
       10,
       Game.canvasHeight - (this.lines * (this.fontSize + 5)) - 45,
       450,
-      ((this.lines * (this.fontSize + 5)) + this.fontSize + this.padding - 3), '#ffffff'
+      ((this.lines * (this.fontSize + 5)) + this.fontSize + this.padding - 3), null
     )
     this.background.strokeColor = '#ffffff';
     this.background.fill = false;

@@ -1,9 +1,10 @@
 
-add dmg numbers
+figure out why dmg numbers flicker when more than 1 on screen at a time
 
-add UI tracker for rocket CD
+brighten/dampen ability colors based on whether or not target enemy in range?
 
-& multiple levels at once doesn't work
+Make event log errors red
+
 add level up flash msg (also important messages)
 add partial loot pickup to respect inventory space
 
@@ -313,3 +314,9 @@ add starting menu w/ ability to save/load/new game?
 & add portals to go to 1 other map
 
 & add enemy targetting via mouse
+
+& add dmg numbers
+
+& add UI tracker for rocket CD
+
+& multiple levels at once doesn't work

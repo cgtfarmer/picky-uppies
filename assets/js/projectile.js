@@ -1,10 +1,11 @@
 class Projectile {
-  constructor(x, y, target, damage) {
+  constructor(x, y, target, damage, criticalHit) {
     this.maxSpeedX = 20;
     this.maxSpeedY = 20;
     this.speedX = 0;
     this.speedY = 0;
     this.damage = damage;
+    this.criticalHit = criticalHit;
     this.target = target;
     this.sprite = new Rectangle(x, y, 45, 5, '#00ff00');
   }
@@ -25,9 +26,7 @@ class Projectile {
       }
 
       this.die();
-    }
-
-    if (this.outOfBounds()) {
+    } else if (this.outOfBounds()) {
       this.die();
     }
   }
@@ -162,7 +161,8 @@ class Projectile {
         this.target.sprite.xAnchor,
         this.target.sprite.yAnchor - this.target.sprite.height - 10,
         this.damage,
-        (game.player.currentAbility.castTime * 1000) * (1 - game.player.haste) + 100
+        this.criticalHit,
+        (game.player.currentAbility.castTime * 1000) * (1 - game.player.haste)
       )
     );
     this.target.attackingPlayer = true;

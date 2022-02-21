@@ -1,6 +1,6 @@
 class RocketSprite extends Projectile {
-  constructor(x, y, target, damage) {
-    super(x, y, target, damage);
+  constructor(x, y, target, damage, criticalHit) {
+    super(x, y, target, damage, criticalHit);
     this.maxSpeedX = 15;
     this.maxSpeedY = 15;
     this.speedX = 0;

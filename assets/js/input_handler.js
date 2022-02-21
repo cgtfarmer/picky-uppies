@@ -9,6 +9,7 @@ class InputHandler {
     KeyCode.tab,
     KeyCode.esc,
     KeyCode.f,
+    KeyCode.r,
     KeyCode.j,
     KeyCode.i,
     KeyCode.leftArrow,
@@ -30,6 +31,7 @@ class InputHandler {
     this.fHasBeenEvaluated = false;
     this.jHasBeenEvaluated = false;
     this.iHasBeenEvaluated = false;
+    this.rHasBeenEvaluated = false;
     this.num1HasBeenEvaluated = false;
     this.num2HasBeenEvaluated = false;
     this.num3HasBeenEvaluated = false;
@@ -39,9 +41,11 @@ class InputHandler {
 
   registerKey(event) {
     // Don't register if opposite key is currently registered?
-    // console.log(event.keyCode);
+    console.log(event.keyCode);
     if (InputHandler.listeningKeys.includes(event.keyCode)) {
-      event.preventDefault();
+      if (!([KeyCode.i, KeyCode.r].includes(event.keyCode))) {
+        event.preventDefault();
+      }
     }
 
     this.keys[event.keyCode] = (event.type == InputHandler.keydownEvent);
@@ -55,6 +59,7 @@ class InputHandler {
     if (event.keyCode == KeyCode.f) this.fHasBeenEvaluated = false;
     if (event.keyCode == KeyCode.j) this.jHasBeenEvaluated = false;
     if (event.keyCode == KeyCode.i) this.iHasBeenEvaluated = false;
+    if (event.keyCode == KeyCode.r) this.rHasBeenEvaluated = false;
     if (event.keyCode == KeyCode.num1) this.num1HasBeenEvaluated = false;
     if (event.keyCode == KeyCode.num2) this.num2HasBeenEvaluated = false;
     if (event.keyCode == KeyCode.num3) this.num3HasBeenEvaluated = false;
@@ -144,30 +149,35 @@ class InputHandler {
       }
     }
 
-    if (this.keys[KeyCode.num1] && !this.num1HasBeenEvaluated) {
-      console.log('[Input Handler] [1]');
-      this.num1HasBeenEvaluated = true;
+    if (this.keys[KeyCode.r] && !this.rHasBeenEvaluated) {
+      console.log('[Input Handler] [R]');
+      this.rHasBeenEvaluated = true;
 
       game.player.cast('Rocket');
     }
 
-    // if (this.keys[KeyCode.num2] && !this.num2HasBeenEvaluated) {
+    // if (this.keys[KeyCode.num1] && !this.num2HasBeenEvaluated) {
     //   console.log('[Input Handler] [1]');
+    //   this.num1HasBeenEvaluated = true;
+    // }
+
+    // if (this.keys[KeyCode.num2] && !this.num2HasBeenEvaluated) {
+    //   console.log('[Input Handler] [2]');
     //   this.num2HasBeenEvaluated = true;
     // }
 
     // if (this.keys[KeyCode.num3] && !this.num3HasBeenEvaluated) {
-    //   console.log('[Input Handler] [1]');
+    //   console.log('[Input Handler] [3]');
     //   this.num3HasBeenEvaluated = true;
     // }
 
     // if (this.keys[KeyCode.num4] && !this.num4HasBeenEvaluated) {
-    //   console.log('[Input Handler] [1]');
+    //   console.log('[Input Handler] [4]');
     //   this.num4HasBeenEvaluated = true;
     // }
 
     // if (this.keys[KeyCode.num5] && !this.num5HasBeenEvaluated) {
-    //   console.log('[Input Handler] [1]');
+    //   console.log('[Input Handler] [5]');
     //   this.num5HasBeenEvaluated = true;
     // }
   }

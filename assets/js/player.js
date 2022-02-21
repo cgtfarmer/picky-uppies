@@ -86,7 +86,12 @@ class Player {
 
     switch(abilityName) {
       case 'Rocket':
-        this.currentAbility = this.rocketAbility;
+        const abilityOnCooldown = game.cooldownAbilities.find((e) => e == this.rocketAbility);
+        if (abilityOnCooldown) {
+          game.eventLog.addMessage('ERROR: Ability is still on cooldown');
+        } else {
+          this.currentAbility = this.rocketAbility;
+        }
         break;
       default:
         console.log('ERROR: Invalid ability name provided');
@@ -149,12 +154,12 @@ class Player {
 
     if ((getRandomInt(1, 100) / 100) <= this.accuracy) {
       if ((getRandomInt(1, 100) / 100) <= this.criticalRate) {
-        return (ability.damage + this.damage) * (1 + this.criticalDamage);
+        return [(ability.damage + this.damage) * (1 + this.criticalDamage), true];
       } else {
-        return (ability.damage + this.damage);
+        return [(ability.damage + this.damage), false];
       }
     } else {
-      return 0;
+      return [0, false];
     }
   }
 

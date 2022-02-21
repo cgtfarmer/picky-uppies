@@ -5,7 +5,7 @@ class FlashMessage extends Text {
   }
 
   decrement(amount) {
-    console.log(this.expirationTimer);
+    // console.log(this.expirationTimer);
     this.expirationTimer -= amount;
     if (this.expirationTimer <= 0) {
       this.die();

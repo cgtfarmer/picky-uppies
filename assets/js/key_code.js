@@ -24,10 +24,11 @@ class KeyCode {
   static k = 75;
   static l = 76;
   static m = 77;
-  static o = 78;
-  static p = 79;
-  static q = 80;
-  static r = 81;
+  static n = 78;
+  static o = 79;
+  static p = 80;
+  static q = 81;
+  static r = 82;
   static s = 83;
   static t = 84;
   static u = 85;
