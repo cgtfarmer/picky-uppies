@@ -67,6 +67,8 @@ class Projectile {
   }
 
   #getTickVelocity() {
+    if (!this.target) return;
+
     // Attempt 4
     const xDelta = this.target.sprite.xAnchor - this.sprite.xAnchor;
     const yDelta = this.target.sprite.yAnchor - this.sprite.yAnchor;
@@ -155,6 +157,14 @@ class Projectile {
 
   inflictDamage() {
     this.target.modifyHealth(this.damage * -1);
+    game.currentMap.flashMessages.push(
+      new DamageFlashMessage(
+        this.target.sprite.xAnchor,
+        this.target.sprite.yAnchor - this.target.sprite.height - 10,
+        this.damage,
+        (game.player.currentAbility.castTime * 1000) * (1 - game.player.haste) + 100
+      )
+    );
     this.target.attackingPlayer = true;
     this.target.target = game.player;
   }

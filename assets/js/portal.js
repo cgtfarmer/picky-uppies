@@ -80,6 +80,8 @@ class Portal {
 
     // console.log(`[Portal] [Jump] From: {${this.map.name}: (${this.background.x}, ${this.background.y})} To: {${this.toPortal.map.name}: (${this.toPortal.background.x}, ${this.toPortal.background.y})}`);
     game.player.cancelTarget();
+    game.currentMap.projectiles = [];
+    game.currentMap.flashMessages = [];
     game.currentMap = this.toPortal.map;
     game.player.sprite.x = this.toPortal.background.x;
     game.player.sprite.y = this.toPortal.background.y;

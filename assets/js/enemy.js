@@ -65,7 +65,6 @@ class Enemy {
   advanceCastTime() {
     // console.log('[Enemy] [Advance Cast Time]');
     this.abilityTimer += (game.tickerIncrement / 1000);
-    console.log(`${this.abilityTimer} ||| ${this.currentAbility.castTime}`);
     if (this.abilityTimer > this.currentAbility.castTime) {
       if (this.playerInDisengageRange()) {
         if (this.playerInRange()) {

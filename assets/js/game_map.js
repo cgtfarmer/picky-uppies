@@ -36,6 +36,7 @@ class GameMap {
     this.portals = [];
     this.backgroundStarCoords = [];
     this.projectiles = [];
+    this.flashMessages = [];
 
     if (options.base) {
       this.base = new Base(options.base.x, options.base.y);
@@ -212,6 +213,11 @@ class GameMap {
     }
 
     this.renderName();
+
+    for (let msg of this.flashMessages) {
+      msg.render();
+      msg.decrement(game.tickerIncrement);
+    }
   }
 }
 

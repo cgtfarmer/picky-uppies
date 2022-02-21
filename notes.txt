@@ -9,6 +9,37 @@ add partial loot pickup to respect inventory space
 
 You win on boss kill
 
+Don't respawn on kill? respawn timer instead? Or let whole room die off and regenerate on map entry?
+
+Woah, what if there was a class that focused on spawning small, temporary battle ships?
+
+And one that focused on DoTs?
+
+And one that focused on AoE?
+
+Diablo/Borderlands gear system w/ weapons/shield drops
+  elements
+    electric=shield
+    corrossive=DoT chance
+
+# Weapon Stats
+  attack speed
+  damage
+
+# Weapon Affixes
+
+# SIMPLIFIED EQUIPMENT STARTING OUT
+
+Ship
+  Base HP
+  Num shield slots
+  Num laser slots
+  Num generator slots
+
+Then the player has a ship, which has a sprite, and the ship has weapons equipped to it, which have dmg/attack speed stats
+
+
+
 # --------------------------------------
 
 & add attack queueing mechanism

@@ -5,7 +5,7 @@ class Player {
   static dpsUi = document.querySelector('#player-dps');
   static damageUi = document.querySelector('#player-damage');
   static accuracyUi = document.querySelector('#player-accuracy');
-  static fireRateUi = document.querySelector('#player-fire-rate');
+  static hasteUi = document.querySelector('#player-haste');
   static attackRangeUi = document.querySelector('#player-attack-range');
   static criticalRateUi = document.querySelector('#player-critical-rate');
   static criticalDamageUi = document.querySelector('#player-critical-damage');
@@ -32,7 +32,7 @@ class Player {
     this.speedY = 0;
     this.health = 100;
     this.maxHealth = 100;
-    this.fireRate = 1.0;
+    this.haste = 0;
     this.damage = 10.0; // 10.0, 50.0
     this.accuracy = 0.7; // 0.7, 1.7
     this.criticalRate = 0.1;
@@ -106,9 +106,10 @@ class Player {
   advanceCastTime() {
     // console.log('[Player] [Advance Cast Time]');
     this.abilityTimer += (game.tickerIncrement / 1000);
-    game.castBar.update(this.abilityTimer, this.currentAbility.castTime);
+    const computedCastTime = this.currentAbility.castTime * (1 - this.haste);
+    game.castBar.update(this.abilityTimer, computedCastTime);
     // console.log(this.abilityTimer);
-    if (this.abilityTimer > this.currentAbility.castTime) {
+    if (this.abilityTimer > computedCastTime) {
       if (this.enemyInRange(this.enemyTarget)) {
         this.currentAbility.perform();
         game.player.startAutoAttack();
@@ -191,7 +192,7 @@ class Player {
 
   updateDps() {
     this.dps = Math.round(
-      this.damage * this.fireRate * (1.0 + this.criticalRate) * this.accuracy * 100
+      this.damage * (1 + this.haste) * (1.0 + this.criticalRate) * this.accuracy * 100
     ) / 100;
   }
 
@@ -210,7 +211,7 @@ class Player {
       this.damage += 1;
       this.criticalRate += 0.025;
       this.criticalDamage += 0.05;
-      this.fireRate -= 0.05;
+      this.haste += 0.05;
     }
 
     this.updateExperienceUi();
@@ -408,7 +409,7 @@ class Player {
     Player.maxHpUi.innerHTML = this.maxHealth;
     Player.dpsUi.innerHTML = this.dps;
     Player.damageUi.innerHTML = this.damage;
-    Player.fireRateUi.innerHTML = this.fireRate;
+    Player.hasteUi.innerHTML = this.haste;
     Player.attackRangeUi.innerHTML = this.attackRange;
     Player.accuracyUi.innerHTML = this.accuracy;
     Player.criticalRateUi.innerHTML = this.criticalRate;
