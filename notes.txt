@@ -15,6 +15,7 @@ You win on boss kill
 & add thin autoattack progress bar - nah, this is fine
 
 abilities:
+  blink ability? short teleport in current direction?
   add rocket CD
   add temporary speed increase CD
   super long range pull move that does basically no dmg?

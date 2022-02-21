@@ -364,78 +364,42 @@ class Player {
   }
 
   enemyInTargettingRange(enemy) {
-    if (
-      ((this.sprite.xAnchor - this.targettingRange) < enemy.sprite.xAnchor) &&
-      (enemy.sprite.xAnchor < (this.sprite.xAnchor + this.targettingRange)) &&
-      ((this.sprite.yAnchor - this.targettingRange) < enemy.sprite.yAnchor) &&
-      (enemy.sprite.yAnchor < (this.sprite.yAnchor + this.targettingRange))
-    ) {
-      // console.log(`${msg} true`);
-      return true;
-    } else {
-      // console.log(`${msg} false`);
-      return false;
-    }
+    return Game.pointInArea(
+      [enemy.sprite.xAnchor, enemy.sprite.yAnchor],
+      [(this.sprite.xAnchor - this.targettingRange), (this.sprite.xAnchor + this.targettingRange)],
+      [(this.sprite.yAnchor - this.targettingRange), (this.sprite.yAnchor + this.targettingRange)]
+    );
   }
 
   enemyInRange(enemy) {
     // const msg = '[Player] [Enemy In Range]';
-    if (
-      ((this.sprite.xAnchor - this.currentAbility.range) < enemy.sprite.xAnchor) &&
-      (enemy.sprite.xAnchor < (this.sprite.xAnchor + this.currentAbility.range)) &&
-      ((this.sprite.yAnchor - this.currentAbility.range) < enemy.sprite.yAnchor) &&
-      (enemy.sprite.yAnchor < (this.sprite.yAnchor + this.currentAbility.range))
+    const effectiveRange = this.currentAbility.range + this.attackRange;
 
-      // ((this.sprite.xAnchor - this.attackRange) < enemy.sprite.xAnchor) &&
-      // (enemy.sprite.xAnchor < (this.sprite.xAnchor + this.attackRange)) &&
-      // ((this.sprite.yAnchor - this.attackRange) < enemy.sprite.yAnchor) &&
-      // (enemy.sprite.yAnchor < (this.sprite.yAnchor + this.attackRange))
-    ) {
-      // console.log(`${msg} true`);
-      return true;
-    } else {
-      // console.log(`${msg} false`);
-      return false;
-    }
+    return Game.pointInArea(
+      [enemy.sprite.xAnchor, enemy.sprite.yAnchor],
+      [(this.sprite.xAnchor - effectiveRange), (this.sprite.xAnchor + effectiveRange)],
+      [(this.sprite.yAnchor - effectiveRange), (this.sprite.yAnchor + effectiveRange)]
+    );
   }
 
   enemyInAutoAttackRange(enemy) {
-    // const msg = '[Player] [Enemy In Range]';
-    if (
-      ((this.sprite.xAnchor - this.autoAttackAbility.range) < enemy.sprite.xAnchor) &&
-      (enemy.sprite.xAnchor < (this.sprite.xAnchor + this.autoAttackAbility.range)) &&
-      ((this.sprite.yAnchor - this.autoAttackAbility.range) < enemy.sprite.yAnchor) &&
-      (enemy.sprite.yAnchor < (this.sprite.yAnchor + this.autoAttackAbility.range))
+    const effectiveRange = this.autoAttackAbility.range + this.attackRange;
 
-      // ((this.sprite.xAnchor - this.attackRange) < enemy.sprite.xAnchor) &&
-      // (enemy.sprite.xAnchor < (this.sprite.xAnchor + this.attackRange)) &&
-      // ((this.sprite.yAnchor - this.attackRange) < enemy.sprite.yAnchor) &&
-      // (enemy.sprite.yAnchor < (this.sprite.yAnchor + this.attackRange))
-    ) {
-      // console.log(`${msg} true`);
-      return true;
-    } else {
-      // console.log(`${msg} false`);
-      return false;
-    }
+    return Game.pointInArea(
+      [enemy.sprite.xAnchor, enemy.sprite.yAnchor],
+      [(this.sprite.xAnchor - effectiveRange), (this.sprite.xAnchor + effectiveRange)],
+      [(this.sprite.yAnchor - effectiveRange), (this.sprite.yAnchor + effectiveRange)]
+    );
   }
 
   collectibleInRange(collectible) {
     console.log('[Player] [Collectible In Range]');
-    if (
-      (this.sprite.x < collectible.sprite.xAnchor) &&
-      (collectible.sprite.xAnchor < (this.sprite.x + this.sprite.width)) &&
-      (this.sprite.y < collectible.sprite.yAnchor) &&
-      (collectible.sprite.yAnchor < (this.sprite.y + this.sprite.height))
-      // (this.sprite.x < collectible.sprite.x) &&
-      // (collectible.sprite.x < (this.sprite.x + this.sprite.width)) &&
-      // (this.sprite.y < collectible.sprite.y) &&
-      // (collectible.sprite.y < (this.sprite.y + this.sprite.height))
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+
+    return Game.pointInArea(
+      [collectible.sprite.xAnchor, collectible.sprite.yAnchor],
+      [(this.sprite.x), (this.sprite.x + this.sprite.width)],
+      [(this.sprite.y), (this.sprite.y + this.sprite.height)]
+    );
   }
 
   updateUi() {
@@ -481,19 +445,7 @@ class Player {
   }
 
   render() {
-    // game.ctx.beginPath();
-    // game.ctx.lineWidth = 0.5;
-    // game.ctx.strokeStyle = '#000000';
-    // game.ctx.fillStyle = '#ffffff';
-    // game.ctx.rect(this.sprite.x, this.sprite.y, this.sprite.width, this.sprite.height);
-    // game.ctx.fill();
-    // game.ctx.stroke();
     this.sprite.render();
-
-    // if (this.attackingEnemy && this.enemyInRange(this.enemyTarget)) {
-    //   this.renderAttackAnimation();
-    //   // this.currentAbility.render();
-    // }
   }
 
   // renderAttackAnimation() {

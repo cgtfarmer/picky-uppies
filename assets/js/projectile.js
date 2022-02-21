@@ -156,6 +156,7 @@ class Projectile {
   inflictDamage() {
     this.target.modifyHealth(this.damage * -1);
     this.target.attackingPlayer = true;
+    this.target.target = game.player;
   }
 
   render() {

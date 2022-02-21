@@ -45,11 +45,7 @@ class Portal {
 
   constructor(coords) {
     console.log('[Portal] [Constructor]');
-    // this.x = coords[0];
-    // this.y = coords[1];
-    // this.xAnchor = this.x;
-    // this.yAnchor = this.y;
-    // this.width = 20;
+    this.radius = 50;
     this.map = null;
     this.toPortal = null;
     // this.color = '#bbbbbb';
@@ -70,25 +66,19 @@ class Portal {
   }
 
   playerInRange() {
-    let s = '[Portal] [Player In Range]';
-    if (
-      ((this.background.x - Portal.radius) < game.player.sprite.xAnchor) &&
-      (game.player.sprite.xAnchor < (this.background.x + Portal.radius)) &&
-      ((this.background.y - Portal.radius) < game.player.sprite.yAnchor) &&
-      (game.player.sprite.yAnchor < (this.background.y + Portal.radius))
-    ) {
-      console.log(`${s} true`);
-      return true;
-    } else {
-      console.log(`${s} false`);
-      return false;
-    }
+    console.log('[Portal] [Player In Range]');
+
+    return Game.pointInArea(
+      [game.player.sprite.xAnchor, game.player.sprite.yAnchor],
+      [(this.sprite.x), (this.sprite.x + this.sprite.radius)],
+      [(this.sprite.y), (this.sprite.y + this.sprite.radius)]
+    );
   }
 
   jump() {
     if (this.disabled) return;
 
-    console.log(`[Portal] [Jump] From: {${this.map.name}: (${this.background.x}, ${this.background.y})} To: {${this.toPortal.map.name}: (${this.toPortal.background.x}, ${this.toPortal.background.y})}`);
+    // console.log(`[Portal] [Jump] From: {${this.map.name}: (${this.background.x}, ${this.background.y})} To: {${this.toPortal.map.name}: (${this.toPortal.background.x}, ${this.toPortal.background.y})}`);
     game.player.cancelTarget();
     game.currentMap = this.toPortal.map;
     game.player.sprite.x = this.toPortal.background.x;
@@ -100,22 +90,6 @@ class Portal {
 
     this.background.render();
     this.foreground.render();
-
-    // game.ctx.beginPath();
-    // game.ctx.lineWidth = 2;
-    // game.ctx.strokeStyle = '#000000';
-    // game.ctx.fillStyle = this.color;
-    // game.ctx.arc(this.x, this.y, Portal.radius, 0, 2 * Math.PI, false);
-    // game.ctx.fill();
-    // game.ctx.stroke();
-
-    // game.ctx.beginPath();
-    // game.ctx.lineWidth = 2;
-    // game.ctx.strokeStyle = '#000000';
-    // game.ctx.fillStyle = '#000000';
-    // game.ctx.arc(this.x, this.y, Portal.radius-this.width, 0, 2 * Math.PI, false);
-    // game.ctx.fill();
-    // game.ctx.stroke();
   }
 }
 

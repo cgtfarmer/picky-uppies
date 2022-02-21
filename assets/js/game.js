@@ -4,6 +4,23 @@ class Game {
   static canvasHeight = 9 * 85; // 765
   static debugText = document.querySelector('#debug-text');
 
+  static numberInRange(point, start, end) {
+    if ((start <= point) && (point <= end)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static pointInArea(point, xRange, yRange) {
+    if (Game.numberInRange(point[0], xRange[0], xRange[1]) &&
+        Game.numberInRange(point[1], yRange[0], yRange[1])) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   constructor() {
     console.log('[Game] [Constructor]');
     this.ctx = canvas.getContext('2d');
@@ -71,24 +88,28 @@ class Game {
       enemy.move();
 
       if (enemy.attackingPlayer) {
-        if (enemy.playerInDisengageRange()) {
-          if(enemy.playerInRange()) {
-            this.handleEnemyAttack(enemy);
-
-            if (this.player.health <= 0) {
-              this.player.die();
-            }
-          }
-        } else {
-          console.log('Player exceeded disengage range, cancelling enemy attack');
-          enemy.attackingPlayer = false;
-        }
-      } else {
-        if (enemy.demeanor == 'aggressive' && enemy.playerInAggroRange()) {
-          console.log('Player entered aggro range on aggressive enemy, initiating enemy attack');
-          enemy.attackingPlayer = true;
-        }
+        enemy.advanceCastTime();
       }
+
+      // if (enemy.attackingPlayer) {
+      //   if (enemy.playerInDisengageRange()) {
+      //     if(enemy.playerInRange()) {
+      //       this.handleEnemyAttack(enemy);
+
+      //       if (this.player.health <= 0) {
+      //         this.player.die();
+      //       }
+      //     }
+      //   } else {
+      //     console.log('Player exceeded disengage range, cancelling enemy attack');
+      //     enemy.attackingPlayer = false;
+      //   }
+      // } else {
+      //   if (enemy.demeanor == 'aggressive' && enemy.playerInAggroRange()) {
+      //     console.log('Player entered aggro range on aggressive enemy, initiating enemy attack');
+      //     enemy.attackingPlayer = true;
+      //   }
+      // }
     }
 
     if (this.player.attackingEnemy) {
@@ -118,14 +139,28 @@ class Game {
     // this.updateDebugText();
   }
 
-  handlePlayerAttack() {
-    if ((this.player.fireTicker / 1000) >= this.player.fireRate) {
-      this.player.fire();
-      this.player.fireTicker = 0;
-      console.log('Player completed attack on enemy, initiating enemy attack');
-      this.player.enemyTarget.attackingPlayer = true;
-    } else {
-      this.player.fireTicker += this.tickerIncrement;
+  mouseTargetEnemy(event) {
+    const rect = Game.canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+    console.log("x: " + x + " y: " + y)
+
+    for (let enemy of this.currentMap.enemies) {
+      if (
+        (enemy.sprite.x < x) &&
+        (x < (enemy.sprite.x + enemy.sprite.width)) &&
+        (enemy.sprite.y < y) &&
+        (y < (enemy.sprite.y + enemy.sprite.height))
+      ) {
+        this.player.enemyTarget = enemy;
+        this.targetPortrait.name = this.player.enemyTarget.name;
+        this.targetPortrait.level = this.player.enemyTarget.level;
+        this.targetPortrait.healthBar.update(
+          this.player.enemyTarget.health,
+          this.player.enemyTarget.maxHealth
+        );
+        return;
+      }
     }
   }
 
