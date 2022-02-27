@@ -1,4 +1,6 @@
 
+ammo tracker broken
+
 figure out why dmg numbers flicker when more than 1 on screen at a time
 
 brighten/dampen ability colors based on whether or not target enemy in range?

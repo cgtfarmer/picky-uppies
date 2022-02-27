@@ -40,6 +40,8 @@ class Projectile {
   }
 
   reachedTarget() {
+    console.log(this.sprite);
+    console.log(this.target);
     if (
       (this.sprite.xAnchor > this.target.sprite.x &&
        this.sprite.xAnchor < (this.target.sprite.x + this.target.sprite.width)) &&

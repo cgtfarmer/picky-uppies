@@ -65,18 +65,18 @@ class Enemy {
   advanceCastTime() {
     // console.log('[Enemy] [Advance Cast Time]');
     this.abilityTimer += (game.tickerIncrement / 1000);
-    if (this.abilityTimer > this.currentAbility.castTime) {
-      if (this.playerInDisengageRange()) {
-        if (this.playerInRange()) {
-          this.currentAbility.perform();
-          this.startAutoAttack();
-        } else {
-          this.cancelCast();
-        }
+    if (!(this.abilityTimer > this.currentAbility.castTime)) return;
+
+    if (this.playerInDisengageRange()) {
+      if (this.playerInRange()) {
+        this.currentAbility.perform();
+        this.startAutoAttack();
       } else {
-        console.log('Player exceeded disengage range, cancelling enemy attack');
-        this.attackingPlayer = false;
+        this.cancelCast();
       }
+    } else {
+      console.log('Player exceeded disengage range, cancelling enemy attack');
+      this.attackingPlayer = false;
     }
   }
 
@@ -150,6 +150,12 @@ class Enemy {
   }
 
   move() {
+    if (this.demeanor == 'aggressive' && !this.attackingPlayer && this.playerInAggroRange()) {
+      // console.log('Player entered aggro range on aggressive enemy, initiating enemy attack');
+      this.target = game.player;
+      this.startAutoAttack();
+    }
+
     this.#getTickVelocity();
 
     this.#truncateMapBoundaryVelocity();
@@ -207,6 +213,7 @@ class Enemy {
   }
 
   #pursuePlayer() {
+    // console.log('[Enemy] [Pursue Player]');
     const xDelta = game.player.sprite.xAnchor - this.sprite.xAnchor;
     const yDelta = game.player.sprite.yAnchor - this.sprite.yAnchor;
 
@@ -216,7 +223,8 @@ class Enemy {
     );
 
     // Stop advancing upon reaching player border
-    if (magnitude < (game.player.sprite.height + this.sprite.height)) {
+    // if (magnitude < (game.player.sprite.height + this.sprite.height)) {
+    if (magnitude < ((game.player.sprite.height / 2) + this.sprite.height)) {
       this.speedX = 0;
       this.speedY = 0;
       return;

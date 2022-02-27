@@ -70,8 +70,8 @@ class Portal {
 
     return Game.pointInArea(
       [game.player.sprite.xAnchor, game.player.sprite.yAnchor],
-      [(this.sprite.x), (this.sprite.x + this.sprite.radius)],
-      [(this.sprite.y), (this.sprite.y + this.sprite.radius)]
+      [(this.background.x), (this.background.x + this.background.radius)],
+      [(this.background.y), (this.background.y + this.background.radius)]
     );
   }
 

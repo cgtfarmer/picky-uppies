@@ -7,7 +7,7 @@ class RocketAbility extends Ability {
     this.sprite.x = (game.abilityBar.sprite.x + 5) + 1 + 50;
 
     this.keybindText.x = this.sprite.x + 50 - 5;
-    this.keybindText.content = '1';
+    this.keybindText.content = 'R';
 
     if (this.cooldown > 0) {
       this.cooldownText = new Text(
@@ -53,6 +53,11 @@ class RocketAbility extends Ability {
       damage,
       criticalHit
     );
+  }
+
+  render() {
+    super.render();
+    this.attackDampener
   }
 }
 
