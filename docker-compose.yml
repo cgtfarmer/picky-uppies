@@ -1,0 +1,32 @@
+version: "3.9"
+
+networks:
+  default:
+    name: ${COMPOSE_PROJECT_NAME}
+
+services:
+  ui:
+    image: node:18.15.0
+    user: node
+    working_dir: /home/node/app
+    environment:
+      NODE_ENV: development
+    ports:
+      - 80:3000
+    volumes:
+      - ./:/home/node/app
+    extra_hosts: # For Linux
+      - host.docker.internal:host-gateway
+    tty: true
+    expose:
+      - 3000
+    command: "npm run dev"
+
+  cdk:
+    build:
+      context: ./cdk
+      target: cdk-typescript
+    user: node
+    tty: true
+    volumes:
+      - ./cdk/:/home/node/app

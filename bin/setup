@@ -1,0 +1,19 @@
+#!/bin/bash
+
+scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $scriptDir/utilities
+
+main() {
+  printMsg "-- Downloading & Installing NodeJS Image..."
+  docker-compose up -d
+
+  printMsg "-- Installing NPM Dependencies..."
+  docker-compose run --rm web npm install
+
+  printMsg "-- Bringing Up Stack..."
+  docker-compose down; docker-compose up -d
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  main "$@"
+fi
