@@ -1,8 +1,12 @@
+import { Renderable } from '../interfaces/renderable';
 import Character from './character';
-import Rectangle from './rectangle';
+import Inventory from './inventory';
 import Sprite from './sprite';
+import Transform from './transform';
 
-export default class Player extends Character {
+export default class Player extends Character implements Renderable {
+
+  private inventory: Inventory;
 
   public constructor(
     name: string,
@@ -13,7 +17,9 @@ export default class Player extends Character {
     critChance: number,
     critDamage: number,
     attackRange: number,
+    transform: Transform,
     sprite: Sprite,
+    inventory: Inventory
     // autoAttackAbility: Ability,
   ) {
     super(
@@ -25,7 +31,13 @@ export default class Player extends Character {
       critChance,
       critDamage,
       attackRange,
+      transform,
       sprite
     );
+
+    this.inventory = inventory;
+  }
+
+  public render(): void {
   }
 }

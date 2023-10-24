@@ -1,5 +1,5 @@
 import Character from './character';
-import { Demeanor } from './demeanor';
+import { Demeanor } from '../enums/demeanor';
 import Sprite from './sprite';
 
 export default class Enemy extends Character {
