@@ -1,3 +1,4 @@
+import Canvas from '../models/canvas';
 import Game from '../models/game';
 import Player from '../models/player';
 import Scene from '../models/scene';
@@ -14,13 +15,13 @@ export default class GameFactory {
     return this.singleton;
   }
 
-  public createDefault(container: Element): Game {
+  public createDefault(canvas: Canvas): Game {
     const player: Player = PlayerFactory.getInstance().createDefault();
 
     const scenes: Scene[] = SceneFactory.getInstance().createScenes(player);
 
     return new Game(
-      container,
+      canvas,
       player,
       scenes
     );

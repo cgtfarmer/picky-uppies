@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import { useEffect } from 'react';
 import ElementAccessor from '@/lib/accessor/element-accessor';
 import GameFactory from '@/lib/factories/game-factory';
+import Canvas from '@/lib/models/canvas';
 
 const Page = () => {
 
@@ -12,7 +13,9 @@ const Page = () => {
 
     if (!container) return;
 
-    const game = GameFactory.getInstance().createDefault(container);
+    const canvas = new Canvas(container, 1360, 765, '#888888')
+
+    const game = GameFactory.getInstance().createDefault(canvas);
   }, []);
 
   return (
