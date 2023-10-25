@@ -1,19 +1,50 @@
 export default abstract class Sprite {
 
-  private x: number;
-  private y: number;
   private width: number;
   private height: number;
+  private lineWidth: number;
+  private strokeColor: string;
+  private fillColor: string;
+
+  private fill: boolean;
 
   public constructor(
-    x: number,
-    y: number,
     width: number,
     height: number,
+    lineWidth: number,
+    strokeColor: string,
+    fillColor: string,
+    fill: boolean,
   ) {
-    this.x = x;
-    this.y = y;
     this.width = width;
     this.height = height;
+    this.lineWidth = lineWidth;
+    this.strokeColor = strokeColor;
+    this.fillColor = fillColor;
+    this.fill = fill;
+  }
+
+  public getWidth(): number {
+    return this.width;
+  }
+
+  public getHeight(): number {
+    return this.height;
+  }
+
+  public getLineWidth(): number {
+    return this.lineWidth;
+  }
+
+  public getStrokeColor(): string {
+    return this.strokeColor;
+  }
+
+  public getFillColor(): string {
+    return this.fillColor;
+  }
+
+  public getFill(): boolean {
+    return this.fill;
   }
 }

@@ -2,11 +2,14 @@ import Sprite from './sprite';
 
 export default class Rectangle extends Sprite {
 
-  private color: string;
-
-  public constructor(x: number, y: number, width: number, height: number, color: string) {
-    super(x, y, width, height);
-
-    this.color = color;
+  public constructor(
+    width: number,
+    height: number,
+    lineWidth: number,
+    strokeColor: string,
+    fillColor: string,
+    fill: boolean,
+  ) {
+    super(width, height, lineWidth, strokeColor, fillColor, fill);
   }
 }

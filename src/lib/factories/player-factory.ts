@@ -15,7 +15,7 @@ export default class PlayerFactory {
   }
 
   public createDefault(): Player {
-    const sprite: Sprite = new Rectangle(0, 0, 40, 40, '#ff0000');
+    const sprite: Sprite = new Rectangle(40, 40, 2, '#000000', '#ff0000', true);
 
     const inventory: Inventory = new Inventory();
 

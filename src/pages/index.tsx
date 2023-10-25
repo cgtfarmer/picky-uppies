@@ -13,7 +13,7 @@ const Page = () => {
 
     if (!container) return;
 
-    const canvas = new Canvas(container, 1360, 765, '#888888')
+    const canvas = new Canvas(container, 1360, 765, '#888888');
 
     const game = GameFactory.getInstance().createDefault(canvas);
   }, []);

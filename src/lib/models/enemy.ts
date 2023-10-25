@@ -1,6 +1,7 @@
 import Character from './character';
 import { Demeanor } from '../enums/demeanor';
 import Sprite from './sprite';
+import Transform from './transform';
 
 export default class Enemy extends Character {
   private aggroRange: number;
@@ -19,6 +20,7 @@ export default class Enemy extends Character {
     critChance: number,
     critDamage: number,
     attackRange: number,
+    transform: Transform,
     sprite: Sprite,
     aggroRange: number,
     disengageRange: number,
@@ -35,6 +37,7 @@ export default class Enemy extends Character {
       critChance,
       critDamage,
       attackRange,
+      transform,
       sprite
     );
 
