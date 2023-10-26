@@ -1,28 +1,35 @@
-import CanvasDisplay from '../../engine/model/display/canvas-display';
+import Display from '../../engine/model/display/canvas-display';
 import BrowserInputModule from '../../engine/model/input-module/browser-input-module';
-import Inventory from '../models/inventory';
-import Player from '../models/player';
+import Inventory from '../model/inventory';
+import Player from '../model/character/player';
 import RectangleSprite from '../../engine/model/sprite/canvas/rectangle-sprite';
-import RectangleSpriteCanvasRenderer
-  from '../../engine/model/sprite-renderer/canvas/rectangle-sprite-canvas-renderer';
 import Transform from '../../engine/model/transform';
 import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
 import { InputModule } from '@/lib/engine/model/input-module/input-module';
+import SpriteRendererFactory from '@/lib/engine/model/sprite-renderer/sprite-renderer-factory';
 
 export default class PlayerFactory {
 
   private static singleton: PlayerFactory;
 
-  private readonly canvas: CanvasDisplay;
+  private readonly display: Display;
 
-  public static getInstance(canvas: CanvasDisplay): PlayerFactory {
-    if (this.singleton == null) this.singleton = new PlayerFactory(canvas);
+  private readonly spriteRendererFactory: SpriteRendererFactory;
+
+  public static getInstance(display: Display): PlayerFactory {
+    if (this.singleton == null) {
+      this.singleton = new PlayerFactory(
+        display,
+        SpriteRendererFactory.getInstance()
+      );
+    }
 
     return this.singleton;
   }
 
-  public constructor(canvas: CanvasDisplay) {
-    this.canvas = canvas;
+  public constructor(display: Display, spriteRendererFactory: SpriteRendererFactory) {
+    this.display = display;
+    this.spriteRendererFactory = spriteRendererFactory;
   }
 
   public createDefault(): Player {
@@ -33,11 +40,16 @@ export default class PlayerFactory {
     const transform: Transform = new Transform(0, 0);
 
     const spriteRenderer: SpriteRenderer =
-      new RectangleSpriteCanvasRenderer(sprite, transform, this.canvas);
+      this.spriteRendererFactory.create(sprite, this.display, transform);
+      // new RectangleSpriteCanvasRenderer(sprite, transform, this.canvas);
 
     const inputModule: InputModule = new BrowserInputModule();
 
     return new Player(
+      transform,
+      sprite,
+      spriteRenderer,
+      inputModule,
       'Player',
       100,
       100,
@@ -46,10 +58,6 @@ export default class PlayerFactory {
       0.05,
       0.5,
       100,
-      transform,
-      sprite,
-      spriteRenderer,
-      inputModule,
       inventory
     );
   }

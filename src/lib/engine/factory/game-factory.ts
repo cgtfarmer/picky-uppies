@@ -1,6 +1,6 @@
 import CanvasDisplay from '../model/display/canvas-display';
 import Game from '../model/game';
-import Player from '../../game/models/player';
+import Player from '../../game/model/character/player';
 import Scene from '../model/scene';
 import PlayerFactory from '../../game/factory/player-factory';
 import SceneFactory from './scene-factory';
@@ -24,7 +24,7 @@ export default class GameFactory {
   public createDefault(): Game {
     const player: Player = PlayerFactory.getInstance(this.canvas).createDefault();
 
-    const scenes: Scene[] = SceneFactory.getInstance().createScenes(player);
+    const scenes: Scene[] = SceneFactory.getInstance(this.canvas).createScenes(player);
 
     return new Game(
       this.canvas,

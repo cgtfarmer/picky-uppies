@@ -1,9 +1,9 @@
-import { Renderable } from '../../engine/interface/renderable';
+import { Renderable } from '../../../engine/interface/renderable';
 import Character from './character';
-import Inventory from './inventory';
-import Sprite from '../../engine/model/sprite/sprite';
-import Transform from '../../engine/model/transform';
-import Vector2 from '../../engine/model/vector2';
+import Inventory from '../inventory';
+import Sprite from '../../../engine/model/sprite/sprite';
+import Transform from '../../../engine/model/transform';
+import Vector2 from '../../../engine/model/vector2';
 import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
 import { InputModule } from '@/lib/engine/model/input-module/input-module';
 
@@ -18,6 +18,10 @@ export default class Player extends Character implements Renderable {
   private movementSpeed: number;
 
   public constructor(
+    transform: Transform,
+    sprite: Sprite,
+    spriteRenderer: SpriteRenderer,
+    inputModule: InputModule,
     name: string,
     maxHealth: number,
     health: number,
@@ -26,14 +30,13 @@ export default class Player extends Character implements Renderable {
     critChance: number,
     critDamage: number,
     attackRange: number,
-    transform: Transform,
-    sprite: Sprite,
-    spriteRenderer: SpriteRenderer,
-    inputModule: InputModule,
     inventory: Inventory
     // autoAttackAbility: Ability,
   ) {
     super(
+      transform,
+      sprite,
+      spriteRenderer,
       name,
       maxHealth,
       health,
@@ -42,9 +45,6 @@ export default class Player extends Character implements Renderable {
       critChance,
       critDamage,
       attackRange,
-      transform,
-      sprite,
-      spriteRenderer
     );
 
     this.inventory = inventory;

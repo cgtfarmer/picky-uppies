@@ -2,7 +2,7 @@ import ElementAccessor from '../../accessor/element-accessor';
 import GameFactory from '../factory/game-factory';
 import { Renderable } from '../interface/renderable';
 import CanvasDisplay from './display/canvas-display';
-import Player from '../../game/models/player';
+import Player from '../../game/model/character/player';
 import Scene from './scene';
 
 export default class Game implements Renderable {

@@ -1,7 +1,7 @@
 import Character from './character';
-import { Demeanor } from '../enum/demeanor';
-import Sprite from '../../engine/model/sprite/sprite';
-import Transform from '../../engine/model/transform';
+import { Demeanor } from '../../enum/demeanor';
+import Sprite from '../../../engine/model/sprite/sprite';
+import Transform from '../../../engine/model/transform';
 import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
 
 export default class Enemy extends Character {
@@ -13,6 +13,9 @@ export default class Enemy extends Character {
   private lootTable: LootTable;
 
   public constructor(
+    transform: Transform,
+    sprite: Sprite,
+    spriteRenderer: SpriteRenderer,
     name: string,
     maxHealth: number,
     health: number,
@@ -21,9 +24,6 @@ export default class Enemy extends Character {
     critChance: number,
     critDamage: number,
     attackRange: number,
-    transform: Transform,
-    sprite: Sprite,
-    spriteRenderer: SpriteRenderer,
     aggroRange: number,
     disengageRange: number,
     experience: number,
@@ -31,6 +31,9 @@ export default class Enemy extends Character {
     lootTable: LootTable
   ) {
     super(
+      transform,
+      sprite,
+      spriteRenderer,
       name,
       maxHealth,
       health,
@@ -38,10 +41,7 @@ export default class Enemy extends Character {
       attackSpeed,
       critChance,
       critDamage,
-      attackRange,
-      transform,
-      sprite,
-      spriteRenderer
+      attackRange
     );
 
     this.aggroRange = aggroRange;

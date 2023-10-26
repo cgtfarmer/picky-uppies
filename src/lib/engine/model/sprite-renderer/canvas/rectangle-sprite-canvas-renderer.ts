@@ -11,10 +11,10 @@ export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
 
   private readonly canvasContext: CanvasRenderingContext2D;
 
-  public constructor(sprite: RectangleSprite, transform: Transform, canvas: CanvasDisplay) {
+  public constructor(sprite: RectangleSprite, canvas: CanvasDisplay, transform: Transform) {
     this.sprite = sprite;
-    this.transform = transform;
     this.canvas = canvas;
+    this.transform = transform;
     this.canvasContext = this.canvas.getContext();
   }
 

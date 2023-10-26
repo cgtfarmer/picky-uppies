@@ -20,4 +20,3 @@ class Circle {
     game.ctx.stroke();
   }
 }
-
