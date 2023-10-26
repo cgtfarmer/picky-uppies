@@ -1,5 +1,7 @@
 export default class ElementAccessor {
 
+  // public static container: Element | null = document.querySelector('container');
+
   private static singleton: ElementAccessor;
 
   public static getInstance(): ElementAccessor {

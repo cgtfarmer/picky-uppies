@@ -1,5 +1,5 @@
-import Player from '../models/player';
-import Scene from '../models/scene';
+import Player from '../../game/models/player';
+import Scene from '../model/scene';
 
 export default class SceneFactory {
 

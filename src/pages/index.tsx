@@ -1,8 +1,8 @@
 import Container from 'react-bootstrap/Container';
 import { useEffect } from 'react';
 import ElementAccessor from '@/lib/accessor/element-accessor';
-import GameFactory from '@/lib/factories/game-factory';
-import Canvas from '@/lib/models/canvas';
+import GameFactory from '@/lib/engine/factory/game-factory';
+import CanvasDisplay from '@/lib/engine/model/display/canvas-display';
 
 const Page = () => {
 
@@ -13,9 +13,12 @@ const Page = () => {
 
     if (!container) return;
 
-    const canvas = new Canvas(container, 1360, 765, '#888888');
+    const canvasDisplay = CanvasDisplay.getInstance();
 
-    const game = GameFactory.getInstance().createDefault(canvas);
+    container.insertAdjacentElement('beforeend', canvasDisplay.getHtmlCanvasElement());
+
+    const game = GameFactory.getInstance(canvasDisplay).createDefault();
+    game.start();
   }, []);
 
   return (

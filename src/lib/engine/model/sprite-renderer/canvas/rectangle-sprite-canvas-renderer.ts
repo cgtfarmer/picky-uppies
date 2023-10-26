@@ -1,14 +1,14 @@
-import Sprite from './sprite';
-import Transform from './transform';
+import RectangleSprite from '../../sprite/canvas/rectangle-sprite';
+import Transform from '../../transform';
 
-export default class SpriteRenderer {
+export default class RectangleSpriteCanvasRenderer {
 
-  private readonly sprite: Sprite;
+  private readonly sprite: RectangleSprite;
   private readonly transform: Transform;
   private readonly canvasContext: CanvasRenderingContext2D;
 
   public constructor(
-    sprite: Sprite, transform: Transform, canvasContext: CanvasRenderingContext2D
+    sprite: RectangleSprite, transform: Transform, canvasContext: CanvasRenderingContext2D
   ) {
     this.sprite = sprite;
     this.transform = transform;

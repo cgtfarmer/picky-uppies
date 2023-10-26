@@ -1,7 +1,8 @@
 import Character from './character';
-import { Demeanor } from '../enums/demeanor';
-import Sprite from './sprite';
-import Transform from './transform';
+import { Demeanor } from '../enum/demeanor';
+import Sprite from '../../engine/model/sprite/sprite';
+import Transform from '../../engine/model/transform';
+import RectangleSpriteCanvasRenderer from '../../engine/model/sprite-renderer/canvas/rectangle-sprite-canvas-renderer';
 
 export default class Enemy extends Character {
   private aggroRange: number;
@@ -22,6 +23,7 @@ export default class Enemy extends Character {
     attackRange: number,
     transform: Transform,
     sprite: Sprite,
+    spriteRenderer: RectangleSpriteCanvasRenderer,
     aggroRange: number,
     disengageRange: number,
     experience: number,
@@ -38,7 +40,8 @@ export default class Enemy extends Character {
       critDamage,
       attackRange,
       transform,
-      sprite
+      sprite,
+      spriteRenderer
     );
 
     this.aggroRange = aggroRange;
@@ -46,5 +49,9 @@ export default class Enemy extends Character {
     this.experience = experience;
     this.demeanor = demeanor;
     this.lootTable = lootTable;
+  }
+
+  public update(): void {
+    this.spriteRenderer.render();
   }
 }

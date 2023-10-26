@@ -1,4 +1,4 @@
-import { Renderable } from '../interfaces/renderable';
+import { Renderable } from '../interface/renderable';
 
 export default class Scene implements Renderable {
 
@@ -13,7 +13,7 @@ export default class Scene implements Renderable {
     this.renderables = renderables;
   }
 
-  public render() {
-    this.renderables.forEach(e => e.render());
+  public update(): void {
+    this.renderables.forEach(e => e.update());
   }
 }

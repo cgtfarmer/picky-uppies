@@ -1,7 +1,9 @@
-import Sprite from './sprite';
-import Transform from './transform';
+import { Renderable } from '../../engine/interface/renderable';
+import Sprite from '../../engine/model/sprite/sprite';
+import RectangleSpriteCanvasRenderer from '../../engine/model/sprite-renderer/canvas/rectangle-sprite-canvas-renderer';
+import Transform from '../../engine/model/transform';
 
-export default abstract class Character {
+export default abstract class Character implements Renderable {
 
   private name: string;
 
@@ -18,9 +20,11 @@ export default abstract class Character {
   private attackTicker: number;
   private abilityTicker: number;
 
-  private transform: Transform;
+  protected transform: Transform;
 
   private sprite: Sprite;
+
+  protected spriteRenderer: RectangleSpriteCanvasRenderer;
 
   private target: Character | null;
 
@@ -38,6 +42,7 @@ export default abstract class Character {
     attackRange: number,
     transform: Transform,
     sprite: Sprite,
+    spriteRenderer: RectangleSpriteCanvasRenderer
     // autoAttackAbility: Ability,
   ) {
     this.name = name;
@@ -52,8 +57,14 @@ export default abstract class Character {
     this.abilityTicker = 0;
     this.transform = transform;
     this.sprite = sprite;
+    this.spriteRenderer = spriteRenderer;
     this.target = null;
     // this.autoAttackAbility = autoAttackAbility;
     // this.currentAbility = null;
+  }
+
+  public update(): void {
+    throw Error('Override this method');
+    // this.spriteRenderer.render();
   }
 }
