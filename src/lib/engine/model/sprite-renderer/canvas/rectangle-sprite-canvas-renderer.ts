@@ -1,18 +1,21 @@
+import CanvasDisplay from '../../display/canvas-display';
 import RectangleSprite from '../../sprite/canvas/rectangle-sprite';
 import Transform from '../../transform';
+import { SpriteRenderer } from '../sprite-renderer';
 
-export default class RectangleSpriteCanvasRenderer {
+export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
 
   private readonly sprite: RectangleSprite;
   private readonly transform: Transform;
+  private readonly canvas: CanvasDisplay;
+
   private readonly canvasContext: CanvasRenderingContext2D;
 
-  public constructor(
-    sprite: RectangleSprite, transform: Transform, canvasContext: CanvasRenderingContext2D
-  ) {
+  public constructor(sprite: RectangleSprite, transform: Transform, canvas: CanvasDisplay) {
     this.sprite = sprite;
     this.transform = transform;
-    this.canvasContext = canvasContext;
+    this.canvas = canvas;
+    this.canvasContext = this.canvas.getContext();
   }
 
   public render() {

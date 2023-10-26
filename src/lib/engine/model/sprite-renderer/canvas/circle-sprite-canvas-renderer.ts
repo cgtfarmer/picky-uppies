@@ -1,8 +1,9 @@
 import CanvasDisplay from '../../display/canvas-display';
 import CircleSprite from '../../sprite/canvas/circle-sprite';
 import Transform from '../../transform';
+import { SpriteRenderer } from '../sprite-renderer';
 
-export default class CircleSpriteCanvasRenderer {
+export default class CircleSpriteCanvasRenderer implements SpriteRenderer {
 
   private static readonly START_ANGLE: number = 0;
   private static readonly END_ANGLE: number = 2 * Math.PI;
@@ -18,7 +19,7 @@ export default class CircleSpriteCanvasRenderer {
     this.sprite = sprite;
     this.transform = transform;
     this.canvas = canvas;
-    this.canvasContext = canvas.getContext();
+    this.canvasContext = this.canvas.getContext();
   }
 
   public render() {
@@ -28,8 +29,8 @@ export default class CircleSpriteCanvasRenderer {
     this.canvasContext.fillStyle = this.sprite.getFillColor();
 
     this.canvasContext.arc(
-      this.transform.x,
-      this.transform.y,
+      this.transform.getX(),
+      this.transform.getY(),
       this.sprite.getRadius(),
       CircleSpriteCanvasRenderer.START_ANGLE,
       CircleSpriteCanvasRenderer.END_ANGLE,

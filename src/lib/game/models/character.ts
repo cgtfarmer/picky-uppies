@@ -1,6 +1,6 @@
+import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
 import { Renderable } from '../../engine/interface/renderable';
 import Sprite from '../../engine/model/sprite/sprite';
-import RectangleSpriteCanvasRenderer from '../../engine/model/sprite-renderer/canvas/rectangle-sprite-canvas-renderer';
 import Transform from '../../engine/model/transform';
 
 export default abstract class Character implements Renderable {
@@ -24,7 +24,7 @@ export default abstract class Character implements Renderable {
 
   private sprite: Sprite;
 
-  protected spriteRenderer: RectangleSpriteCanvasRenderer;
+  protected spriteRenderer: SpriteRenderer;
 
   private target: Character | null;
 
@@ -42,7 +42,7 @@ export default abstract class Character implements Renderable {
     attackRange: number,
     transform: Transform,
     sprite: Sprite,
-    spriteRenderer: RectangleSpriteCanvasRenderer
+    spriteRenderer: SpriteRenderer
     // autoAttackAbility: Ability,
   ) {
     this.name = name;

@@ -1,12 +1,11 @@
 import { Renderable } from '../../engine/interface/renderable';
 import Character from './character';
-import InputModule from '../../engine/model/input-module';
 import Inventory from './inventory';
 import Sprite from '../../engine/model/sprite/sprite';
-import RectangleSpriteCanvasRenderer
-  from '../../engine/model/sprite-renderer/canvas/rectangle-sprite-canvas-renderer';
 import Transform from '../../engine/model/transform';
 import Vector2 from '../../engine/model/vector2';
+import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
+import { InputModule } from '@/lib/engine/model/input-module/input-module';
 
 export default class Player extends Character implements Renderable {
 
@@ -29,7 +28,7 @@ export default class Player extends Character implements Renderable {
     attackRange: number,
     transform: Transform,
     sprite: Sprite,
-    spriteRenderer: RectangleSpriteCanvasRenderer,
+    spriteRenderer: SpriteRenderer,
     inputModule: InputModule,
     inventory: Inventory
     // autoAttackAbility: Ability,
@@ -65,8 +64,8 @@ export default class Player extends Character implements Renderable {
     );
 
     // console.log(`Transform before: ${this.transform.x}`);
-    this.transform.x = (this.transform.x + this.velocity.x);
-    this.transform.y = (this.transform.y + this.velocity.y);
+    this.transform.setX(this.transform.getX() + this.velocity.x);
+    this.transform.setY(this.transform.getY() + this.velocity.y);
     // console.log(`Transform after: ${this.transform.x}`);
 
     this.spriteRenderer.render();

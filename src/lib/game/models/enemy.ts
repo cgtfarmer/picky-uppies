@@ -2,7 +2,7 @@ import Character from './character';
 import { Demeanor } from '../enum/demeanor';
 import Sprite from '../../engine/model/sprite/sprite';
 import Transform from '../../engine/model/transform';
-import RectangleSpriteCanvasRenderer from '../../engine/model/sprite-renderer/canvas/rectangle-sprite-canvas-renderer';
+import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
 
 export default class Enemy extends Character {
   private aggroRange: number;
@@ -23,7 +23,7 @@ export default class Enemy extends Character {
     attackRange: number,
     transform: Transform,
     sprite: Sprite,
-    spriteRenderer: RectangleSpriteCanvasRenderer,
+    spriteRenderer: SpriteRenderer,
     aggroRange: number,
     disengageRange: number,
     experience: number,

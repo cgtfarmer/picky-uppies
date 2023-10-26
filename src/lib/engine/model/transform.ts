@@ -1,7 +1,7 @@
 export default class Transform {
 
-  public x: number;
-  public y: number;
+  private x: number;
+  private y: number;
 
   public constructor(x: number, y: number) {
     this.x = x;
