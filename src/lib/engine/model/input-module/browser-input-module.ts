@@ -41,9 +41,13 @@ export default class BrowserInputModule implements InputModule {
   public getXAxis(): number {
     let value = 0;
 
-    if (this.keys.has('a')) value = -1;
+    if (this.keys.has('a') || this.keys.has('ArrowLeft')) {
+      value = -1;
+    }
 
-    if (this.keys.has('d')) value += 1;
+    if (this.keys.has('d') || this.keys.has('ArrowRight')) {
+      value += 1;
+    }
 
     // if (InputModule.keys.has('a')) value = -1;
 
@@ -55,9 +59,13 @@ export default class BrowserInputModule implements InputModule {
   public getYAxis(): number {
     let value = 0;
 
-    if (this.keys.has('s')) value = -1;
+    if (this.keys.has('s') || this.keys.has('ArrowDown')) {
+      value = -1;
+    }
 
-    if (this.keys.has('w')) value += 1;
+    if (this.keys.has('w') || this.keys.has('ArrowUp')) {
+      value += 1;
+    }
 
     // if (InputModule.keys.has('s')) value = -1;
 

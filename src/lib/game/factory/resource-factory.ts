@@ -29,7 +29,7 @@ export default class ResourceFactory {
   }
 
   public createPrometium(x: number, y: number): Resource {
-    const sprite: Sprite = new CircleSprite(30, true, 2, '#ff0000', '#000000');
+    const sprite: Sprite = new CircleSprite(10, true, 2, '#ff0000', '#000000');
 
     const transform: Transform = new Transform(x, y);
 
@@ -46,7 +46,7 @@ export default class ResourceFactory {
   }
 
   public createEndurium(x: number, y: number): Resource {
-    const sprite: Sprite = new CircleSprite(30, true, 2, '#0000ff', '#000000');
+    const sprite: Sprite = new CircleSprite(10, true, 2, '#0000ff', '#000000');
 
     const transform: Transform = new Transform(x, y);
 
@@ -63,7 +63,7 @@ export default class ResourceFactory {
   }
 
   public createTerbium(x: number, y: number): Resource {
-    const sprite: Sprite = new CircleSprite(30, true, 2, '#ffff00', '#000000');
+    const sprite: Sprite = new CircleSprite(10, true, 2, '#ffff00', '#000000');
 
     const transform: Transform = new Transform(x, y);
 
