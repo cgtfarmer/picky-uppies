@@ -18,10 +18,13 @@ const Page = () => {
 
     const display: CanvasDisplay = DisplayFactory.getInstance().createCanvas();
 
-    const canvas: Element | null = DomAccessor.getInstance().get(canvasId);
+    let canvas: Element | null = DomAccessor.getInstance().get(canvasId);
 
-    if (canvas == null)
-      container.insertAdjacentElement('beforeend', display.getHtmlCanvasElement());
+    if (canvas != null) {
+      canvas.remove();
+    }
+
+    container.insertAdjacentElement('beforeend', display.getHtmlCanvasElement());
 
     // const game = GameFactory.getInstance().createDefault();
     const game: Game = Game.getInstance();

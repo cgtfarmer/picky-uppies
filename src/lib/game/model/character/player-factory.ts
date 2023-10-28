@@ -49,7 +49,7 @@ export default class PlayerFactory {
     const inputModule: InputModule = new BrowserInputModule();
 
     const keybindings: Map<string, Action> = new Map<string, Action>([
-      ['Space', new Interact(0, 20)],
+      [' ', new Interact(0, 20)],
     ]);
     const keybindModule: KeybindModule = new KeybindModule(inputModule, keybindings);
 

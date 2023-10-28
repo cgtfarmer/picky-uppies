@@ -29,8 +29,11 @@ export default class KeybindModule {
     this.inputModule.getActiveKeys().forEach((key: string) => {
       if (this.player == null) throw Error('Must be registered to player');
 
-      this.keybindings.get(key)
-        ?.perform(this.player.getTransform().position);
+      const action: Action | undefined = this.keybindings.get(key);
+      if (action == undefined) return;
+
+      console.log(`[KeybindModule#perform] '${key}'`);
+      action.perform(this.player.getTransform().position);
     });
   }
 }

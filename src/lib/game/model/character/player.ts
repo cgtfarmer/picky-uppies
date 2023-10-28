@@ -81,6 +81,7 @@ export default class Player extends Character implements Renderable {
 
     this.keybindModule?.perform();
 
+    // console.log(this.spriteRenderer);
     this.spriteRenderer?.render();
   }
 }

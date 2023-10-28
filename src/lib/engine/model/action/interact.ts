@@ -1,4 +1,5 @@
 import { Renderable } from '../../interface/renderable';
+import GameObject from '../game-object';
 import Game from '../game/game';
 import Vector2 from '../vector2';
 import { Action } from './action';
@@ -22,9 +23,9 @@ export default class Interact implements Action {
     //   position, this.radius, Game.getInstance().getActiveScene().getRenderables()
     // );
 
-    // const renderables: Renderable[] = Game.getInstance()
-    //   .getActiveScene()
-    //   .getRenderables();
+    const gameObjects: GameObject[] = Game.getInstance()
+      .getActiveScene()
+      .getGameObjects();
 
     // emit 'interact' events on each one?
   }
