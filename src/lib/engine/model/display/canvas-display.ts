@@ -13,7 +13,7 @@ export default class CanvasDisplay extends Display {
 
   public static getInstance(): CanvasDisplay {
     if (this.singleton == null) this.singleton =
-      new CanvasDisplay(1280, 720, '#888888');
+      new CanvasDisplay(1280, 720, '#000000');
     // new Canvas(container, 1360, 765, '#888888');
 
     return this.singleton;

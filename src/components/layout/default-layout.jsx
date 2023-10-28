@@ -9,7 +9,7 @@ const Component = ({ children }) => {
         <NavbarTop links={navbarLinks} />
       </header>
 
-      <main className="container-fluid">
+      <main className="container-fluid bg-secondary">
         {children}
       </main>
 
