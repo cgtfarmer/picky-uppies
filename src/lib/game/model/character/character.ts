@@ -6,7 +6,7 @@ import UuidProvider from '@/lib/accessor/uuid-providor';
 
 export default abstract class Character implements Renderable {
 
-  private readonly id: string;
+  public readonly id: string;
 
   protected readonly transform: Transform;
 

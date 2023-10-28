@@ -66,6 +66,10 @@ export default class BrowserInputModule implements InputModule {
     return value;
   }
 
+  public getKeyDown(key: string): boolean {
+    return this.keys.has(key);
+  }
+
   // private registerKey(event: KeyboardEvent): void {
   //   event.preventDefault();
   //   console.log(`[InputModule#registerKey] ${event.type}, ${event.key}, ${event.repeat}`);

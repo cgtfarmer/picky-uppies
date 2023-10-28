@@ -4,6 +4,7 @@ import { Renderable } from '../interface/renderable';
 import CanvasDisplay from './display/canvas-display';
 import Player from '../../game/model/character/player';
 import Scene from './scene';
+import Display from './display/display';
 
 export default class Game implements Renderable {
 
@@ -11,7 +12,7 @@ export default class Game implements Renderable {
 
   private static singleton: Game;
 
-  private readonly canvas: CanvasDisplay;
+  private readonly display: Display;
 
   private readonly player: Player;
 
@@ -23,15 +24,15 @@ export default class Game implements Renderable {
 
   private interval: number | null;
 
-  public static getInstance(canvas: CanvasDisplay): Game {
+  public static getInstance(display: Display): Game {
     if (this.singleton == null) this.singleton =
-      GameFactory.getInstance(canvas).createDefault();
+      GameFactory.getInstance(display).createDefault();
 
     return this.singleton;
   }
 
-  public constructor(canvas: CanvasDisplay, player: Player, scenes: Scene[]) {
-    this.canvas = canvas;
+  public constructor(display: Display, player: Player, scenes: Scene[]) {
+    this.display = display;
     this.player = player;
     this.scenes = scenes;
     this.running = false;
@@ -42,9 +43,13 @@ export default class Game implements Renderable {
     this.activeScene = scenes[0];
   }
 
+  public getActiveScene(): Scene {
+    return this.activeScene;
+  }
+
   public update(): void {
     // console.log('[Game#update]');
-    this.canvas.clearFrame();
+    this.display.clearFrame();
 
     this.activeScene.update();
   }

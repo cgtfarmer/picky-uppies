@@ -7,6 +7,7 @@ import Transform from '../../engine/model/transform';
 import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
 import { InputModule } from '@/lib/engine/model/input-module/input-module';
 import SpriteRendererFactory from '@/lib/engine/model/sprite-renderer/sprite-renderer-factory';
+import Vector2 from '@/lib/engine/model/vector2';
 
 export default class PlayerFactory {
 
@@ -37,7 +38,7 @@ export default class PlayerFactory {
 
     const inventory: Inventory = new Inventory();
 
-    const transform: Transform = new Transform(0, 0);
+    const transform: Transform = new Transform(new Vector2(0, 0));
 
     const spriteRenderer: SpriteRenderer =
       this.spriteRendererFactory.create(sprite, this.display, transform);

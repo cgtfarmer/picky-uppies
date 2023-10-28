@@ -25,7 +25,10 @@ export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
     this.canvasContext.fillStyle = this.sprite.getFillColor();
 
     this.canvasContext.rect(
-      this.transform.getX(), this.transform.getY(), this.sprite.getWidth(), this.sprite.getHeight()
+      this.transform.getPosition().x,
+      this.transform.getPosition().y,
+      this.sprite.getWidth(),
+      this.sprite.getHeight()
     );
 
     if (this.sprite.getFill()) {

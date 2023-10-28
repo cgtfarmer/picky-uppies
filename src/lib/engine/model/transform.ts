@@ -1,26 +1,18 @@
+import Vector2 from './vector2';
+
 export default class Transform {
 
-  private x: number;
-  private y: number;
+  private position: Vector2;
 
-  public constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
+  public constructor(position: Vector2) {
+    this.position = position;
   }
 
-  public getX(): number {
-    return this.x;
+  public getPosition(): Vector2 {
+    return this.position;
   }
 
-  public getY(): number {
-    return this.y;
-  }
-
-  public setX(x: number): void {
-    this.x = x;
-  }
-
-  public setY(y: number): void {
-    this.y = y;
+  public setPosition(position: Vector2): void {
+    this.position = position;
   }
 }

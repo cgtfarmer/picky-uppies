@@ -6,6 +6,7 @@ import Display from '@/lib/engine/model/display/display';
 import SpriteRendererFactory from '@/lib/engine/model/sprite-renderer/sprite-renderer-factory';
 import Sprite from '@/lib/engine/model/sprite/sprite';
 import CircleSprite from '@/lib/engine/model/sprite/canvas/circle-sprite';
+import Vector2 from '@/lib/engine/model/vector2';
 
 export default class ResourceFactory {
 
@@ -31,7 +32,7 @@ export default class ResourceFactory {
   public createPrometium(x: number, y: number): Resource {
     const sprite: Sprite = new CircleSprite(30, true, 2, '#ff0000', '#000000');
 
-    const transform: Transform = new Transform(x, y);
+    const transform: Transform = new Transform(new Vector2(x, y));
 
     const spriteRenderer: SpriteRenderer =
       this.spriteRendererFactory.create(sprite, this.display, transform);
@@ -48,7 +49,7 @@ export default class ResourceFactory {
   public createEndurium(x: number, y: number): Resource {
     const sprite: Sprite = new CircleSprite(30, true, 2, '#0000ff', '#000000');
 
-    const transform: Transform = new Transform(x, y);
+    const transform: Transform = new Transform(new Vector2(x, y));
 
     const spriteRenderer: SpriteRenderer =
       this.spriteRendererFactory.create(sprite, this.display, transform);
@@ -65,7 +66,7 @@ export default class ResourceFactory {
   public createTerbium(x: number, y: number): Resource {
     const sprite: Sprite = new CircleSprite(30, true, 2, '#ffff00', '#000000');
 
-    const transform: Transform = new Transform(x, y);
+    const transform: Transform = new Transform(new Vector2(x, y));
 
     const spriteRenderer: SpriteRenderer =
       this.spriteRendererFactory.create(sprite, this.display, transform);

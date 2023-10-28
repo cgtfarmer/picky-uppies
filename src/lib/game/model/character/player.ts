@@ -6,6 +6,7 @@ import Transform from '../../../engine/model/transform';
 import Vector2 from '../../../engine/model/vector2';
 import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
 import { InputModule } from '@/lib/engine/model/input-module/input-module';
+import Game from '@/lib/engine/model/game';
 
 export default class Player extends Character implements Renderable {
 
@@ -60,14 +61,28 @@ export default class Player extends Character implements Renderable {
 
     this.velocity = new Vector2(
       horizontal * this.movementSpeed,
-      (vertical * this.movementSpeed) * -1, // This is only for HTML Canvas
+      (vertical * this.movementSpeed) * -1 // This is only for HTML Canvas
     );
 
     // console.log(`Transform before: ${this.transform.x}`);
-    this.transform.setX(this.transform.getX() + this.velocity.x);
-    this.transform.setY(this.transform.getY() + this.velocity.y);
+    // this.transform.setPosition(setX(this.transform.getX() + this.velocity.x);
+    // this.transform.setY(this.transform.getY() + this.velocity.y);
+    this.transform.setPosition(
+      new Vector2(
+        this.transform.getPosition().x + this.velocity.x,
+        this.transform.getPosition().y + this.velocity.y,
+      )
+    );
     // console.log(`Transform after: ${this.transform.x}`);
 
+    if (this.inputModule.getKeyDown('Space')) {
+      this.interact();
+    }
+
     this.spriteRenderer.render();
+  }
+
+  private interact(): void {
+    Game.getInstance().getActiveScene();
   }
 }

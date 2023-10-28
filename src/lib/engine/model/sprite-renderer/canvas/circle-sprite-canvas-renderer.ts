@@ -29,8 +29,8 @@ export default class CircleSpriteCanvasRenderer implements SpriteRenderer {
     this.canvasContext.fillStyle = this.sprite.getFillColor();
 
     this.canvasContext.arc(
-      this.transform.getX(),
-      this.transform.getY(),
+      this.transform.getPosition().x,
+      this.transform.getPosition().y,
       this.sprite.getRadius(),
       CircleSpriteCanvasRenderer.START_ANGLE,
       CircleSpriteCanvasRenderer.END_ANGLE,

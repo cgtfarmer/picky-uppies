@@ -6,4 +6,6 @@ export interface InputModule {
   getXAxis(): number;
 
   getYAxis(): number;
+
+  getKeyDown(key: string): boolean;
 };

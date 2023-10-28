@@ -13,7 +13,7 @@ const Page = () => {
 
     if (!container) return;
 
-    const canvasDisplay = CanvasDisplay.getInstance();
+    const canvasDisplay: CanvasDisplay = CanvasDisplay.getInstance();
 
     container.insertAdjacentElement('beforeend', canvasDisplay.getHtmlCanvasElement());
 
