@@ -1,17 +1,8 @@
-import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
 import Sprite from '@/lib/engine/model/sprite/sprite';
 import Transform from '@/lib/engine/model/transform';
-import UuidProvider from '@/lib/accessor/uuid-providor';
+import GameObject from '@/lib/engine/model/game-object';
 
-export default class Resource {
-
-  private readonly id: string;
-
-  private readonly transform: Transform;
-
-  private readonly sprite: Sprite;
-
-  private readonly spriteRenderer: SpriteRenderer;
+export default class Resource extends GameObject {
 
   private readonly name: string;
 
@@ -20,21 +11,18 @@ export default class Resource {
   constructor(
     transform: Transform,
     sprite: Sprite,
-    spriteRenderer: SpriteRenderer,
     name: string,
     sellValue: number
   ) {
-    this.id = UuidProvider.getRandom();
-    this.transform = transform;
-    this.sprite = sprite;
-    this.spriteRenderer = spriteRenderer;
+    super(transform, sprite);
+
     this.name = name;
     this.sellValue = sellValue;
   }
 
   public update(): void {
     // throw Error('Override this method');
-    this.spriteRenderer.render();
+    this.spriteRenderer?.render();
   }
 }
 

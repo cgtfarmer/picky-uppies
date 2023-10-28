@@ -1,8 +1,7 @@
-import Display from './display';
+import DomAccessor from '@/lib/accessor/dom-accessor';
+import { Display } from './display';
 
-export default class CanvasDisplay extends Display {
-
-  private static singleton: CanvasDisplay;
+export default class CanvasDisplay implements Display {
 
   private readonly width: number;
   private readonly height: number;
@@ -11,23 +10,13 @@ export default class CanvasDisplay extends Display {
 
   private readonly backgroundColor: string;
 
-  public static getInstance(): CanvasDisplay {
-    if (this.singleton == null) this.singleton =
-      new CanvasDisplay(1280, 720, '#000000');
-    // new Canvas(container, 1360, 765, '#888888');
-
-    return this.singleton;
-  }
-
   public constructor(width: number, height: number, backgroundColor: string) {
-    super();
-
     this.width = width;
     this.height = height;
     this.backgroundColor = backgroundColor;
 
     // this.htmlCanvas = new HTMLCanvasElement();
-    this.htmlCanvasElement = document.createElement('canvas');
+    this.htmlCanvasElement = DomAccessor.getInstance().createCanvas();
     this.htmlCanvasElement.width = this.width;
     this.htmlCanvasElement.height = this.height;
     this.htmlCanvasElement.style.backgroundColor = this.backgroundColor;

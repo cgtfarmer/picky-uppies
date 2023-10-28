@@ -7,5 +7,7 @@ export interface InputModule {
 
   getYAxis(): number;
 
-  getKeyDown(key: string): boolean;
+  keyIsDown(key: string): boolean;
+
+  getActiveKeys(): string[];
 };

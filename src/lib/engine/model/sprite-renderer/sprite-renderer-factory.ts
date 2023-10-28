@@ -1,5 +1,5 @@
 import CanvasDisplay from '../display/canvas-display';
-import Display from '../display/display';
+import { Display } from '../display/display';
 import CircleSprite from '../sprite/canvas/circle-sprite';
 import RectangleSprite from '../sprite/canvas/rectangle-sprite';
 import Sprite from '../sprite/sprite';
@@ -19,6 +19,9 @@ export default class SpriteRendererFactory {
   }
 
   public create(sprite: Sprite, display: Display, transform: Transform): SpriteRenderer {
+    console.log(
+      `[SpriteRendererFactory#create] sprite=${typeof sprite}, display=${typeof display}`
+    );
 
     if (display instanceof CanvasDisplay) {
       if (sprite instanceof RectangleSprite)

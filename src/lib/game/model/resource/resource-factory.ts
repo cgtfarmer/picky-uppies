@@ -1,8 +1,5 @@
-import RectangleSprite from '../../engine/model/sprite/canvas/rectangle-sprite';
-import Transform from '../../engine/model/transform';
-import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
-import Resource from '../model/resource/resource';
-import Display from '@/lib/engine/model/display/display';
+import Transform from '../../../engine/model/transform';
+import Resource from './resource';
 import SpriteRendererFactory from '@/lib/engine/model/sprite-renderer/sprite-renderer-factory';
 import Sprite from '@/lib/engine/model/sprite/sprite';
 import CircleSprite from '@/lib/engine/model/sprite/canvas/circle-sprite';
@@ -12,69 +9,76 @@ export default class ResourceFactory {
 
   private static singleton: ResourceFactory;
 
-  private readonly display: Display;
-
   private readonly spriteRendererFactory: SpriteRendererFactory;
 
-  public static getInstance(display: Display): ResourceFactory {
+  public static getInstance(): ResourceFactory {
     if (this.singleton == null) {
-      this.singleton = new ResourceFactory(display, SpriteRendererFactory.getInstance());
+      const spriteRendererFactory = SpriteRendererFactory.getInstance();
+      this.singleton = new ResourceFactory(spriteRendererFactory);
     }
 
     return this.singleton;
   }
 
-  public constructor(display: Display, spriteRendererFactory: SpriteRendererFactory) {
-    this.display = display;
+  public constructor(spriteRendererFactory: SpriteRendererFactory) {
     this.spriteRendererFactory = spriteRendererFactory;
   }
 
   public createPrometium(x: number, y: number): Resource {
+    // const display: Display | null = Game.getInstance().getDisplay();
+
+    // if (display == null) throw Error('Display must be present');
+
     const sprite: Sprite = new CircleSprite(10, true, 2, '#ff0000', '#000000');
 
     const transform: Transform = new Transform(new Vector2(x, y));
 
-    const spriteRenderer: SpriteRenderer =
-      this.spriteRendererFactory.create(sprite, this.display, transform);
+    // const spriteRenderer: SpriteRenderer =
+    //   this.spriteRendererFactory.create(sprite, display, transform);
 
     return new Resource(
       transform,
       sprite,
-      spriteRenderer,
       'Prometium',
       10
     );
   }
 
   public createEndurium(x: number, y: number): Resource {
+    // const display: Display | null = Game.getInstance().getDisplay();
+
+    // if (display == null) throw Error('Display must be present');
+
     const sprite: Sprite = new CircleSprite(10, true, 2, '#0000ff', '#000000');
 
     const transform: Transform = new Transform(new Vector2(x, y));
 
-    const spriteRenderer: SpriteRenderer =
-      this.spriteRendererFactory.create(sprite, this.display, transform);
+    // const spriteRenderer: SpriteRenderer =
+    //   this.spriteRendererFactory.create(sprite, display, transform);
 
     return new Resource(
       transform,
       sprite,
-      spriteRenderer,
       'Endurium',
       10
     );
   }
 
   public createTerbium(x: number, y: number): Resource {
+    // const display: Display | null = Game.getInstance().getDisplay();
+
+    // if (display == null) throw Error('Display must be present');
+
     const sprite: Sprite = new CircleSprite(10, true, 2, '#ffff00', '#000000');
 
     const transform: Transform = new Transform(new Vector2(x, y));
 
-    const spriteRenderer: SpriteRenderer =
-      this.spriteRendererFactory.create(sprite, this.display, transform);
+    // const spriteRenderer: SpriteRenderer =
+    //   this.spriteRendererFactory.create(sprite, display, transform);
 
     return new Resource(
       transform,
       sprite,
-      spriteRenderer,
       'Endurium',
       10
     );

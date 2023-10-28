@@ -1,7 +1,5 @@
-import ResourceFactory from '@/lib/game/factory/resource-factory';
-import Player from '../../game/model/character/player';
-import Scene from '../model/scene';
-import Display from '../model/display/display';
+import ResourceFactory from '@/lib/game/model/resource/resource-factory';
+import Scene from './scene';
 
 export default class SceneFactory {
 
@@ -9,9 +7,10 @@ export default class SceneFactory {
 
   private readonly resourceFactory: ResourceFactory;
 
-  public static getInstance(display: Display): SceneFactory {
+  public static getInstance(): SceneFactory {
     if (this.singleton == null) {
-      this.singleton = new SceneFactory(ResourceFactory.getInstance(display));
+      const resourceFactory = ResourceFactory.getInstance();
+      this.singleton = new SceneFactory(resourceFactory);
     }
 
     return this.singleton;
@@ -21,15 +20,14 @@ export default class SceneFactory {
     this.resourceFactory = resourceFactory;
   }
 
-  public createScenes(player: Player): Scene[] {
+  public createScenes(): Scene[] {
     return [
-      this.createOneOne(player),
+      this.createOneOne(),
     ];
   }
 
-  public createOneOne(player: Player): Scene {
+  public createOneOne(): Scene {
     return new Scene(1360, 765, [
-      player,
       this.resourceFactory.createPrometium(0, 50),
       this.resourceFactory.createPrometium(0, 100),
       this.resourceFactory.createPrometium(0, 150),

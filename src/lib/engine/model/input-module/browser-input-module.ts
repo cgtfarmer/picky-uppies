@@ -74,8 +74,12 @@ export default class BrowserInputModule implements InputModule {
     return value;
   }
 
-  public getKeyDown(key: string): boolean {
+  public keyIsDown(key: string): boolean {
     return this.keys.has(key);
+  }
+
+  public getActiveKeys(): string[] {
+    return Array.from(this.keys.keys());
   }
 
   // private registerKey(event: KeyboardEvent): void {

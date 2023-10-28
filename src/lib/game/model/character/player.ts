@@ -4,15 +4,16 @@ import Inventory from '../inventory';
 import Sprite from '../../../engine/model/sprite/sprite';
 import Transform from '../../../engine/model/transform';
 import Vector2 from '../../../engine/model/vector2';
-import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
 import { InputModule } from '@/lib/engine/model/input-module/input-module';
-import Game from '@/lib/engine/model/game';
+import KeybindModule from '@/lib/engine/model/keybind-module/keybind-module';
 
 export default class Player extends Character implements Renderable {
 
-  private inventory: Inventory;
-
   private inputModule: InputModule;
+
+  private keybindModule: KeybindModule | null;
+
+  private inventory: Inventory;
 
   private velocity: Vector2;
 
@@ -21,7 +22,6 @@ export default class Player extends Character implements Renderable {
   public constructor(
     transform: Transform,
     sprite: Sprite,
-    spriteRenderer: SpriteRenderer,
     inputModule: InputModule,
     name: string,
     maxHealth: number,
@@ -37,7 +37,6 @@ export default class Player extends Character implements Renderable {
     super(
       transform,
       sprite,
-      spriteRenderer,
       name,
       maxHealth,
       health,
@@ -48,10 +47,17 @@ export default class Player extends Character implements Renderable {
       attackRange,
     );
 
-    this.inventory = inventory;
+    this.keybindModule = null;
     this.inputModule = inputModule;
+    this.inventory = inventory;
     this.velocity = new Vector2(0, 0);
     this.movementSpeed = 5;
+  }
+
+  public setKeybindModule(keybindModule: KeybindModule) {
+    this.keybindModule = keybindModule;
+
+    this.keybindModule.setPlayer(this);
   }
 
   public update(): void {
@@ -67,22 +73,14 @@ export default class Player extends Character implements Renderable {
     // console.log(`Transform before: ${this.transform.x}`);
     // this.transform.setPosition(setX(this.transform.getX() + this.velocity.x);
     // this.transform.setY(this.transform.getY() + this.velocity.y);
-    this.transform.setPosition(
-      new Vector2(
-        this.transform.getPosition().x + this.velocity.x,
-        this.transform.getPosition().y + this.velocity.y,
-      )
+    this.transform.position = new Vector2(
+      this.transform.position.x + this.velocity.x,
+      this.transform.position.y + this.velocity.y,
     );
     // console.log(`Transform after: ${this.transform.x}`);
 
-    if (this.inputModule.getKeyDown('Space')) {
-      this.interact();
-    }
+    this.keybindModule?.perform();
 
-    this.spriteRenderer.render();
-  }
-
-  private interact(): void {
-    Game.getInstance().getActiveScene();
+    this.spriteRenderer?.render();
   }
 }

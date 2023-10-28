@@ -1,24 +1,28 @@
 import Container from 'react-bootstrap/Container';
 import { useEffect } from 'react';
-import ElementAccessor from '@/lib/accessor/element-accessor';
-import GameFactory from '@/lib/engine/factory/game-factory';
+import DomAccessor from '@/lib/accessor/dom-accessor';
+import GameFactory from '@/lib/engine/model/game/game-factory';
+import DisplayFactory from '@/lib/engine/model/display/display-factory';
 import CanvasDisplay from '@/lib/engine/model/display/canvas-display';
+import Game from '@/lib/engine/model/game/game';
 
 const Page = () => {
 
   const containerId = 'container';
 
   useEffect(() => {
-    const container: Element | null = ElementAccessor.getInstance().get(containerId);
+    const container: Element | null = DomAccessor.getInstance().get(containerId);
 
     if (!container) return;
 
-    const canvasDisplay: CanvasDisplay = CanvasDisplay.getInstance();
+    const display: CanvasDisplay = DisplayFactory.getInstance().createCanvas();
 
-    container.insertAdjacentElement('beforeend', canvasDisplay.getHtmlCanvasElement());
+    container.insertAdjacentElement('beforeend', display.getHtmlCanvasElement());
 
-    const game = GameFactory.getInstance(canvasDisplay).createDefault();
-    game.start();
+    // const game = GameFactory.getInstance().createDefault();
+    const game: Game = Game.getInstance();
+    game.setDisplay(display);
+    // game.start();
   }, []);
 
   return (

@@ -1,18 +1,9 @@
-import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
 import { Renderable } from '../../../engine/interface/renderable';
 import Sprite from '../../../engine/model/sprite/sprite';
 import Transform from '../../../engine/model/transform';
-import UuidProvider from '@/lib/accessor/uuid-providor';
+import GameObject from '@/lib/engine/model/game-object';
 
-export default abstract class Character implements Renderable {
-
-  public readonly id: string;
-
-  protected readonly transform: Transform;
-
-  private sprite: Sprite;
-
-  protected spriteRenderer: SpriteRenderer;
+export default abstract class Character extends GameObject implements Renderable {
 
   private name: string;
 
@@ -37,7 +28,6 @@ export default abstract class Character implements Renderable {
   public constructor(
     transform: Transform,
     sprite: Sprite,
-    spriteRenderer: SpriteRenderer,
     name: string,
     maxHealth: number,
     health: number,
@@ -48,7 +38,8 @@ export default abstract class Character implements Renderable {
     attackRange: number
     // autoAttackAbility: Ability,
   ) {
-    this.id = UuidProvider.getRandom();
+    super(transform, sprite);
+
     this.name = name;
     this.maxHealth = maxHealth;
     this.health = health;
@@ -59,9 +50,6 @@ export default abstract class Character implements Renderable {
     this.attackRange = attackRange;
     this.attackTicker = 0;
     this.abilityTicker = 0;
-    this.transform = transform;
-    this.sprite = sprite;
-    this.spriteRenderer = spriteRenderer;
     this.target = null;
     // this.autoAttackAbility = autoAttackAbility;
     // this.currentAbility = null;

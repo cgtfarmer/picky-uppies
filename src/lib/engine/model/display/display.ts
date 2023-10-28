@@ -1,6 +1,3 @@
-export default abstract class Display {
-
-  public clearFrame(): void {
-    throw Error('Override');
-  }
+export interface Display {
+  clearFrame(): void;
 }
