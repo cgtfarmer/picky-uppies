@@ -10,6 +10,6 @@ export default class RigidBody2d {
   }
 
   public movePosition(position: Vector2) {
-    this.transform.setPosition(position);
+    this.transform.position = position;
   }
 }

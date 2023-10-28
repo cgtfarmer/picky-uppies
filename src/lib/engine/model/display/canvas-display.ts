@@ -3,6 +3,8 @@ import { Display } from './display';
 
 export default class CanvasDisplay implements Display {
 
+  private static readonly id: string = 'canvas';
+
   private readonly width: number;
   private readonly height: number;
   private readonly htmlCanvasElement: HTMLCanvasElement;
@@ -17,6 +19,8 @@ export default class CanvasDisplay implements Display {
 
     // this.htmlCanvas = new HTMLCanvasElement();
     this.htmlCanvasElement = DomAccessor.getInstance().createCanvas();
+    this.htmlCanvasElement.id = CanvasDisplay.id;
+    // this.htmlCanvasElement.id = 'canvas';
     this.htmlCanvasElement.width = this.width;
     this.htmlCanvasElement.height = this.height;
     this.htmlCanvasElement.style.backgroundColor = this.backgroundColor;

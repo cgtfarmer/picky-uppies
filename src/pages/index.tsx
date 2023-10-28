@@ -8,7 +8,8 @@ import Game from '@/lib/engine/model/game/game';
 
 const Page = () => {
 
-  const containerId = 'container';
+  const containerId: string = 'container';
+  const canvasId: string = 'canvas';
 
   useEffect(() => {
     const container: Element | null = DomAccessor.getInstance().get(containerId);
@@ -17,12 +18,15 @@ const Page = () => {
 
     const display: CanvasDisplay = DisplayFactory.getInstance().createCanvas();
 
-    container.insertAdjacentElement('beforeend', display.getHtmlCanvasElement());
+    const canvas: Element | null = DomAccessor.getInstance().get(canvasId);
+
+    if (canvas == null)
+      container.insertAdjacentElement('beforeend', display.getHtmlCanvasElement());
 
     // const game = GameFactory.getInstance().createDefault();
     const game: Game = Game.getInstance();
     game.setDisplay(display);
-    // game.start();
+    game.start();
   }, []);
 
   return (

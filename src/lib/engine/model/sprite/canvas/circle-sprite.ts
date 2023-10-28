@@ -11,7 +11,7 @@ export default class CircleSprite extends CanvasSprite {
     fillColor: string,
     strokeColor: string,
   ) {
-    super(fill, lineWidth, fillColor, strokeColor);
+    super('circle', fill, lineWidth, fillColor, strokeColor);
 
     this.radius = radius;
   }

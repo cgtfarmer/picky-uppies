@@ -10,12 +10,14 @@ export default abstract class CanvasSprite extends Sprite {
   private strokeColor: string;
 
   public constructor(
+    type: string,
     fill: boolean,
     lineWidth: number,
     fillColor: string,
     strokeColor: string,
   ) {
-    super();
+    super('canvas');
+
     this.fill = fill;
     this.lineWidth = lineWidth;
     this.fillColor = fillColor;

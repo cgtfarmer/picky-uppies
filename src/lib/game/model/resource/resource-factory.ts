@@ -9,20 +9,21 @@ export default class ResourceFactory {
 
   private static singleton: ResourceFactory;
 
-  private readonly spriteRendererFactory: SpriteRendererFactory;
+  // private readonly spriteRendererFactory: SpriteRendererFactory;
 
   public static getInstance(): ResourceFactory {
     if (this.singleton == null) {
-      const spriteRendererFactory = SpriteRendererFactory.getInstance();
-      this.singleton = new ResourceFactory(spriteRendererFactory);
+      // const spriteRendererFactory = SpriteRendererFactory.getInstance();
+      // this.singleton = new ResourceFactory(spriteRendererFactory);
+      this.singleton = new ResourceFactory();
     }
 
     return this.singleton;
   }
 
-  public constructor(spriteRendererFactory: SpriteRendererFactory) {
-    this.spriteRendererFactory = spriteRendererFactory;
-  }
+  // public constructor(spriteRendererFactory: SpriteRendererFactory) {
+  //   this.spriteRendererFactory = spriteRendererFactory;
+  // }
 
   public createPrometium(x: number, y: number): Resource {
     // const display: Display | null = Game.getInstance().getDisplay();

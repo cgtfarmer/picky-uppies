@@ -1,5 +1,6 @@
 import CanvasDisplay from '../display/canvas-display';
 import { Display } from '../display/display';
+import CanvasSprite from '../sprite/canvas/canvas-sprite';
 import CircleSprite from '../sprite/canvas/circle-sprite';
 import RectangleSprite from '../sprite/canvas/rectangle-sprite';
 import Sprite from '../sprite/sprite';
@@ -24,11 +25,18 @@ export default class SpriteRendererFactory {
     );
 
     if (display instanceof CanvasDisplay) {
+
       if (sprite instanceof RectangleSprite)
         return new RectangleSpriteCanvasRenderer(sprite, display, transform);
 
+      console.log('[SpriteRendererFactory#create] not RectangleSprite');
+
       if (sprite instanceof CircleSprite)
         return new CircleSpriteCanvasRenderer(sprite, display, transform);
+
+      console.log('[SpriteRendererFactory#create] not CircleSprite');
+    } else {
+      console.log('[SpriteRendererFactory#create] not CanvasDisplay');
     }
 
     throw Error('Invalid argument combination');

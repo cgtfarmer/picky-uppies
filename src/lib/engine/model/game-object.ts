@@ -32,7 +32,7 @@ export default class GameObject implements Renderable {
   }
 
   public getSprite(): Sprite | null {
-    return this.scene;
+    return this.sprite;
   }
 
   public getTransform(): Transform {

@@ -3,7 +3,6 @@ import { Demeanor } from '../../enum/demeanor';
 import Sprite from '../../../engine/model/sprite/sprite';
 import Transform from '../../../engine/model/transform';
 import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
-import Scene from '@/lib/engine/model/scene';
 
 export default class Enemy extends Character {
   private aggroRange: number;
@@ -16,7 +15,6 @@ export default class Enemy extends Character {
   public constructor(
     transform: Transform,
     sprite: Sprite,
-    spriteRenderer: SpriteRenderer,
     name: string,
     maxHealth: number,
     health: number,
@@ -34,7 +32,6 @@ export default class Enemy extends Character {
     super(
       transform,
       sprite,
-      spriteRenderer,
       name,
       maxHealth,
       health,
@@ -53,6 +50,6 @@ export default class Enemy extends Character {
   }
 
   public update(): void {
-    this.spriteRenderer.render();
+    this.spriteRenderer?.render();
   }
 }

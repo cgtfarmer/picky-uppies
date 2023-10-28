@@ -3,33 +3,32 @@ import Inventory from '../inventory';
 import Player from './player';
 import RectangleSprite from '../../../engine/model/sprite/canvas/rectangle-sprite';
 import Transform from '../../../engine/model/transform';
-import { SpriteRenderer } from '@/lib/engine/model/sprite-renderer/sprite-renderer';
 import { InputModule } from '@/lib/engine/model/input-module/input-module';
 import SpriteRendererFactory from '@/lib/engine/model/sprite-renderer/sprite-renderer-factory';
 import Vector2 from '@/lib/engine/model/vector2';
 import KeybindModule from '@/lib/engine/model/keybind-module/keybind-module';
 import { Action } from '@/lib/engine/model/action/action';
 import Interact from '@/lib/engine/model/action/interact';
-import Game from '@/lib/engine/model/game/game';
 
 export default class PlayerFactory {
 
   private static singleton: PlayerFactory;
 
-  private readonly spriteRendererFactory: SpriteRendererFactory;
+  // private readonly spriteRendererFactory: SpriteRendererFactory;
 
   public static getInstance(): PlayerFactory {
     if (this.singleton == null) {
-      const spriteRendererFactory = SpriteRendererFactory.getInstance();
-      this.singleton = new PlayerFactory(spriteRendererFactory);
+      // const spriteRendererFactory = SpriteRendererFactory.getInstance();
+      // this.singleton = new PlayerFactory(spriteRendererFactory);
+      this.singleton = new PlayerFactory();
     }
 
     return this.singleton;
   }
 
-  public constructor(spriteRendererFactory: SpriteRendererFactory) {
-    this.spriteRendererFactory = spriteRendererFactory;
-  }
+  // public constructor(spriteRendererFactory: SpriteRendererFactory) {
+  //   this.spriteRendererFactory = spriteRendererFactory;
+  // }
 
   public createDefault(): Player {
     // const game: Game = Game.getInstance();

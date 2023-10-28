@@ -13,7 +13,7 @@ export default class RectangleSprite extends CanvasSprite {
     fillColor: string,
     strokeColor: string,
   ) {
-    super(fill, lineWidth, fillColor, strokeColor);
+    super('rectangle', fill, lineWidth, fillColor, strokeColor);
 
     this.width = width;
     this.height = height;
