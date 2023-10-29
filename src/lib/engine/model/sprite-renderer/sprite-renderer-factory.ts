@@ -20,21 +20,21 @@ export default class SpriteRendererFactory {
   }
 
   public create(sprite: Sprite, display: Display, transform: Transform): SpriteRenderer {
-    console.log(
-      `[SpriteRendererFactory#create] sprite=${typeof sprite}, display=${typeof display}`
-    );
+    // console.log(
+    //   `[SpriteRendererFactory#create] sprite=${typeof sprite}, display=${typeof display}`
+    // );
 
     if (display instanceof CanvasDisplay) {
 
       if (sprite instanceof RectangleSprite)
         return new RectangleSpriteCanvasRenderer(sprite, display, transform);
 
-      console.log('[SpriteRendererFactory#create] not RectangleSprite');
+      // console.log('[SpriteRendererFactory#create] not RectangleSprite');
 
       if (sprite instanceof CircleSprite)
         return new CircleSpriteCanvasRenderer(sprite, display, transform);
 
-      console.log('[SpriteRendererFactory#create] not CircleSprite');
+      // console.log('[SpriteRendererFactory#create] not CircleSprite');
     } else {
       console.log('[SpriteRendererFactory#create] not CanvasDisplay');
     }

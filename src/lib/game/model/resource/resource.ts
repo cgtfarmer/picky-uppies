@@ -32,7 +32,7 @@ export default class Resource extends GameObject {
   }
 
   public collect(id: string) {
-    console.log(`[Resource#collect] this.id=${this.id}, id=${id}`);
+    // console.log(`[Resource#collect] this.id=${this.id}, id=${id}`);
     if (id != this.id) return;
 
     console.log(`[Resource#collect] ${this.id} collected, disabling...`);
