@@ -6,4 +6,17 @@ export default class Vector2 {
     this.x = x;
     this.y = y;
   }
+
+  public minus(vector: Vector2) {
+    return new Vector2(
+      (this.y - vector.y),
+      (this.x - vector.x)
+    );
+  }
+
+  public magnitude() {
+    return Math.sqrt(
+      Math.pow(this.x, 2) + Math.pow(this.y, 2)
+    );
+  }
 }

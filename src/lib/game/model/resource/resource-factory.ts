@@ -25,14 +25,14 @@ export default class ResourceFactory {
   //   this.spriteRendererFactory = spriteRendererFactory;
   // }
 
-  public createPrometium(x: number, y: number): Resource {
+  public createPrometium(position: Vector2): Resource {
     // const display: Display | null = Game.getInstance().getDisplay();
 
     // if (display == null) throw Error('Display must be present');
 
     const sprite: Sprite = new CircleSprite(10, true, 2, '#ff0000', '#000000');
 
-    const transform: Transform = new Transform(new Vector2(x, y));
+    const transform: Transform = new Transform(position);
 
     // const spriteRenderer: SpriteRenderer =
     //   this.spriteRendererFactory.create(sprite, display, transform);
@@ -45,14 +45,14 @@ export default class ResourceFactory {
     );
   }
 
-  public createEndurium(x: number, y: number): Resource {
+  public createEndurium(position: Vector2): Resource {
     // const display: Display | null = Game.getInstance().getDisplay();
 
     // if (display == null) throw Error('Display must be present');
 
     const sprite: Sprite = new CircleSprite(10, true, 2, '#0000ff', '#000000');
 
-    const transform: Transform = new Transform(new Vector2(x, y));
+    const transform: Transform = new Transform(position);
 
     // const spriteRenderer: SpriteRenderer =
     //   this.spriteRendererFactory.create(sprite, display, transform);
@@ -65,14 +65,14 @@ export default class ResourceFactory {
     );
   }
 
-  public createTerbium(x: number, y: number): Resource {
+  public createTerbium(position: Vector2): Resource {
     // const display: Display | null = Game.getInstance().getDisplay();
 
     // if (display == null) throw Error('Display must be present');
 
     const sprite: Sprite = new CircleSprite(10, true, 2, '#ffff00', '#000000');
 
-    const transform: Transform = new Transform(new Vector2(x, y));
+    const transform: Transform = new Transform(position);
 
     // const spriteRenderer: SpriteRenderer =
     //   this.spriteRendererFactory.create(sprite, display, transform);

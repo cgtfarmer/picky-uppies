@@ -3,6 +3,7 @@ import Player from '../../../game/model/character/player';
 import Scene from '../scene/scene';
 import PlayerFactory from '../../../game/model/character/player-factory';
 import SceneFactory from '../scene/scene-factory';
+import EventSystem from '../../event-system/event-system';
 
 export default class GameFactory {
 
@@ -19,7 +20,9 @@ export default class GameFactory {
 
     const scenes: Scene[] = SceneFactory.getInstance().createScenes();
 
-    const game: Game = new Game(scenes);
+    const eventSystem: EventSystem = EventSystem.getInstance();
+
+    const game: Game = new Game(eventSystem, scenes);
 
     player.setScene(game.getActiveScene());
     game.setPlayer(player);

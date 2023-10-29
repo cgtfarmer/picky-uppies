@@ -51,7 +51,7 @@ export default class Player extends Character implements Renderable {
     this.inputModule = inputModule;
     this.inventory = inventory;
     this.velocity = new Vector2(0, 0);
-    this.movementSpeed = 5;
+    this.movementSpeed = 8;
   }
 
   public setKeybindModule(keybindModule: KeybindModule) {

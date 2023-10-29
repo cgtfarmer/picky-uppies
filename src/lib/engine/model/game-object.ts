@@ -8,6 +8,8 @@ import UuidProvider from '@/lib/accessor/uuid-providor';
 export default class GameObject implements Renderable {
   public readonly id: string;
 
+  public enabled: boolean;
+
   protected readonly transform: Transform;
 
   protected scene: Scene | null;
@@ -21,6 +23,7 @@ export default class GameObject implements Renderable {
     sprite: Sprite,
   ) {
     this.id = UuidProvider.getRandom();
+    this.enabled = true;
     this.scene = null;
     this.transform = transform;
     this.sprite = sprite;

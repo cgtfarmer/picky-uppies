@@ -1,6 +1,10 @@
+import EventSystem from '../../event-system/event-system';
+import Message from '../../event-system/message';
+import { Topics } from '../../event-system/topics';
 import { Renderable } from '../../interface/renderable';
 import GameObject from '../game-object';
 import Game from '../game/game';
+import Physics2D from '../physics-2d';
 import Vector2 from '../vector2';
 import { Action } from './action';
 
@@ -23,10 +27,15 @@ export default class Interact implements Action {
     //   position, this.radius, Game.getInstance().getActiveScene().getRenderables()
     // );
 
-    const gameObjects: GameObject[] = Game.getInstance()
-      .getActiveScene()
-      .getGameObjects();
+    const intersections: GameObject[] = Physics2D.getInstance().overlapCircle(
+      position, this.radius, Game.getInstance().getActiveScene().getResources()
+    );
 
+    intersections.forEach((e) => {
+      EventSystem.getInstance()
+        .getTopic(Topics.Interact)
+        ?.publish(new Message(e.id));
+    });
     // emit 'interact' events on each one?
   }
 }

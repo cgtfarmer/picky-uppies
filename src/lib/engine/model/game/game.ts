@@ -4,12 +4,15 @@ import { Renderable } from '../../interface/renderable';
 import Player from '../../../game/model/character/player';
 import Scene from '../scene/scene';
 import { Display } from '../display/display';
+import EventSystem from '../../event-system/event-system';
 
 export default class Game implements Renderable {
 
-  private static readonly TICK_IN_MILLISECONDS: number = 100;
+  private static readonly TICK_IN_MILLISECONDS: number = 50; // 100;
 
   private static singleton: Game;
+
+  private readonly eventSystem: EventSystem;
 
   private readonly scenes: Scene[];
 
@@ -31,12 +34,13 @@ export default class Game implements Renderable {
     return this.singleton;
   }
 
-  public constructor(scenes: Scene[]) {
+  public constructor(eventSystem: EventSystem, scenes: Scene[]) {
     this.display = null;
     this.player = null;
-    this.scenes = scenes;
     this.running = false;
     this.interval = null;
+    this.eventSystem = eventSystem;
+    this.scenes = scenes;
 
     if (this.scenes.length < 1) throw new Error('At least 1 Scene required');
 
