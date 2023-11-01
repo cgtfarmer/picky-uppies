@@ -43,7 +43,7 @@ export default class SceneFactory {
 
     const resourceFactory = ResourceFactory.getInstance();
     const resourceSpawnEngine: ResourceSpawnEngine =
-      new ResourceSpawnEngine(resourceFactory, 10);
+      new ResourceSpawnEngine(resourceFactory, 100);
     scene.setResourceSpawnEngine(resourceSpawnEngine);
 
     return scene;

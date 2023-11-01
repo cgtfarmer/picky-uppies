@@ -31,6 +31,8 @@ export default class CircleSpriteCanvasRenderer implements SpriteRenderer {
     this.canvasContext.arc(
       this.transform.position.x,
       this.transform.position.y,
+      // (this.transform.position.x + (this.sprite.getRadius() / 2)),
+      // (this.transform.position.y + (this.sprite.getRadius() / 2)),
       this.sprite.getRadius(),
       CircleSpriteCanvasRenderer.START_ANGLE,
       CircleSpriteCanvasRenderer.END_ANGLE,

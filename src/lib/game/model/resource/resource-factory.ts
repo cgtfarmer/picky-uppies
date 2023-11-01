@@ -30,7 +30,7 @@ export default class ResourceFactory {
 
     // if (display == null) throw Error('Display must be present');
 
-    const sprite: Sprite = new CircleSprite(10, true, 2, '#ff0000', '#000000');
+    const sprite: Sprite = new CircleSprite(30, true, 2, '#ff0000', '#000000');
 
     const transform: Transform = new Transform(position);
 
@@ -50,7 +50,7 @@ export default class ResourceFactory {
 
     // if (display == null) throw Error('Display must be present');
 
-    const sprite: Sprite = new CircleSprite(10, true, 2, '#0000ff', '#000000');
+    const sprite: Sprite = new CircleSprite(30, true, 2, '#0000ff', '#000000');
 
     const transform: Transform = new Transform(position);
 
@@ -70,7 +70,7 @@ export default class ResourceFactory {
 
     // if (display == null) throw Error('Display must be present');
 
-    const sprite: Sprite = new CircleSprite(10, true, 2, '#ffff00', '#000000');
+    const sprite: Sprite = new CircleSprite(30, true, 2, '#ffff00', '#000000');
 
     const transform: Transform = new Transform(position);
 

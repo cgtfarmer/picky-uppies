@@ -83,8 +83,8 @@ export default class Scene implements Renderable {
   }
 
   public update(): void {
-    this.players.forEach(e => e.update());
     this.resources.forEach(e => e.update());
+    this.players.forEach(e => e.update());
     this.resourceSpawnEngine?.update();
   }
 }

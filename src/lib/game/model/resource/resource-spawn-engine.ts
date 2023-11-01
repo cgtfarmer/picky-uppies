@@ -34,11 +34,11 @@ export default class ResourceSpawnEngine implements Renderable {
 
   public handleResourceCollected(id: string): void {
     console.log(`[ResourceSpawnEngine#handleResourceCollected] ${id} collected. Deleting...`);
-    this.scene?.setResources(
-      this.scene.getResources()
-        .map((e) => (e.id == id) ? null : e)
-        .filter((e): e is Exclude<typeof e, null> => (e != null))
-    );
+    // this.scene?.setResources(
+    //   this.scene.getResources()
+    //     .map((e) => (e.id == id) ? null : e)
+    //     .filter((e): e is Exclude<typeof e, null> => (e != null))
+    // );
   }
 
   public setScene(scene: Scene): void {

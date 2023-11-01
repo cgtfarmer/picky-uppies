@@ -36,7 +36,8 @@ export default class PlayerFactory {
 
     // if (display == null) throw Error('Display must be present');
 
-    const sprite: RectangleSprite = new RectangleSprite(40, 40, true, 2, '#ff0000', '#000000');
+    // const sprite: RectangleSprite = new RectangleSprite(40, 40, true, 2, '#ff0000', '#000000');
+    const sprite: RectangleSprite = new RectangleSprite(40, 40, true, 2, '#ffffff', '#000000');
 
     const inventory: Inventory = new Inventory();
 
@@ -49,7 +50,7 @@ export default class PlayerFactory {
     const inputModule: InputModule = new BrowserInputModule();
 
     const keybindings: Map<string, Action> = new Map<string, Action>([
-      [' ', new Interact(0, 20)],
+      [' ', new Interact(0, 55)],
     ]);
     const keybindModule: KeybindModule = new KeybindModule(inputModule, keybindings);
 

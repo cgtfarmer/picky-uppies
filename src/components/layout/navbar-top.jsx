@@ -27,7 +27,7 @@ const Component = ({ links }) => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="px-3">
       <Link href="/" passHref legacyBehavior>
-        <Navbar.Brand>Light Orbit</Navbar.Brand>
+        <Navbar.Brand>Picky Uppies</Navbar.Brand>
       </Link>
 
       <Navbar.Toggle aria-controls="navbar-top" />

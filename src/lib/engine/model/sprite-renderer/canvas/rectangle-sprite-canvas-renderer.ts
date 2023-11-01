@@ -27,6 +27,8 @@ export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
     this.canvasContext.rect(
       this.transform.position.x,
       this.transform.position.y,
+      // (this.transform.position.x + (this.sprite.getWidth() / 2)),
+      // (this.transform.position.y + (this.sprite.getHeight() / 2)),
       this.sprite.getWidth(),
       this.sprite.getHeight()
     );
