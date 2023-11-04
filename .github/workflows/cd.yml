@@ -12,8 +12,8 @@ permissions:
 #   KEY: value
 
 jobs:
-  gh-pages-deploy:
-    name: Deploy to GitHub Pages
+  gh-pages-delivery:
+    name: Build and deliver static NextJS site to GitHub Pages
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
