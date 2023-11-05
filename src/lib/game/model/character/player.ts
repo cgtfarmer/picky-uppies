@@ -73,10 +73,11 @@ export default class Player extends Character implements Renderable {
     // console.log(`Transform before: ${this.transform.x}`);
     // this.transform.setPosition(setX(this.transform.getX() + this.velocity.x);
     // this.transform.setY(this.transform.getY() + this.velocity.y);
-    this.transform.position = new Vector2(
-      this.transform.position.x + this.velocity.x,
-      this.transform.position.y + this.velocity.y,
-    );
+    // this.transform.position = new Vector2(
+    //   this.transform.position.x + this.velocity.x,
+    //   this.transform.position.y + this.velocity.y,
+    // );
+    this.transform.translate(this.velocity);
     // console.log(`Transform after: ${this.transform.x}`);
 
     this.keybindModule?.perform();

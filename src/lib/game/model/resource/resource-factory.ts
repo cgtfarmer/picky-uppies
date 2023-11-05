@@ -4,6 +4,8 @@ import SpriteRendererFactory from '@/lib/engine/model/sprite-renderer/sprite-ren
 import Sprite from '@/lib/engine/model/sprite/sprite';
 import CircleSprite from '@/lib/engine/model/sprite/canvas/circle-sprite';
 import Vector2 from '@/lib/engine/model/vector2';
+import Bounds from '@/lib/engine/model/bounds';
+import Rng from '@/lib/engine/model/rng';
 
 export default class ResourceFactory {
 
@@ -24,6 +26,24 @@ export default class ResourceFactory {
   // public constructor(spriteRendererFactory: SpriteRendererFactory) {
   //   this.spriteRendererFactory = spriteRendererFactory;
   // }
+
+  public createRandom(bounds: Bounds): Resource {
+    const rng: Rng = Rng.getInstance();
+
+    const roll = rng.getRandomInt(1, 3);
+
+    switch(roll) {
+    case 1:
+      return this.createPrometium(bounds.getRandomPoint());
+    case 2:
+      return this.createEndurium(bounds.getRandomPoint());
+    case 3:
+      return this.createTerbium(bounds.getRandomPoint());
+    default:
+      throw Error('Invalid roll');
+    }
+
+  }
 
   public createPrometium(position: Vector2): Resource {
     // const display: Display | null = Game.getInstance().getDisplay();

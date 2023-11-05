@@ -1,6 +1,10 @@
 import ResourceFactory from '@/lib/game/model/resource/resource-factory';
 import Scene from './scene';
 import ResourceSpawnEngine from '@/lib/game/model/resource/resource-spawn-engine';
+import Resource from '@/lib/game/model/resource/resource';
+import GameObject from '../game-object';
+import Vector2 from '../vector2';
+import Bounds from '../bounds';
 
 export default class SceneFactory {
 
@@ -16,35 +20,28 @@ export default class SceneFactory {
 
   public createScenes(): Scene[] {
     return [
-      this.createOneOne(),
+      this.createSomeMap(),
     ];
   }
 
-  public createOneOne(): Scene {
-    // return new Scene(1360, 765, [], [
-    //   this.resourceFactory.createPrometium(0, 50),
-    //   this.resourceFactory.createPrometium(0, 100),
-    //   this.resourceFactory.createPrometium(0, 150),
-    //   this.resourceFactory.createPrometium(0, 200),
-    //   this.resourceFactory.createPrometium(0, 250),
-    //   this.resourceFactory.createEndurium(100, 50),
-    //   this.resourceFactory.createEndurium(100, 100),
-    //   this.resourceFactory.createEndurium(100, 150),
-    //   this.resourceFactory.createEndurium(100, 200),
-    //   this.resourceFactory.createEndurium(100, 250),
-    //   this.resourceFactory.createTerbium(200, 50),
-    //   this.resourceFactory.createTerbium(200, 100),
-    //   this.resourceFactory.createTerbium(200, 150),
-    //   this.resourceFactory.createTerbium(200, 200),
-    //   this.resourceFactory.createTerbium(200, 250),
-    // ]);
+  public createSomeMap(): Scene {
+    const bounds: Bounds = new Bounds(
+      new Vector2(0, 0),
+      new Vector2(1360, 765)
+    );
 
-    const scene: Scene = new Scene(1360, 765, [], []);
+    const resourceFactory: ResourceFactory = ResourceFactory.getInstance();
 
-    const resourceFactory = ResourceFactory.getInstance();
-    const resourceSpawnEngine: ResourceSpawnEngine =
-      new ResourceSpawnEngine(resourceFactory, 100);
-    scene.setResourceSpawnEngine(resourceSpawnEngine);
+    const resources: GameObject[] = [];
+    for (let i = 0; i < 10; i++) {
+      resources.push(resourceFactory.createRandom(bounds));
+    }
+
+    const scene: Scene = new Scene(bounds, [], resources);
+
+    // const resourceSpawnEngine: ResourceSpawnEngine =
+    //   new ResourceSpawnEngine(resourceFactory, 100);
+    // scene.setResourceSpawnEngine(resourceSpawnEngine);
 
     return scene;
   }

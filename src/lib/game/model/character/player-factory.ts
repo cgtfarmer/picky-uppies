@@ -9,6 +9,7 @@ import Vector2 from '@/lib/engine/model/vector2';
 import KeybindModule from '@/lib/engine/model/keybind-module/keybind-module';
 import { Action } from '@/lib/engine/model/action/action';
 import Interact from '@/lib/engine/model/action/interact';
+import Bounds from '@/lib/engine/model/bounds';
 
 export default class PlayerFactory {
 
@@ -36,12 +37,16 @@ export default class PlayerFactory {
 
     // if (display == null) throw Error('Display must be present');
 
+    const transform: Transform = new Transform(new Vector2(0, 0));
+
     // const sprite: RectangleSprite = new RectangleSprite(40, 40, true, 2, '#ff0000', '#000000');
-    const sprite: RectangleSprite = new RectangleSprite(40, 40, true, 2, '#ffffff', '#000000');
+    const bounds: Bounds = new Bounds(
+      transform.position,
+      new Vector2(40, 40)
+    );
+    const sprite: RectangleSprite = new RectangleSprite(bounds, true, 2, '#ffffff', '#000000');
 
     const inventory: Inventory = new Inventory();
-
-    const transform: Transform = new Transform(new Vector2(0, 0));
 
     // const spriteRenderer: SpriteRenderer =
     //   this.spriteRendererFactory.create(sprite, display, transform);

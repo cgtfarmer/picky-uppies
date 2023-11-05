@@ -5,11 +5,11 @@ import GameObject from '../game-object';
 import { SpriteRenderer } from '../sprite-renderer/sprite-renderer';
 import SpriteRendererFactory from '../sprite-renderer/sprite-renderer-factory';
 import Sprite from '../sprite/sprite';
+import Bounds from '../bounds';
 
 export default class Scene implements Renderable {
 
-  private readonly width: number;
-  private readonly height: number;
+  private readonly bounds: Bounds;
 
   private resourceSpawnEngine: ResourceSpawnEngine | null;
 
@@ -18,10 +18,9 @@ export default class Scene implements Renderable {
   private resources: GameObject[];
 
   public constructor(
-    width: number, height: number, players: GameObject[], resources: GameObject[]
+    bounds: Bounds, players: GameObject[], resources: GameObject[]
   ) {
-    this.width = width;
-    this.height = height;
+    this.bounds = bounds;
     this.players = players;
     this.resources = resources;
     this.resourceSpawnEngine = null;
@@ -32,12 +31,8 @@ export default class Scene implements Renderable {
     this.resourceSpawnEngine.setScene(this);
   }
 
-  public getWidth(): number {
-    return this.width;
-  }
-
-  public getHeight(): number {
-    return this.height;
+  public getBounds(): Bounds {
+    return this.bounds;
   }
 
   public getPlayers() {
@@ -65,21 +60,22 @@ export default class Scene implements Renderable {
       if (sprite == null) return;
 
       const spriteRenderer: SpriteRenderer =
-        spriteRendererFactory.create(sprite, display, gameObject.getTransform());
+        // spriteRendererFactory.create(sprite, display, gameObject.getTransform());
+        spriteRendererFactory.create(sprite, display, this);
 
       gameObject.setSpriteRenderer(spriteRenderer);
     });
 
-    // this.resources.forEach((gameObject: GameObject) => {
-    //   const sprite: Sprite | null = gameObject.getSprite();
+    this.resources.forEach((gameObject: GameObject) => {
+      const sprite: Sprite | null = gameObject.getSprite();
 
-    //   if (sprite == null) return;
+      if (sprite == null) return;
 
-    //   const spriteRenderer: SpriteRenderer =
-    //     spriteRendererFactory.create(sprite, display, gameObject.getTransform());
+      const spriteRenderer: SpriteRenderer =
+        spriteRendererFactory.create(sprite, display, gameObject.getTransform());
 
-    //   gameObject.setSpriteRenderer(spriteRenderer);
-    // });
+      gameObject.setSpriteRenderer(spriteRenderer);
+    });
   }
 
   public update(): void {

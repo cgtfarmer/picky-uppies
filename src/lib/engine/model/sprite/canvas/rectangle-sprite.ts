@@ -1,13 +1,12 @@
+import Bounds from '../../bounds';
 import CanvasSprite from './canvas-sprite';
 
 export default class RectangleSprite extends CanvasSprite {
 
-  private width: number;
-  private height: number;
+  private bounds: Bounds;
 
   public constructor(
-    width: number,
-    height: number,
+    bounds: Bounds,
     fill: boolean,
     lineWidth: number,
     fillColor: string,
@@ -15,15 +14,10 @@ export default class RectangleSprite extends CanvasSprite {
   ) {
     super('rectangle', fill, lineWidth, fillColor, strokeColor);
 
-    this.width = width;
-    this.height = height;
+    this.bounds = bounds;
   }
 
-  public getWidth(): number {
-    return this.width;
-  }
-
-  public getHeight(): number {
-    return this.height;
+  public getBounds(): Bounds {
+    return this.bounds;
   }
 }

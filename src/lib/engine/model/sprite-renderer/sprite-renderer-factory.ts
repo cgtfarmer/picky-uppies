@@ -1,5 +1,6 @@
 import CanvasDisplay from '../display/canvas-display';
 import { Display } from '../display/display';
+import Scene from '../scene/scene';
 import CanvasSprite from '../sprite/canvas/canvas-sprite';
 import CircleSprite from '../sprite/canvas/circle-sprite';
 import RectangleSprite from '../sprite/canvas/rectangle-sprite';
@@ -19,7 +20,7 @@ export default class SpriteRendererFactory {
     return this.singleton;
   }
 
-  public create(sprite: Sprite, display: Display, transform: Transform): SpriteRenderer {
+  public create(sprite: Sprite, display: Display, scene: Scene): SpriteRenderer {
     // console.log(
     //   `[SpriteRendererFactory#create] sprite=${typeof sprite}, display=${typeof display}`
     // );
@@ -27,12 +28,12 @@ export default class SpriteRendererFactory {
     if (display instanceof CanvasDisplay) {
 
       if (sprite instanceof RectangleSprite)
-        return new RectangleSpriteCanvasRenderer(sprite, display, transform);
+        return new RectangleSpriteCanvasRenderer(sprite, display, scene);
 
       // console.log('[SpriteRendererFactory#create] not RectangleSprite');
 
       if (sprite instanceof CircleSprite)
-        return new CircleSpriteCanvasRenderer(sprite, display, transform);
+        return new CircleSpriteCanvasRenderer(sprite, display, scene);
 
       // console.log('[SpriteRendererFactory#create] not CircleSprite');
     } else {

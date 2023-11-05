@@ -1,4 +1,5 @@
 import CanvasDisplay from '../../display/canvas-display';
+import Scene from '../../scene/scene';
 import CircleSprite from '../../sprite/canvas/circle-sprite';
 import Transform from '../../transform';
 import { SpriteRenderer } from '../sprite-renderer';
@@ -10,15 +11,15 @@ export default class CircleSpriteCanvasRenderer implements SpriteRenderer {
   private static readonly COUNTERCLOCKWISE: boolean = false;
 
   private readonly sprite: CircleSprite;
-  private readonly transform: Transform;
+  private readonly scene: Scene;
   private readonly canvas: CanvasDisplay;
 
   private readonly canvasContext: CanvasRenderingContext2D;
 
-  public constructor(sprite: CircleSprite, canvas: CanvasDisplay, transform: Transform) {
+  public constructor(sprite: CircleSprite, canvas: CanvasDisplay, scene: Scene) {
     this.sprite = sprite;
     this.canvas = canvas;
-    this.transform = transform;
+    this.scene = scene;
     this.canvasContext = this.canvas.getContext();
   }
 
@@ -29,8 +30,8 @@ export default class CircleSpriteCanvasRenderer implements SpriteRenderer {
     this.canvasContext.fillStyle = this.sprite.getFillColor();
 
     this.canvasContext.arc(
-      this.transform.position.x,
-      this.transform.position.y,
+      this.sprite.position.x,
+      this.sprite.position.y,
       // (this.transform.position.x + (this.sprite.getRadius() / 2)),
       // (this.transform.position.y + (this.sprite.getRadius() / 2)),
       this.sprite.getRadius(),

@@ -1,28 +1,31 @@
 import DomAccessor from '@/lib/accessor/dom-accessor';
 import { Display } from './display';
+import Bounds from '../bounds';
+import Vector2 from '../vector2';
 
 export default class CanvasDisplay implements Display {
 
   private static readonly id: string = 'canvas';
 
-  private readonly width: number;
-  private readonly height: number;
+  private readonly bounds: Bounds;
   private readonly htmlCanvasElement: HTMLCanvasElement;
   private readonly context: CanvasRenderingContext2D;
 
   private readonly backgroundColor: string;
 
   public constructor(width: number, height: number, backgroundColor: string) {
-    this.width = width;
-    this.height = height;
+    this.bounds = new Bounds(
+      new Vector2(0, 0),
+      new Vector2(width, height)
+    );
     this.backgroundColor = backgroundColor;
 
     // this.htmlCanvas = new HTMLCanvasElement();
     this.htmlCanvasElement = DomAccessor.getInstance().createCanvas();
     this.htmlCanvasElement.id = CanvasDisplay.id;
     // this.htmlCanvasElement.id = 'canvas';
-    this.htmlCanvasElement.width = this.width;
-    this.htmlCanvasElement.height = this.height;
+    this.htmlCanvasElement.width = width;
+    this.htmlCanvasElement.height = height;
     this.htmlCanvasElement.style.backgroundColor = this.backgroundColor;
 
     const context = this.htmlCanvasElement.getContext('2d');
@@ -44,6 +47,10 @@ export default class CanvasDisplay implements Display {
     // `);
   }
 
+  public getBounds(): Bounds {
+    return this.bounds;
+  }
+
   public getContext(): CanvasRenderingContext2D {
     return this.context;
   }
@@ -53,6 +60,8 @@ export default class CanvasDisplay implements Display {
   }
 
   public clearFrame(): void {
-    this.context.clearRect(0, 0, this.width, this.height);
+    const size: Vector2 = this.bounds.getSize();
+
+    this.context.clearRect(0, 0, size.x, size.y);
   }
 }

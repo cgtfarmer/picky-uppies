@@ -12,6 +12,7 @@ import EventSystem from '@/lib/engine/event-system/event-system';
 import { Topics } from '@/lib/engine/event-system/topics';
 import Subscription from '@/lib/engine/event-system/subscription';
 import Message from '@/lib/engine/event-system/message';
+import Bounds from '@/lib/engine/model/bounds';
 
 export default class ResourceSpawnEngine implements Renderable {
 
@@ -93,9 +94,10 @@ export default class ResourceSpawnEngine implements Renderable {
   private createRandomPosition(): Vector2 {
     if (this.scene == null) throw Error('Scene must be present');
 
+    const size: Vector2 = this.scene.getBounds().getSize();
     return new Vector2(
-      this.getRandomInt(0, this.scene.getWidth()),
-      this.getRandomInt(0, this.scene.getHeight())
+      this.getRandomInt(0, size.x),
+      this.getRandomInt(0, size.y)
     );
   }
 

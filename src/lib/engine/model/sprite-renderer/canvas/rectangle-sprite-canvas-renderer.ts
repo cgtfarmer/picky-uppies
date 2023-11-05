@@ -1,20 +1,23 @@
+import Bounds from '../../bounds';
 import CanvasDisplay from '../../display/canvas-display';
+import Scene from '../../scene/scene';
 import RectangleSprite from '../../sprite/canvas/rectangle-sprite';
 import Transform from '../../transform';
+import Vector2 from '../../vector2';
 import { SpriteRenderer } from '../sprite-renderer';
 
 export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
 
   private readonly sprite: RectangleSprite;
-  private readonly transform: Transform;
+  private readonly scene: Scene;
   private readonly canvas: CanvasDisplay;
 
   private readonly canvasContext: CanvasRenderingContext2D;
 
-  public constructor(sprite: RectangleSprite, canvas: CanvasDisplay, transform: Transform) {
+  public constructor(sprite: RectangleSprite, canvas: CanvasDisplay, scene: Scene) {
     this.sprite = sprite;
     this.canvas = canvas;
-    this.transform = transform;
+    this.scene = scene;
     this.canvasContext = this.canvas.getContext();
   }
 
@@ -24,13 +27,19 @@ export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
     this.canvasContext.strokeStyle = this.sprite.getStrokeColor();
     this.canvasContext.fillStyle = this.sprite.getFillColor();
 
+    const bounds: Bounds = this.sprite.getBounds();
+    const min: Vector2 = bounds.getMin();
+    const max: Vector2 = bounds.getMax();
+    const size: Vector2 = bounds.getSize();
     this.canvasContext.rect(
-      this.transform.position.x,
-      this.transform.position.y,
-      // (this.transform.position.x + (this.sprite.getWidth() / 2)),
-      // (this.transform.position.y + (this.sprite.getHeight() / 2)),
-      this.sprite.getWidth(),
-      this.sprite.getHeight()
+      // this.transform.position.x,
+      // this.transform.position.y,
+      // (this.transform.position.x - extents.x),
+      // (this.transform.position.y - extents.y),
+      min.x,
+      max.y,
+      size.x,
+      size.y
     );
 
     if (this.sprite.getFill()) {

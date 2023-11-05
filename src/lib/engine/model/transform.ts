@@ -8,6 +8,10 @@ export default class Transform {
     this.position = position;
   }
 
+  public translate(value: Vector2): void {
+    this.position.add(value);
+  }
+
   // public getPosition(): Vector2 {
   //   return this.position;
   // }
