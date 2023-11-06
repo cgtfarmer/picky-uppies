@@ -72,7 +72,7 @@ export default class Scene implements Renderable {
       if (sprite == null) return;
 
       const spriteRenderer: SpriteRenderer =
-        spriteRendererFactory.create(sprite, display, gameObject.getTransform());
+        spriteRendererFactory.create(sprite, display, this);
 
       gameObject.setSpriteRenderer(spriteRenderer);
     });

@@ -31,13 +31,15 @@ export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
     const min: Vector2 = bounds.getMin();
     const max: Vector2 = bounds.getMax();
     const size: Vector2 = bounds.getSize();
+
+    const sceneCenter: Vector2 = this.scene.getBounds().getCenter();
     this.canvasContext.rect(
       // this.transform.position.x,
       // this.transform.position.y,
       // (this.transform.position.x - extents.x),
       // (this.transform.position.y - extents.y),
-      min.x,
-      max.y,
+      (sceneCenter.x + min.x),
+      (sceneCenter.y + max.y),
       size.x,
       size.y
     );

@@ -67,7 +67,7 @@ export default class ResourceSpawnEngine implements Renderable {
     if (display == null) return;
 
     const spriteRenderer: SpriteRenderer = SpriteRendererFactory.getInstance()
-      .create(sprite, display, resource.getTransform());
+      .create(sprite, display, this.scene);
 
     resource.setSpriteRenderer(spriteRenderer);
 

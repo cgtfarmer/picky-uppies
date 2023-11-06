@@ -2,6 +2,7 @@ import CanvasDisplay from '../../display/canvas-display';
 import Scene from '../../scene/scene';
 import CircleSprite from '../../sprite/canvas/circle-sprite';
 import Transform from '../../transform';
+import Vector2 from '../../vector2';
 import { SpriteRenderer } from '../sprite-renderer';
 
 export default class CircleSpriteCanvasRenderer implements SpriteRenderer {
@@ -29,9 +30,10 @@ export default class CircleSpriteCanvasRenderer implements SpriteRenderer {
     this.canvasContext.strokeStyle = this.sprite.getStrokeColor();
     this.canvasContext.fillStyle = this.sprite.getFillColor();
 
+    const center: Vector2 = this.sprite.getCenter();
     this.canvasContext.arc(
-      this.sprite.position.x,
-      this.sprite.position.y,
+      center.x,
+      center.y,
       // (this.transform.position.x + (this.sprite.getRadius() / 2)),
       // (this.transform.position.y + (this.sprite.getRadius() / 2)),
       this.sprite.getRadius(),

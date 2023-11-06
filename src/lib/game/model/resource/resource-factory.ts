@@ -50,9 +50,9 @@ export default class ResourceFactory {
 
     // if (display == null) throw Error('Display must be present');
 
-    const sprite: Sprite = new CircleSprite(30, true, 2, '#ff0000', '#000000');
-
     const transform: Transform = new Transform(position);
+
+    const sprite: Sprite = new CircleSprite(transform.position, 30, true, 2, '#ff0000', '#000000');
 
     // const spriteRenderer: SpriteRenderer =
     //   this.spriteRendererFactory.create(sprite, display, transform);
@@ -70,9 +70,9 @@ export default class ResourceFactory {
 
     // if (display == null) throw Error('Display must be present');
 
-    const sprite: Sprite = new CircleSprite(30, true, 2, '#0000ff', '#000000');
-
     const transform: Transform = new Transform(position);
+
+    const sprite: Sprite = new CircleSprite(transform.position, 30, true, 2, '#0000ff', '#000000');
 
     // const spriteRenderer: SpriteRenderer =
     //   this.spriteRendererFactory.create(sprite, display, transform);
@@ -90,9 +90,9 @@ export default class ResourceFactory {
 
     // if (display == null) throw Error('Display must be present');
 
-    const sprite: Sprite = new CircleSprite(30, true, 2, '#ffff00', '#000000');
-
     const transform: Transform = new Transform(position);
+
+    const sprite: Sprite = new CircleSprite(transform.position, 30, true, 2, '#ffff00', '#000000');
 
     // const spriteRenderer: SpriteRenderer =
     //   this.spriteRendererFactory.create(sprite, display, transform);
