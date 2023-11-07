@@ -1,11 +1,11 @@
-import { Renderable } from '../../../engine/interface/renderable';
-import Character from './character';
-import Inventory from '../inventory';
-import Sprite from '../../../engine/model/sprite/sprite';
-import Transform from '../../../engine/model/transform';
-import Vector2 from '../../../engine/model/vector2';
-import { InputModule } from '@/engine/model/input-module/input-module';
-import KeybindModule from '@/engine/model/keybind-module/keybind-module';
+import { Renderable } from '../../../engine/interface/renderable.js';
+import Character from './character.js';
+import Inventory from '../inventory.js';
+import Sprite from '../../../engine/model/sprite/sprite.js';
+import Transform from '../../../engine/model/transform.js';
+import Vector2 from '../../../engine/model/vector2.js';
+import { InputModule } from '@/engine/model/input-module/input-module.js';
+import KeybindModule from '@/engine/model/keybind-module/keybind-module.js';
 
 export default class Player extends Character implements Renderable {
 

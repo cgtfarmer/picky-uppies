@@ -1,7 +1,7 @@
-import Character from './character';
-import { Demeanor } from '../../enum/demeanor';
-import Sprite from '../../../engine/model/sprite/sprite';
-import Transform from '../../../engine/model/transform';
+import Character from './character.js';
+import { Demeanor } from '../../enum/demeanor.js';
+import Sprite from '../../../engine/model/sprite/sprite.js';
+import Transform from '../../../engine/model/transform.js';
 
 export default class Enemy extends Character {
   private aggroRange: number;

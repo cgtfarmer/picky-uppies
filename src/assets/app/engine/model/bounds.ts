@@ -1,5 +1,5 @@
-import Rng from './rng';
-import Vector2 from './vector2';
+import Rng from './rng.js';
+import Vector2 from './vector2.js';
 
 export default class Bounds {
   private center: Vector2;

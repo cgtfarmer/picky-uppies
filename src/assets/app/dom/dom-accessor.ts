@@ -1,7 +1,5 @@
 export default class DomAccessor {
 
-  // public static container: Element | null = document.querySelector('container');
-
   private static singleton: DomAccessor;
 
   public static getInstance(): DomAccessor {
@@ -14,7 +12,11 @@ export default class DomAccessor {
     return document.querySelector(`#${elementId}`);
   }
 
-  public createCanvas(): HTMLCanvasElement {
-    return document.createElement('canvas');
+  public append(elementId: string, element: Element): void {
+    const containerElement: Element | null = this.get(elementId);
+
+    if (containerElement == null) return;
+
+    containerElement.insertAdjacentElement('beforeend', element);
   }
 }

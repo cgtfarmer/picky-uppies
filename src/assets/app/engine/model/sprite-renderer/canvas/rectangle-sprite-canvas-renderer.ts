@@ -1,10 +1,10 @@
-import Bounds from '../../bounds';
-import CanvasDisplay from '../../display/canvas-display';
-import Scene from '../../scene/scene';
-import RectangleSprite from '../../sprite/canvas/rectangle-sprite';
-import Transform from '../../transform';
-import Vector2 from '../../vector2';
-import { SpriteRenderer } from '../sprite-renderer';
+import Bounds from '../../bounds.js';
+import CanvasDisplay from '../../display/canvas-display.js';
+import Scene from '../../scene/scene.js';
+import RectangleSprite from '../../sprite/canvas/rectangle-sprite.js';
+import Transform from '../../transform.js';
+import Vector2 from '../../vector2.js';
+import { SpriteRenderer } from '../sprite-renderer.js';
 
 export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
 

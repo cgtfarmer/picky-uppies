@@ -1,4 +1,4 @@
-import Sprite from '../sprite';
+import Sprite from '../sprite.js';
 
 export default abstract class CanvasSprite extends Sprite {
 

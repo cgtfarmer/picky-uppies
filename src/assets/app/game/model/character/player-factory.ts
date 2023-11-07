@@ -1,15 +1,15 @@
-import BrowserInputModule from '../../../engine/model/input-module/browser-input-module';
-import Inventory from '../inventory';
-import Player from './player';
-import RectangleSprite from '../../../engine/model/sprite/canvas/rectangle-sprite';
-import Transform from '../../../engine/model/transform';
-import { InputModule } from '@/engine/model/input-module/input-module';
-import SpriteRendererFactory from '@/engine/model/sprite-renderer/sprite-renderer-factory';
-import Vector2 from '@/engine/model/vector2';
-import KeybindModule from '@/engine/model/keybind-module/keybind-module';
-import { Action } from '@/engine/model/action/action';
-import Interact from '@/engine/model/action/interact';
-import Bounds from '@/engine/model/bounds';
+import BrowserInputModule from '../../../engine/model/input-module/browser-input-module.js';
+import Inventory from '../inventory.js';
+import Player from './player.js';
+import RectangleSprite from '../../../engine/model/sprite/canvas/rectangle-sprite.js';
+import Transform from '../../../engine/model/transform.js';
+import { InputModule } from '@/engine/model/input-module/input-module.js';
+import SpriteRendererFactory from '@/engine/model/sprite-renderer/sprite-renderer-factory.js';
+import Vector2 from '@/engine/model/vector2.js';
+import KeybindModule from '@/engine/model/keybind-module/keybind-module.js';
+import { Action } from '@/engine/model/action/action.js';
+import Interact from '@/engine/model/action/interact.js';
+import Bounds from '@/engine/model/bounds.js';
 
 export default class PlayerFactory {
 

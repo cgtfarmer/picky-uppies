@@ -1,5 +1,5 @@
-import Topic from './topic';
-import { Topics } from './topics';
+import Topic from './topic.js';
+import { Topics } from './topics.js';
 
 export default class EventSystem {
 

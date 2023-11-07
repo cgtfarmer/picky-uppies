@@ -1,4 +1,4 @@
-import Message from './message';
+import Message from './message.js';
 
 export default class Subscription {
   private id: string;

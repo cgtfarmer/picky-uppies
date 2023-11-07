@@ -1,12 +1,12 @@
-import EventSystem from '../../event-system/event-system';
-import Message from '../../event-system/message';
-import { Topics } from '../../event-system/topics';
-import { Renderable } from '../../interface/renderable';
-import GameObject from '../game-object';
-import Game from '../game/game';
-import Physics2D from '../physics-2d';
-import Vector2 from '../vector2';
-import { Action } from './action';
+import EventSystem from '../../event-system/event-system.js';
+import Message from '../../event-system/message.js';
+import { Topics } from '../../event-system/topics.js';
+import { Renderable } from '../../interface/renderable.js';
+import GameObject from '../game-object.js';
+import Game from '../game/game.js';
+import Physics2D from '../physics-2d.js';
+import Vector2 from '../vector2.js';
+import { Action } from './action.js';
 
 export default class Interact implements Action {
 

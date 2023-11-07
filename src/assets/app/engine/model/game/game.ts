@@ -1,10 +1,10 @@
-import DomAccessor from '../../../accessor/dom-accessor';
-import GameFactory from './game-factory';
-import { Renderable } from '../../interface/renderable';
-import Player from '../../../game/model/character/player';
-import Scene from '../scene/scene';
-import { Display } from '../display/display';
-import EventSystem from '../../event-system/event-system';
+import DomAccessor from '../../../dom/dom-accessor.js';
+import GameFactory from './game-factory.js';
+import { Renderable } from '../../interface/renderable.js';
+import Player from '../../../game/model/character/player.js';
+import Scene from '../scene/scene.js';
+import { Display } from '../display/display.js';
+import EventSystem from '../../event-system/event-system.js';
 
 export default class Game implements Renderable {
 

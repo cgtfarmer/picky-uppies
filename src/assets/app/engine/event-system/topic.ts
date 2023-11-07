@@ -1,5 +1,5 @@
-import Message from './message';
-import Subscription from './subscription';
+import Message from './message.js';
+import Subscription from './subscription.js';
 
 export default class Topic {
 

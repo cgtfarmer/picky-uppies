@@ -1,6 +1,6 @@
-import GameObject from './game-object';
-import Scene from './scene/scene';
-import Vector2 from './vector2';
+import GameObject from './game-object.js';
+import Scene from './scene/scene.js';
+import Vector2 from './vector2.js';
 
 export default class Physics2D {
 

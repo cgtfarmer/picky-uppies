@@ -34,9 +34,20 @@
     "rootDir": "./src",                                  /* Specify the root folder within your source files. */
     // "moduleResolution": "node10",                     /* Specify how TypeScript looks up a file from a given module specifier. */
     "moduleResolution": "node",                     /* Specify how TypeScript looks up a file from a given module specifier. */
+    // OPTION 1: import UuidProvider from 'engine/uuid-provider.js';
+    // "baseUrl": "./src/assets/app/",                                  /* Specify the base directory to resolve non-relative module names. */
+    // "paths": {
+    // },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
+    // OPTION 2: import UuidProvider from '@/engine/uuid-provider.js';
     // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
+    // "paths": {
+    //   "@/*": ["./src/assets/app/*"]
+    // },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
+    // OPTION 3: ???
+    "baseUrl": "./src",                                  /* Specify the base directory to resolve non-relative module names. */
+    "plugins": [{ "transform": "@zerollup/ts-transform-paths" }],
     "paths": {
-      "@/*": ["./src/assets/app/*"]
+      "@/*": ["./assets/app/*"]
     },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
@@ -113,8 +124,8 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-    // "exclude": [
-    //   "node_modules"
-    // ]
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

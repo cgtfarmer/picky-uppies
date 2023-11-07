@@ -1,5 +1,5 @@
-import Vector2 from '../../vector2';
-import CanvasSprite from './canvas-sprite';
+import Vector2 from '../../vector2.js';
+import CanvasSprite from './canvas-sprite.js';
 
 export default class CircleSprite extends CanvasSprite {
 

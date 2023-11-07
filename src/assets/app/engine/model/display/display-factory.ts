@@ -1,4 +1,4 @@
-import CanvasDisplay from './canvas-display';
+import CanvasDisplay from './canvas-display.js';
 
 export default class DisplayFactory {
 
@@ -10,7 +10,7 @@ export default class DisplayFactory {
     return this.singleton;
   }
 
-  public createCanvas(): CanvasDisplay {
-    return new CanvasDisplay(1280, 720, '#000000');
+  public createCanvas(htmlCanvasElement: HTMLCanvasElement): CanvasDisplay {
+    return new CanvasDisplay(1280, 720, '#000000', htmlCanvasElement);
   }
 }

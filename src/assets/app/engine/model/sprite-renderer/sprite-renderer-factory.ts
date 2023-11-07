@@ -1,14 +1,14 @@
-import CanvasDisplay from '../display/canvas-display';
-import { Display } from '../display/display';
-import Scene from '../scene/scene';
-import CanvasSprite from '../sprite/canvas/canvas-sprite';
-import CircleSprite from '../sprite/canvas/circle-sprite';
-import RectangleSprite from '../sprite/canvas/rectangle-sprite';
-import Sprite from '../sprite/sprite';
-import Transform from '../transform';
-import CircleSpriteCanvasRenderer from './canvas/circle-sprite-canvas-renderer';
-import RectangleSpriteCanvasRenderer from './canvas/rectangle-sprite-canvas-renderer';
-import { SpriteRenderer } from './sprite-renderer';
+import CanvasDisplay from '../display/canvas-display.js';
+import { Display } from '../display/display.js';
+import Scene from '../scene/scene.js';
+import CanvasSprite from '../sprite/canvas/canvas-sprite.js';
+import CircleSprite from '../sprite/canvas/circle-sprite.js';
+import RectangleSprite from '../sprite/canvas/rectangle-sprite.js';
+import Sprite from '../sprite/sprite.js';
+import Transform from '../transform.js';
+import CircleSpriteCanvasRenderer from './canvas/circle-sprite-canvas-renderer.js';
+import RectangleSpriteCanvasRenderer from './canvas/rectangle-sprite-canvas-renderer.js';
+import { SpriteRenderer } from './sprite-renderer.js';
 
 export default class SpriteRendererFactory {
 

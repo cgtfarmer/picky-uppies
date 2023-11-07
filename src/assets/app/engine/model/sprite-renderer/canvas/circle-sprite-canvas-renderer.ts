@@ -1,9 +1,9 @@
-import CanvasDisplay from '../../display/canvas-display';
-import Scene from '../../scene/scene';
-import CircleSprite from '../../sprite/canvas/circle-sprite';
-import Transform from '../../transform';
-import Vector2 from '../../vector2';
-import { SpriteRenderer } from '../sprite-renderer';
+import CanvasDisplay from '../../display/canvas-display.js';
+import Scene from '../../scene/scene.js';
+import CircleSprite from '../../sprite/canvas/circle-sprite.js';
+import Transform from '../../transform.js';
+import Vector2 from '../../vector2.js';
+import { SpriteRenderer } from '../sprite-renderer.js';
 
 export default class CircleSpriteCanvasRenderer implements SpriteRenderer {
 

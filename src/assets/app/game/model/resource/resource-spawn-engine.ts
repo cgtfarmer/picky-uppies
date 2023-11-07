@@ -1,18 +1,18 @@
-import { Renderable } from '@/engine/interface/renderable';
-import Scene from '@/engine/model/scene/scene';
-import ResourceFactory from './resource-factory';
-import Resource from './resource';
-import Vector2 from '@/engine/model/vector2';
-import Sprite from '@/engine/model/sprite/sprite';
-import { SpriteRenderer } from '@/engine/model/sprite-renderer/sprite-renderer';
-import Game from '@/engine/model/game/game';
-import SpriteRendererFactory from '@/engine/model/sprite-renderer/sprite-renderer-factory';
-import { Display } from '@/engine/model/display/display';
-import EventSystem from '@/engine/event-system/event-system';
-import { Topics } from '@/engine/event-system/topics';
-import Subscription from '@/engine/event-system/subscription';
-import Message from '@/engine/event-system/message';
-import Bounds from '@/engine/model/bounds';
+import { Renderable } from '@/engine/interface/renderable.js';
+import Scene from '@/engine/model/scene/scene.js';
+import ResourceFactory from './resource-factory.js';
+import Resource from './resource.js';
+import Vector2 from '@/engine/model/vector2.js';
+import Sprite from '@/engine/model/sprite/sprite.js';
+import { SpriteRenderer } from '@/engine/model/sprite-renderer/sprite-renderer.js';
+import Game from '@/engine/model/game/game.js';
+import SpriteRendererFactory from '@/engine/model/sprite-renderer/sprite-renderer-factory.js';
+import { Display } from '@/engine/model/display/display.js';
+import EventSystem from '@/engine/event-system/event-system.js';
+import { Topics } from '@/engine/event-system/topics.js';
+import Subscription from '@/engine/event-system/subscription.js';
+import Message from '@/engine/event-system/message.js';
+import Bounds from '@/engine/model/bounds.js';
 
 export default class ResourceSpawnEngine implements Renderable {
 

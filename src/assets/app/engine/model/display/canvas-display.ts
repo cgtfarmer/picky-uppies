@@ -1,7 +1,6 @@
-import DomAccessor from '@/accessor/dom-accessor';
-import { Display } from './display';
-import Bounds from '../bounds';
-import Vector2 from '../vector2';
+import { Display } from './display.js';
+import Bounds from '../bounds.js';
+import Vector2 from '../vector2.js';
 
 export default class CanvasDisplay implements Display {
 
@@ -13,7 +12,12 @@ export default class CanvasDisplay implements Display {
 
   private readonly backgroundColor: string;
 
-  public constructor(width: number, height: number, backgroundColor: string) {
+  public constructor(
+    width: number,
+    height: number,
+    backgroundColor: string,
+    htmlCanvasElement: HTMLCanvasElement
+  ) {
     this.bounds = new Bounds(
       new Vector2(0, 0),
       new Vector2(width, height)
@@ -21,7 +25,7 @@ export default class CanvasDisplay implements Display {
     this.backgroundColor = backgroundColor;
 
     // this.htmlCanvas = new HTMLCanvasElement();
-    this.htmlCanvasElement = DomAccessor.getInstance().createCanvas();
+    this.htmlCanvasElement = htmlCanvasElement;
     this.htmlCanvasElement.id = CanvasDisplay.id;
     // this.htmlCanvasElement.id = 'canvas';
     this.htmlCanvasElement.width = width;

@@ -1,10 +1,10 @@
-import Sprite from '@/engine/model/sprite/sprite';
-import Transform from '@/engine/model/transform';
-import GameObject from '@/engine/model/game-object';
-import Message from '@/engine/event-system/message';
-import EventSystem from '@/engine/event-system/event-system';
-import { Topics } from '@/engine/event-system/topics';
-import Subscription from '@/engine/event-system/subscription';
+import Sprite from '@/engine/model/sprite/sprite.js';
+import Transform from '@/engine/model/transform.js';
+import GameObject from '@/engine/model/game-object.js';
+import Message from '@/engine/event-system/message.js';
+import EventSystem from '@/engine/event-system/event-system.js';
+import { Topics } from '@/engine/event-system/topics.js';
+import Subscription from '@/engine/event-system/subscription.js';
 
 export default class Resource extends GameObject {
 

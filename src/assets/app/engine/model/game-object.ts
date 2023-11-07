@@ -1,9 +1,9 @@
-import { Renderable } from '../interface/renderable';
-import Scene from './scene/scene';
-import { SpriteRenderer } from './sprite-renderer/sprite-renderer';
-import Sprite from './sprite/sprite';
-import Transform from './transform';
-import UuidProvider from '@/accessor/uuid-providor';
+import { Renderable } from '../interface/renderable.js';
+import Scene from './scene/scene.js';
+import { SpriteRenderer } from './sprite-renderer/sprite-renderer.js';
+import Sprite from './sprite/sprite.js';
+import Transform from './transform.js';
+import UuidProvider from '@/engine/uuid-provider.js';
 
 export default class GameObject implements Renderable {
   public readonly id: string;

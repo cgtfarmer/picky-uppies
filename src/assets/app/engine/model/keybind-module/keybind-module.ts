@@ -1,6 +1,6 @@
-import Player from '@/game/model/character/player';
-import { Action } from '../action/action';
-import { InputModule } from '../input-module/input-module';
+import Player from '@/game/model/character/player.js';
+import { Action } from '../action/action.js';
+import { InputModule } from '../input-module/input-module.js';
 
 export default class KeybindModule {
 

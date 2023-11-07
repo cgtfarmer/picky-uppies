@@ -1,9 +1,9 @@
-import Game from './game';
-import Player from '../../../game/model/character/player';
-import Scene from '../scene/scene';
-import PlayerFactory from '../../../game/model/character/player-factory';
-import SceneFactory from '../scene/scene-factory';
-import EventSystem from '../../event-system/event-system';
+import Game from './game.js';
+import Player from '../../../game/model/character/player.js';
+import Scene from '@/engine/model/scene/scene.js';
+import PlayerFactory from '@/game/model/character/player-factory.js';
+import SceneFactory from '../scene/scene-factory.js';
+import EventSystem from '../../event-system/event-system.js';
 
 export default class GameFactory {
 

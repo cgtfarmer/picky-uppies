@@ -1,4 +1,4 @@
-import { InputModule } from './input-module';
+import { InputModule } from './input-module.js';
 
 export default class BrowserInputModule implements InputModule {
 

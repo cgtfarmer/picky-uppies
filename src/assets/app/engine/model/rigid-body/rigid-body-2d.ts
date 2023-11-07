@@ -1,5 +1,5 @@
-import Transform from '../transform';
-import Vector2 from '../vector2';
+import Transform from '../transform.js';
+import Vector2 from '../vector2.js';
 
 export default class RigidBody2d {
 

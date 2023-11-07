@@ -1,7 +1,7 @@
-import { Renderable } from '../../../engine/interface/renderable';
-import Sprite from '../../../engine/model/sprite/sprite';
-import Transform from '../../../engine/model/transform';
-import GameObject from '@/engine/model/game-object';
+import { Renderable } from '../../../engine/interface/renderable.js';
+import Sprite from '../../../engine/model/sprite/sprite.js';
+import Transform from '../../../engine/model/transform.js';
+import GameObject from '@/engine/model/game-object.js';
 
 export default abstract class Character extends GameObject implements Renderable {
 

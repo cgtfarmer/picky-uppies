@@ -1,11 +1,11 @@
-import ResourceSpawnEngine from '@/game/model/resource/resource-spawn-engine';
-import { Renderable } from '../../interface/renderable';
-import { Display } from '../display/display';
-import GameObject from '../game-object';
-import { SpriteRenderer } from '../sprite-renderer/sprite-renderer';
-import SpriteRendererFactory from '../sprite-renderer/sprite-renderer-factory';
-import Sprite from '../sprite/sprite';
-import Bounds from '../bounds';
+import ResourceSpawnEngine from '@/game/model/resource/resource-spawn-engine.js';
+import { Renderable } from '../../interface/renderable.js';
+import { Display } from '../display/display.js';
+import GameObject from '../game-object.js';
+import { SpriteRenderer } from '../sprite-renderer/sprite-renderer.js';
+import SpriteRendererFactory from '../sprite-renderer/sprite-renderer-factory.js';
+import Sprite from '../sprite/sprite.js';
+import Bounds from '../bounds.js';
 
 export default class Scene implements Renderable {
 

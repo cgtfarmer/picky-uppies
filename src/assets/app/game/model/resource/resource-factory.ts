@@ -1,11 +1,11 @@
-import Transform from '../../../engine/model/transform';
-import Resource from './resource';
-import SpriteRendererFactory from '@/engine/model/sprite-renderer/sprite-renderer-factory';
-import Sprite from '@/engine/model/sprite/sprite';
-import CircleSprite from '@/engine/model/sprite/canvas/circle-sprite';
-import Vector2 from '@/engine/model/vector2';
-import Bounds from '@/engine/model/bounds';
-import Rng from '@/engine/model/rng';
+import Transform from '../../../engine/model/transform.js';
+import Resource from './resource.js';
+import SpriteRendererFactory from '@/engine/model/sprite-renderer/sprite-renderer-factory.js';
+import Sprite from '@/engine/model/sprite/sprite.js';
+import CircleSprite from '@/engine/model/sprite/canvas/circle-sprite.js';
+import Vector2 from '@/engine/model/vector2.js';
+import Bounds from '@/engine/model/bounds.js';
+import Rng from '@/engine/model/rng.js';
 
 export default class ResourceFactory {
 
@@ -33,14 +33,14 @@ export default class ResourceFactory {
     const roll = rng.getRandomInt(1, 3);
 
     switch (roll) {
-      case 1:
-        return this.createPrometium(bounds.getRandomPoint());
-      case 2:
-        return this.createEndurium(bounds.getRandomPoint());
-      case 3:
-        return this.createTerbium(bounds.getRandomPoint());
-      default:
-        throw Error('Invalid roll');
+    case 1:
+      return this.createPrometium(bounds.getRandomPoint());
+    case 2:
+      return this.createEndurium(bounds.getRandomPoint());
+    case 3:
+      return this.createTerbium(bounds.getRandomPoint());
+    default:
+      throw Error('Invalid roll');
     }
 
   }

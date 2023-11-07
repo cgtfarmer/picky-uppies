@@ -1,5 +1,5 @@
-import Bounds from '../../bounds';
-import CanvasSprite from './canvas-sprite';
+import Bounds from '../../bounds.js';
+import CanvasSprite from './canvas-sprite.js';
 
 export default class RectangleSprite extends CanvasSprite {
 

@@ -1,10 +1,10 @@
-import ResourceFactory from '@/game/model/resource/resource-factory';
-import Scene from './scene';
-import ResourceSpawnEngine from '@/game/model/resource/resource-spawn-engine';
-import Resource from '@/game/model/resource/resource';
-import GameObject from '../game-object';
-import Vector2 from '../vector2';
-import Bounds from '../bounds';
+import ResourceFactory from '@/game/model/resource/resource-factory.js';
+import Scene from './scene.js';
+import ResourceSpawnEngine from '@/game/model/resource/resource-spawn-engine.js';
+import Resource from '@/game/model/resource/resource.js';
+import GameObject from '../game-object.js';
+import Vector2 from '../vector2.js';
+import Bounds from '../bounds.js';
 
 export default class SceneFactory {
 
