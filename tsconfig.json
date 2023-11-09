@@ -3,7 +3,7 @@
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */
-    "incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */
+    // "incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */
     // "composite": true,                                /* Enable constraints that allow a TypeScript project to be used with project references. */
     // "tsBuildInfoFile": "./.tsbuildinfo",              /* Specify the path to .tsbuildinfo incremental compilation file. */
     // "disableSourceOfProjectReferenceRedirect": true,  /* Disable preferring source files instead of declaration files when referencing composite projects. */
@@ -44,10 +44,15 @@
     //   "@/*": ["./src/assets/app/*"]
     // },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // OPTION 3: ???
-    "baseUrl": "./src",                                  /* Specify the base directory to resolve non-relative module names. */
-    "plugins": [{ "transform": "@zerollup/ts-transform-paths" }],
+    // "baseUrl": "./src",                                  /* Specify the base directory to resolve non-relative module names. */
+    // // "plugins": [{ "transform": "@zerollup/ts-transform-paths" }],
+    // "paths": {
+    //   "@/*": ["./assets/app/*"]
+    // },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
+    // OPTION 4: ???
+    "baseUrl": "./src/assets/app",                                  /* Specify the base directory to resolve non-relative module names. */
     "paths": {
-      "@/*": ["./assets/app/*"]
+      "@/*": ["./*"]
     },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
@@ -124,8 +129,11 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  },
-  "exclude": [
-    "node_modules"
-  ]
+  }
+  // "include": [
+  //   "./src"
+  // ],
+  // "exclude": [
+  //   "node_modules"
+  // ]
 }

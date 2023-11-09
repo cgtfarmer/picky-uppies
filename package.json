@@ -4,13 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "tsc --watch",
-    "build": "tsc && ./bin/copyAssets.sh",
+    "build": "./bin/compile.sh",
     "lint": "eslint"
   },
   "dependencies": {
-    "@types/uuid": "^9.0.6",
-    "@zerollup/ts-transform-paths": "^1.7.18",
-    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "eslint": "8.39.0",
