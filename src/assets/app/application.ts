@@ -12,15 +12,15 @@ export default class Application {
   private static singleton: Application;
 
   public static getInstance(): Application {
-    if (this.singleton == null) {
-      const htmlElementFactory: HtmlElementFactory = HtmlElementFactory.getInstance();
+    if (this.singleton != null) return this.singleton;
 
-      const domAccessor: DomAccessor = DomAccessor.getInstance();
+    const htmlElementFactory: HtmlElementFactory = HtmlElementFactory.getInstance();
 
-      const displayFactory: DisplayFactory = DisplayFactory.getInstance();
+    const domAccessor: DomAccessor = DomAccessor.getInstance();
 
-      this.singleton = new Application(htmlElementFactory, domAccessor, displayFactory);
-    }
+    const displayFactory: DisplayFactory = DisplayFactory.getInstance();
+
+    this.singleton = new Application(htmlElementFactory, domAccessor, displayFactory);
 
     return this.singleton;
   }
