@@ -22,7 +22,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: '18.15'
+          node-version: '20'
 
       - run: npm ci
       - run: npm run build
@@ -30,12 +30,11 @@ jobs:
       - name: Init new repo in out folder and commit generated files
         run: |
           cd out
-          touch .nojekyll
           git init
           git add -A
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m 'deploy'
+          git commit -m 'Deploy'
 
       - name: Force push to destination branch
         uses: ad-m/github-push-action@v0.8.0
