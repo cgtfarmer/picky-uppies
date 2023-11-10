@@ -1,39 +1,25 @@
-Diablo--
-core:
-  intelligence
-  vitality
-  movement speed
-  max arcane power
-offense:
-  attack speed
-  cooldown reduction
-  critical hit chance
-  critical hit damage
-defensive:
-  lifearmor
-  resist all
-  life regeneration
-utility:
-  area dmg
-  resource cost reduction
-  life on hit
-  gold find
+Game
+  has a Display
 
-DO--
-increase HP
-5% more HP/second on repairs
-increase shield strength 4%
-increase evasion %
-more xp per kill %
-more bonus box uri %
-more loot box loot %
-increase cargo bay size %
-increase honor pts %
-increase credits/kill %
-increase mine dmg %
-increase mine radius %
-increase rocket accuracy %
-increase laser PVP dmg %
-increase rocket dmg %
-increase dmg % vs. aliens
-increase laser accuracy %
+SceneManager
+  has many Scenes
+  has an activeScene
+
+Scene
+  has many Cameras (can assume 1 for now)
+  has layers (not sure if this should be an object)
+  has many GameObjects (maybe this belongs to Layer objects, Unity represents layers as ints)
+
+Animator
+  (is basically a SpriteManager)
+  is a Component
+  has many Sprites
+  has an activeSprite
+  (can take the `forward` transform value and conditionally select the proper Sprite)
+
+SpriteRenderer
+  is a Component
+  just takes the activeSprite and renders it to the Display according to the world/camera coords
+
+Sprite
+  is just an object

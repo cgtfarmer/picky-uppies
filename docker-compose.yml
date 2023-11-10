@@ -6,7 +6,7 @@ networks:
 
 services:
   ui:
-    image: node:18.15.0
+    image: node:20
     user: node
     working_dir: /home/node/app
     ports:
@@ -19,12 +19,3 @@ services:
     expose:
       - 3000
     command: "npm run dev"
-
-  cdk:
-    build:
-      context: ./cdk
-      target: cdk-typescript
-    user: node
-    tty: true
-    volumes:
-      - ./cdk/:/home/node/app
