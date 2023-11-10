@@ -48,6 +48,7 @@ export default class GameObject implements Renderable {
 
   public setSpriteRenderer(spriteRenderer: SpriteRenderer): void {
     this.spriteRenderer = spriteRenderer;
+    this.spriteRenderer.setGameObject(this);
   }
 
   public update(): void {

@@ -1,5 +1,6 @@
 import Bounds from '../../bounds.js';
 import CanvasDisplay from '../../display/canvas-display.js';
+import GameObject from '../../game-object.js';
 import Scene from '../../scene/scene.js';
 import RectangleSprite from '../../sprite/canvas/rectangle-sprite.js';
 import Transform from '../../transform.js';
@@ -11,35 +12,43 @@ export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
   private readonly sprite: RectangleSprite;
   private readonly scene: Scene;
   private readonly canvas: CanvasDisplay;
-
   private readonly canvasContext: CanvasRenderingContext2D;
 
+  private gameObject: GameObject | null;
+
   public constructor(sprite: RectangleSprite, canvas: CanvasDisplay, scene: Scene) {
+    this.gameObject = null;
     this.sprite = sprite;
     this.canvas = canvas;
     this.scene = scene;
     this.canvasContext = this.canvas.getContext();
   }
 
+  public setGameObject(gameObject: GameObject): void {
+    this.gameObject = gameObject;
+  }
+
   public render() {
+    // console.log(`GO xform: ${this.gameObject?.getTransform()}`);
     this.canvasContext.beginPath();
     this.canvasContext.lineWidth = this.sprite.getLineWidth();
     this.canvasContext.strokeStyle = this.sprite.getStrokeColor();
     this.canvasContext.fillStyle = this.sprite.getFillColor();
 
     const bounds: Bounds = this.sprite.getBounds();
-    const min: Vector2 = bounds.getMin();
-    const max: Vector2 = bounds.getMax();
+    // const min: Vector2 = bounds.getMin();
+    // const max: Vector2 = bounds.getMax();
     const size: Vector2 = bounds.getSize();
 
-    const sceneCenter: Vector2 = this.scene.getBounds().getCenter();
+    // const sceneCenter: Vector2 = this.scene.getBounds().getCenter();
+    const canvasCenter: Vector2 = this.canvas.getBounds().getCenter();
     this.canvasContext.rect(
       // this.transform.position.x,
       // this.transform.position.y,
       // (this.transform.position.x - extents.x),
       // (this.transform.position.y - extents.y),
-      (sceneCenter.x + min.x),
-      (sceneCenter.y + max.y),
+      (canvasCenter.x + this.getMin().x),
+      (canvasCenter.y + this.getMax().y),
       size.x,
       size.y
     );
@@ -49,6 +58,23 @@ export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
     }
 
     this.canvasContext.stroke();
+  }
+
+  public getMin(): Vector2 {
+    if (this.gameObject == null) return new Vector2(0, 0);
+
+    return this.gameObject.getTransform().position
+      .add(this.sprite.getBounds().getMin());
+    // .subtract(this.sprite.getBounds().getMin())
+    // .subtract(this.sprite.getBounds().getMin());
+  }
+
+  public getMax(): Vector2 {
+    if (this.gameObject == null) return new Vector2(0, 0);
+
+    return this.gameObject.getTransform().position
+      .add(this.sprite.getBounds().getMin());
+    // .subtract(this.sprite.getBounds().getMax());
   }
 }
 

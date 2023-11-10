@@ -19,7 +19,10 @@ export default class CanvasDisplay implements Display {
     htmlCanvasElement: HTMLCanvasElement
   ) {
     this.bounds = new Bounds(
-      new Vector2(0, 0),
+      new Vector2(
+        (width / 2),
+        (height / 2)
+      ),
       new Vector2(width, height)
     );
     this.backgroundColor = backgroundColor;

@@ -37,12 +37,22 @@ export default class Bounds {
   }
 
   public getRandomPoint(): Vector2 {
-    const size: Vector2 = this.getSize();
+    // const size: Vector2 = this.getSize();
+    const extents: Vector2 = this.getExtents();
 
     const rng: Rng = Rng.getInstance();
     return new Vector2(
-      rng.getRandomInt(0, size.x),
-      rng.getRandomInt(0, size.y)
+      this.getRandomNegative(rng.getRandomInt(0, extents.x)),
+      this.getRandomNegative(rng.getRandomInt(0, extents.y))
     );
+  }
+
+  public getRandomNegative(value: number): number {
+    const rng: Rng = Rng.getInstance();
+
+    const roll: number = rng.getRandomInt(0, 1);
+    if (roll < 1) return (value * -1);
+
+    return value;
   }
 }

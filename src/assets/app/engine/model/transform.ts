@@ -9,7 +9,11 @@ export default class Transform {
   }
 
   public translate(value: Vector2): void {
-    this.position.add(value);
+    this.position = this.position.add(value);
+  }
+
+  public toString(): string {
+    return `pos=${this.position}`;
   }
 
   // public getPosition(): Vector2 {

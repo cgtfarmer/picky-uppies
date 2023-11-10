@@ -1,4 +1,5 @@
 import CanvasDisplay from '../../display/canvas-display.js';
+import GameObject from '../../game-object.js';
 import Scene from '../../scene/scene.js';
 import CircleSprite from '../../sprite/canvas/circle-sprite.js';
 import Transform from '../../transform.js';
@@ -17,23 +18,35 @@ export default class CircleSpriteCanvasRenderer implements SpriteRenderer {
 
   private readonly canvasContext: CanvasRenderingContext2D;
 
+  private gameObject: GameObject | null;
+
   public constructor(sprite: CircleSprite, canvas: CanvasDisplay, scene: Scene) {
+    this.gameObject = null;
     this.sprite = sprite;
     this.canvas = canvas;
     this.scene = scene;
     this.canvasContext = this.canvas.getContext();
   }
 
+  public setGameObject(gameObject: GameObject): void {
+    this.gameObject = gameObject;
+  }
+
   public render() {
+    if (this.gameObject == null) return;
+
     this.canvasContext.beginPath();
     this.canvasContext.lineWidth = this.sprite.getLineWidth();
     this.canvasContext.strokeStyle = this.sprite.getStrokeColor();
     this.canvasContext.fillStyle = this.sprite.getFillColor();
 
-    const center: Vector2 = this.sprite.getCenter();
+    const canvasCenter: Vector2 = this.canvas.getBounds().getCenter();
+    const position: Vector2 = this.gameObject.getTransform().position;
     this.canvasContext.arc(
-      center.x,
-      center.y,
+      // center.x,
+      // center.y,
+      (canvasCenter.x + position.x),
+      (canvasCenter.y + position.y),
       // (this.transform.position.x + (this.sprite.getRadius() / 2)),
       // (this.transform.position.y + (this.sprite.getRadius() / 2)),
       this.sprite.getRadius(),

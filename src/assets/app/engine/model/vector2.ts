@@ -40,4 +40,8 @@ export default class Vector2 {
       (this.y * value.y),
     );
   }
+
+  public toString(): string {
+    return `(${this.x}, ${this.y})`;
+  }
 }

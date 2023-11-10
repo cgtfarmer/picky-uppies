@@ -41,7 +41,7 @@ export default class PlayerFactory {
 
     // const sprite: RectangleSprite = new RectangleSprite(40, 40, true, 2, '#ff0000', '#000000');
     const bounds: Bounds = new Bounds(
-      transform.position,
+      new Vector2(0, 0),
       new Vector2(40, 40)
     );
     const sprite: RectangleSprite = new RectangleSprite(bounds, true, 2, '#ffffff', '#000000');
