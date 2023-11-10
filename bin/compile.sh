@@ -7,7 +7,8 @@ main() {
 }
 
 browserifyImports() {
-  find ./out/assets/app -name "*.js" -exec sed -Ei "s|'@/|'/assets/app/|g" {} \;
+  local sedString="s|'@/|'$BASE_PATH|g"
+  find ./out/assets/app -name "*.js" -exec sed -Ei $sedString {} \;
 }
 
 copyAssets() {

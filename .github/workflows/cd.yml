@@ -8,8 +8,8 @@ on:
 permissions:
   contents: write
 
-# env:
-#   KEY: value
+env:
+  BASE_PATH: /picky-uppies/assets/app/
 
 jobs:
   gh-pages-delivery:
