@@ -2,15 +2,10 @@ import Rng from '@/engine/model/rng';
 
 describe('when get random int', () => {
 
-  // test('thingy', () => {
-  //   console.log('----------');
-  //   const values = [];
-  //   for (let i = 0; i < 10; i++) {
-  //     values.push(Math.floor(Math.random() * 3) + 2);
-  //   }
-  //   console.log(values);
-  //   console.log('----------');
-  // });
+  test('given end is less than start, then throws error', () => {
+    expect(() => Rng.getInstance().getRandomInt(1, 0))
+      .toThrow(Error);
+  });
 
   test('given range of 0 to 0, then populates range inclusively', () => {
     const results: Map<number, number> = populateMap(0, 0);
@@ -178,8 +173,9 @@ describe('when get random int', () => {
 function populateMap(start: number, end: number): Map<number, number> {
   const results: Map<number, number> = new Map<number, number>();
 
+  const rng: Rng = Rng.getInstance();
   for(let i = 0; i < 100; i++) {
-    const value = Rng.getInstance().getRandomInt(start, end);
+    const value = rng.getRandomInt(start, end);
 
     let current = results.get(value);
 
