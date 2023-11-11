@@ -42,7 +42,6 @@ export default class ResourceFactory {
     default:
       throw Error('Invalid roll');
     }
-
   }
 
   public createPrometium(position: Vector2): Resource {

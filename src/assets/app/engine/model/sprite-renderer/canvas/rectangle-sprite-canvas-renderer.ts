@@ -73,7 +73,7 @@ export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
     if (this.gameObject == null) return new Vector2(0, 0);
 
     return this.gameObject.getTransform().position
-      .add(this.sprite.getBounds().getMin());
+      .add(this.sprite.getBounds().getMax());
     // .subtract(this.sprite.getBounds().getMax());
   }
 }

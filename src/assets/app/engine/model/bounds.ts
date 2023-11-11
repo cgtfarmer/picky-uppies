@@ -4,16 +4,16 @@ import Vector2 from './vector2.js';
 export default class Bounds {
   private center: Vector2;
   private extents: Vector2;
-  // private max: Vector2;
-  // private min: Vector2;
-  // private size: Vector2;
+  private max: Vector2;
+  private min: Vector2;
+  private size: Vector2;
 
   public constructor(center: Vector2, size: Vector2) {
     this.center = center;
     this.extents = size.multiply(0.5);
-    // this.size = size;
-    // this.max = this.center.add(this.extents);
-    // this.min = this.center.subtract(this.extents);
+    this.size = size;
+    this.max = this.center.add(this.extents);
+    this.min = this.center.subtract(this.extents);
   }
 
   public getCenter(): Vector2 {
@@ -21,38 +21,30 @@ export default class Bounds {
   }
 
   public getSize(): Vector2 {
-    return this.extents.multiply(2);
+    // return this.extents.multiply(2);
+    return this.size;
   }
 
-  public getExtents(): Vector2 {
-    return this.extents;
-  }
+  // public getExtents(): Vector2 {
+  //   return this.extents;
+  // }
 
   public getMin(): Vector2 {
-    return this.center.subtract(this.extents);
+    // return this.center.subtract(this.extents);
+    return this.min;
   }
 
   public getMax(): Vector2 {
-    return this.center.subtract(this.extents);
+    // return this.center.add(this.extents);
+    return this.max;
   }
 
   public getRandomPoint(): Vector2 {
-    // const size: Vector2 = this.getSize();
-    const extents: Vector2 = this.getExtents();
-
     const rng: Rng = Rng.getInstance();
+
     return new Vector2(
-      this.getRandomNegative(rng.getRandomInt(0, extents.x)),
-      this.getRandomNegative(rng.getRandomInt(0, extents.y))
+      rng.getRandomInt(this.min.x, this.max.x),
+      rng.getRandomInt(this.min.y, this.max.y),
     );
-  }
-
-  public getRandomNegative(value: number): number {
-    const rng: Rng = Rng.getInstance();
-
-    const roll: number = rng.getRandomInt(0, 1);
-    if (roll < 1) return (value * -1);
-
-    return value;
   }
 }
