@@ -16,7 +16,8 @@ export default class Rng {
    * @returns random number
    */
   public getRandomInt(start: number, end: number): number {
-    // return Math.floor(Math.random() * end) + start;
+    if (end < start) throw new Error('Invalid range: end must not be less than start');
+
     if (start == end) {
       return Math.floor(Math.random() * (end - start)) + start;
     }
