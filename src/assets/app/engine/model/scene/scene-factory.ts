@@ -1,6 +1,6 @@
 import ResourceFactory from '@/game/model/resource/resource-factory.js';
 import Scene from './scene.js';
-import ResourceSpawnEngine from '@/game/model/resource/resource-spawn-engine.js';
+// import ResourceSpawnEngine from '@/game/model/resource/resource-spawn-engine.js';
 import Resource from '@/game/model/resource/resource.js';
 import GameObject from '../game-object.js';
 import Vector2 from '../vector2.js';
@@ -26,7 +26,7 @@ export default class SceneFactory {
 
   public createSomeMap(): Scene {
     const bounds: Bounds = new Bounds(
-      new Vector2(0, 0),
+      Vector2.zero(),
       new Vector2(1360, 765)
     );
 
@@ -44,5 +44,13 @@ export default class SceneFactory {
     // scene.setResourceSpawnEngine(resourceSpawnEngine);
 
     return scene;
+  }
+
+  public createLotsMap(): Scene {
+    return new Scene(new Bounds(Vector2.zero(), Vector2.zero()), [], []);
+  }
+
+  public createTonsMap(): Scene {
+    return new Scene(new Bounds(Vector2.zero(), Vector2.zero()), [], []);
   }
 }

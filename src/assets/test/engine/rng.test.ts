@@ -1,4 +1,6 @@
+import Bounds from '@/engine/model/bounds';
 import Rng from '@/engine/model/rng';
+import Vector2 from '@/engine/model/vector2';
 
 describe('when get random int', () => {
 
@@ -167,6 +169,19 @@ describe('when get random int', () => {
     expect(resultNeg4 && resultNeg4 >= 1).toBe(true);
     expect(resultNeg3 && resultNeg3 >= 1).toBe(true);
     expect(resultNeg2 && resultNeg2 >= 1).toBe(true);
+  });
+});
+
+describe('when get random point', () => {
+
+  test('given, then', () => {
+    // TODO: Finish
+    const bounds: Bounds = new Bounds(
+      Vector2.zero(),
+      new Vector2(3, 3),
+    );
+
+    Rng.getInstance().getRandomPoint(bounds);
   });
 });
 

@@ -1,9 +1,10 @@
 import { Renderable } from '../interface/renderable.js';
+import Animator from './animator/animator.js';
+import { Display } from './display/display.js';
 import Scene from './scene/scene.js';
-import { SpriteRenderer } from './sprite-renderer/sprite-renderer.js';
-import Sprite from './sprite/sprite.js';
 import Transform from './transform.js';
 import UuidProvider from '@/engine/uuid-provider.js';
+import Vector2 from './vector2.js';
 
 export default class GameObject implements Renderable {
   public readonly id: string;
@@ -14,28 +15,19 @@ export default class GameObject implements Renderable {
 
   protected scene: Scene | null;
 
-  protected sprite: Sprite;
+  protected animator: Animator;
 
-  protected spriteRenderer: SpriteRenderer | null;
-
-  public constructor(
-    transform: Transform,
-    sprite: Sprite,
-  ) {
+  public constructor(animator: Animator) {
     this.id = UuidProvider.getRandom();
     this.enabled = true;
     this.scene = null;
-    this.transform = transform;
-    this.sprite = sprite;
-    this.spriteRenderer = null;
+    this.transform = new Transform(Vector2.zero());
+    this.animator = animator;
+    this.animator.setGameObject(this);
   }
 
   public getScene(): Scene | null {
     return this.scene;
-  }
-
-  public getSprite(): Sprite | null {
-    return this.sprite;
   }
 
   public getTransform(): Transform {
@@ -46,10 +38,14 @@ export default class GameObject implements Renderable {
     this.scene = scene;
   }
 
-  public setSpriteRenderer(spriteRenderer: SpriteRenderer): void {
-    this.spriteRenderer = spriteRenderer;
-    this.spriteRenderer.setGameObject(this);
+  public setDisplay(display: Display): void {
+    this.animator?.setDisplay(display);
   }
+
+  // public setSpriteRenderer(spriteRenderer: SpriteRenderer): void {
+  //   this.spriteRenderer = spriteRenderer;
+  //   this.spriteRenderer.setGameObject(this);
+  // }
 
   public update(): void {
     throw Error('Implement override');

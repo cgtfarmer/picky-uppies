@@ -1,3 +1,4 @@
+import Animator from '@/engine/model/animator/animator.js';
 import { Renderable } from '../../../engine/interface/renderable.js';
 import Sprite from '../../../engine/model/sprite/sprite.js';
 import Transform from '../../../engine/model/transform.js';
@@ -26,8 +27,7 @@ export default abstract class Character extends GameObject implements Renderable
   // private currentAbility: Ability | null;
 
   public constructor(
-    transform: Transform,
-    sprite: Sprite,
+    animator: Animator,
     name: string,
     maxHealth: number,
     health: number,
@@ -38,7 +38,7 @@ export default abstract class Character extends GameObject implements Renderable
     attackRange: number
     // autoAttackAbility: Ability,
   ) {
-    super(transform, sprite);
+    super(animator);
 
     this.name = name;
     this.maxHealth = maxHealth;

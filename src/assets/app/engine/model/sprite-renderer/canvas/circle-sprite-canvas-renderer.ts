@@ -1,6 +1,5 @@
 import CanvasDisplay from '../../display/canvas-display.js';
 import GameObject from '../../game-object.js';
-import Scene from '../../scene/scene.js';
 import CircleSprite from '../../sprite/canvas/circle-sprite.js';
 import Transform from '../../transform.js';
 import Vector2 from '../../vector2.js';
@@ -12,28 +11,38 @@ export default class CircleSpriteCanvasRenderer implements SpriteRenderer {
   private static readonly END_ANGLE: number = 2 * Math.PI;
   private static readonly COUNTERCLOCKWISE: boolean = false;
 
-  private readonly sprite: CircleSprite;
-  private readonly scene: Scene;
-  private readonly canvas: CanvasDisplay;
-
-  private readonly canvasContext: CanvasRenderingContext2D;
-
+  private sprite: CircleSprite | null;
+  private canvas: CanvasDisplay | null;
+  private canvasContext: CanvasRenderingContext2D | null;
   private gameObject: GameObject | null;
 
-  public constructor(sprite: CircleSprite, canvas: CanvasDisplay, scene: Scene) {
+  public constructor() {
+    this.sprite = null;
+    this.canvas = null;
+    this.canvasContext = null;
     this.gameObject = null;
-    this.sprite = sprite;
-    this.canvas = canvas;
-    this.scene = scene;
-    this.canvasContext = this.canvas.getContext();
   }
 
   public setGameObject(gameObject: GameObject): void {
     this.gameObject = gameObject;
   }
 
+  public setSprite(sprite: CircleSprite): void {
+    this.sprite = sprite;
+  }
+
+  public setDisplay(display: CanvasDisplay): void {
+    this.canvas = display;
+    this.canvasContext = this.canvas.getContext();
+  }
+
   public render() {
-    if (this.gameObject == null) return;
+    if (
+      this.sprite == null ||
+      this.canvas == null ||
+      this.canvasContext == null ||
+      this.gameObject == null
+    ) return;
 
     this.canvasContext.beginPath();
     this.canvasContext.lineWidth = this.sprite.getLineWidth();

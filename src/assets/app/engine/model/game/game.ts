@@ -58,7 +58,7 @@ export default class Game implements Renderable {
   public setDisplay(display: Display): void {
     this.display = display;
 
-    this.scenes.forEach((scene) => scene.generateSpriteRenderers(display));
+    this.scenes.forEach((scene) => scene.setDisplay(display));
   }
 
   public setPlayer(player: Player): void {

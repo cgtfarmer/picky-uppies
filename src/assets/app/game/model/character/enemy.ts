@@ -2,6 +2,7 @@ import Character from './character.js';
 import { Demeanor } from '../../enum/demeanor.js';
 import Sprite from '../../../engine/model/sprite/sprite.js';
 import Transform from '../../../engine/model/transform.js';
+import Animator from '@/engine/model/animator/animator.js';
 
 export default class Enemy extends Character {
   private aggroRange: number;
@@ -12,8 +13,7 @@ export default class Enemy extends Character {
   private lootTable: LootTable;
 
   public constructor(
-    transform: Transform,
-    sprite: Sprite,
+    animator: Animator,
     name: string,
     maxHealth: number,
     health: number,
@@ -29,8 +29,7 @@ export default class Enemy extends Character {
     lootTable: LootTable
   ) {
     super(
-      transform,
-      sprite,
+      animator,
       name,
       maxHealth,
       health,
@@ -49,6 +48,6 @@ export default class Enemy extends Character {
   }
 
   public override update(): void {
-    this.spriteRenderer?.render();
+    this.animator.render();
   }
 }

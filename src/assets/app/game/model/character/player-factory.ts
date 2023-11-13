@@ -4,12 +4,14 @@ import Player from './player.js';
 import RectangleSprite from '../../../engine/model/sprite/canvas/rectangle-sprite.js';
 import Transform from '../../../engine/model/transform.js';
 import { InputModule } from '@/engine/model/input-module/input-module.js';
-import SpriteRendererFactory from '@/engine/model/sprite-renderer/sprite-renderer-factory.js';
 import Vector2 from '@/engine/model/vector2.js';
 import KeybindModule from '@/engine/model/keybind-module/keybind-module.js';
 import { Action } from '@/engine/model/action/action.js';
 import Interact from '@/engine/model/action/interact.js';
 import Bounds from '@/engine/model/bounds.js';
+import Animator from '@/engine/model/animator/animator.js';
+import RectangleSpriteCanvasRenderer
+  from '@/engine/model/sprite-renderer/canvas/rectangle-sprite-canvas-renderer.js';
 
 export default class PlayerFactory {
 
@@ -37,14 +39,17 @@ export default class PlayerFactory {
 
     // if (display == null) throw Error('Display must be present');
 
-    const transform: Transform = new Transform(new Vector2(0, 0));
-
     // const sprite: RectangleSprite = new RectangleSprite(40, 40, true, 2, '#ff0000', '#000000');
     const bounds: Bounds = new Bounds(
-      new Vector2(0, 0),
+      Vector2.zero(),
       new Vector2(40, 40)
     );
+
     const sprite: RectangleSprite = new RectangleSprite(bounds, true, 2, '#ffffff', '#000000');
+
+    const spriteRenderer: RectangleSpriteCanvasRenderer = new RectangleSpriteCanvasRenderer();
+
+    const animator: Animator = new Animator(spriteRenderer, [sprite]);
 
     const inventory: Inventory = new Inventory();
 
@@ -60,8 +65,7 @@ export default class PlayerFactory {
     const keybindModule: KeybindModule = new KeybindModule(inputModule, keybindings);
 
     const player: Player = new Player(
-      transform,
-      sprite,
+      animator,
       inputModule,
       'Player',
       100,

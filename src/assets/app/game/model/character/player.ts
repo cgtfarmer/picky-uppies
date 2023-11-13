@@ -6,6 +6,7 @@ import Transform from '../../../engine/model/transform.js';
 import Vector2 from '../../../engine/model/vector2.js';
 import { InputModule } from '@/engine/model/input-module/input-module.js';
 import KeybindModule from '@/engine/model/keybind-module/keybind-module.js';
+import Animator from '@/engine/model/animator/animator.js';
 
 export default class Player extends Character implements Renderable {
 
@@ -20,8 +21,7 @@ export default class Player extends Character implements Renderable {
   private movementSpeed: number;
 
   public constructor(
-    transform: Transform,
-    sprite: Sprite,
+    animator: Animator,
     inputModule: InputModule,
     name: string,
     maxHealth: number,
@@ -35,8 +35,7 @@ export default class Player extends Character implements Renderable {
     // autoAttackAbility: Ability,
   ) {
     super(
-      transform,
-      sprite,
+      animator,
       name,
       maxHealth,
       health,
@@ -50,7 +49,7 @@ export default class Player extends Character implements Renderable {
     this.keybindModule = null;
     this.inputModule = inputModule;
     this.inventory = inventory;
-    this.velocity = new Vector2(0, 0);
+    this.velocity = Vector2.zero();
     this.movementSpeed = 8;
   }
 
@@ -83,6 +82,6 @@ export default class Player extends Character implements Renderable {
     this.keybindModule?.perform();
 
     // console.log(this.spriteRenderer);
-    this.spriteRenderer?.render();
+    this.animator.render();
   }
 }

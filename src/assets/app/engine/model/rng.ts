@@ -1,3 +1,6 @@
+import Bounds from './bounds.js';
+import Vector2 from './vector2.js';
+
 export default class Rng {
 
   private static singleton: Rng;
@@ -23,5 +26,9 @@ export default class Rng {
     }
 
     return Math.floor(Math.random() * (end - start + 1)) + start;
+  }
+
+  public getRandomPoint(bounds: Bounds): Vector2 {
+    return Vector2.zero();
   }
 }

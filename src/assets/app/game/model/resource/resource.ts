@@ -5,6 +5,7 @@ import Message from '@/engine/event-system/message.js';
 import EventSystem from '@/engine/event-system/event-system.js';
 import { Topics } from '@/engine/event-system/topics.js';
 import Subscription from '@/engine/event-system/subscription.js';
+import Animator from '@/engine/model/animator/animator';
 
 export default class Resource extends GameObject {
 
@@ -13,12 +14,11 @@ export default class Resource extends GameObject {
   private readonly sellValue: number;
 
   constructor(
-    transform: Transform,
-    sprite: Sprite,
+    animator: Animator,
     name: string,
     sellValue: number
   ) {
-    super(transform, sprite);
+    super(animator);
 
     this.name = name;
     this.sellValue = sellValue;
@@ -47,7 +47,7 @@ export default class Resource extends GameObject {
     if (!this.enabled) return;
 
     // throw Error('Override this method');
-    this.spriteRenderer?.render();
+    this.animator.render();
   }
 }
 

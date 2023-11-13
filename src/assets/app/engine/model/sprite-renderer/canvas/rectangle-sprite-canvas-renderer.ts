@@ -1,27 +1,35 @@
 import Bounds from '../../bounds.js';
 import CanvasDisplay from '../../display/canvas-display.js';
+import { Display } from '../../display/display.js';
 import GameObject from '../../game-object.js';
 import Scene from '../../scene/scene.js';
 import RectangleSprite from '../../sprite/canvas/rectangle-sprite.js';
+import Sprite from '../../sprite/sprite.js';
 import Transform from '../../transform.js';
 import Vector2 from '../../vector2.js';
 import { SpriteRenderer } from '../sprite-renderer.js';
 
 export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
 
-  private readonly sprite: RectangleSprite;
-  private readonly scene: Scene;
-  private readonly canvas: CanvasDisplay;
-  private readonly canvasContext: CanvasRenderingContext2D;
-
+  private sprite: RectangleSprite | null;
+  private canvas: CanvasDisplay | null;
+  private canvasContext: CanvasRenderingContext2D | null;
   private gameObject: GameObject | null;
 
-  public constructor(sprite: RectangleSprite, canvas: CanvasDisplay, scene: Scene) {
+  public constructor() {
+    this.sprite = null;
+    this.canvas = null;
+    this.canvasContext = null;
     this.gameObject = null;
-    this.sprite = sprite;
-    this.canvas = canvas;
-    this.scene = scene;
+  }
+
+  public setDisplay(display: CanvasDisplay): void {
+    this.canvas = display;
     this.canvasContext = this.canvas.getContext();
+  }
+
+  public setSprite(sprite: RectangleSprite): void {
+    this.sprite = sprite;
   }
 
   public setGameObject(gameObject: GameObject): void {
@@ -29,6 +37,13 @@ export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
   }
 
   public render() {
+    if (
+      this.sprite == null ||
+      this.canvas == null ||
+      this.canvasContext == null ||
+      this.gameObject == null
+    ) return;
+
     // console.log(`GO xform: ${this.gameObject?.getTransform()}`);
     this.canvasContext.beginPath();
     this.canvasContext.lineWidth = this.sprite.getLineWidth();
@@ -61,7 +76,7 @@ export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
   }
 
   public getMin(): Vector2 {
-    if (this.gameObject == null) return new Vector2(0, 0);
+    if (this.sprite == null || this.gameObject == null) return Vector2.zero();
 
     return this.gameObject.getTransform().position
       .add(this.sprite.getBounds().getMin());
@@ -70,7 +85,7 @@ export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
   }
 
   public getMax(): Vector2 {
-    if (this.gameObject == null) return new Vector2(0, 0);
+    if (this.sprite == null || this.gameObject == null) return Vector2.zero();
 
     return this.gameObject.getTransform().position
       .add(this.sprite.getBounds().getMax());

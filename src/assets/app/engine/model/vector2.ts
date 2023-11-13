@@ -1,4 +1,9 @@
 export default class Vector2 {
+
+  public static zero(): Vector2 {
+    return new Vector2(0, 0);
+  }
+
   public readonly x: number;
   public readonly y: number;
 
