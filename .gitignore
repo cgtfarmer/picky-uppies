@@ -37,3 +37,5 @@ next-env.d.ts
 *.mp4
 /cdk/node_modules
 /cdk/cdk.out
+
+/site/assets/js/*
