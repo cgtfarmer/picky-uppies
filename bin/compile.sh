@@ -1,24 +1,29 @@
 #!/bin/bash
 
+JS_FOLDER="./site/assets/js"
+
 main() {
-  copyAssets && \
-    tsc && \
-    browserifyImports
+  rm -rf $JS_FOLDER/* && \
+  tsc && \
+  browserifyImports
 }
 
 browserifyImports() {
-  local sedString="s|'@/|'$BASE_PATH|g"
-  find ./out/assets/app -name "*.js" -exec sed -Ei $sedString {} \;
+  addMissingExtensions
+
+  transformAliasImports
 }
 
-copyAssets() {
-  if [[ ! -d ./out/assets ]]; then
-    mkdir -p ./out/assets/css
-    mkdir -p ./out/assets/app
-  fi
+addMissingExtensions() {
+  local sedString="s|from ['\"](.*)['\"];|from '\1.js';|g"
+  # echo "sed -Ei $sedString"
+  find $JS_FOLDER -name "*.js" -exec sed -Ei "$sedString" {} \;
+}
 
-  cp ./src/*.html ./out
-  cp ./src/assets/css/* ./out/assets/css/
+transformAliasImports() {
+  local sedString="s|from '@/(.*)';|from '$BROWSER_JS_PATH/\1';|g"
+  # echo "sed -Ei $sedString"
+  find $JS_FOLDER -name "*.js" -exec sed -Ei "$sedString" {} \;
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
