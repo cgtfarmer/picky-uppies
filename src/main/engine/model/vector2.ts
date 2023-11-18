@@ -26,16 +26,17 @@ export default class Vector2 {
     );
   }
 
-  public magnitude(): number {
-    return Math.sqrt(
-      Math.pow(this.x, 2) + Math.pow(this.y, 2)
-    );
-  }
-
   public multiply(value: number): Vector2 {
     return new Vector2(
       (this.x * value),
       (this.y * value),
+    );
+  }
+
+  public divide(value: number): Vector2 {
+    return new Vector2(
+      (this.x / value),
+      (this.y / value),
     );
   }
 
@@ -44,6 +45,20 @@ export default class Vector2 {
       (this.x * value.x),
       (this.y * value.y),
     );
+  }
+
+  public magnitude(): number {
+    return Math.sqrt(
+      Math.pow(this.x, 2) + Math.pow(this.y, 2)
+    );
+  }
+
+  public normalize(): Vector2 {
+    const magnitude: number = this.magnitude();
+
+    if (magnitude == 0) return Vector2.zero();
+
+    return this.divide(magnitude);
   }
 
   public toString(): string {
