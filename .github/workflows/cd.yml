@@ -9,7 +9,8 @@ permissions:
   contents: write
 
 env:
-  BASE_PATH: /picky-uppies/assets/app/
+  BROWSER_JS_PATH: /picky-uupies/assets/js
+  SITE_DIR: ./site
 
 jobs:
   gh-pages-delivery:

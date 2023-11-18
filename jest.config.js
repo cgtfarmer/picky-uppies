@@ -1,17 +1,14 @@
-// const { pathsToModuleNameMapper } = require('ts-jest');
-// const { compilerOptions } = require('./tsconfig');
+const { pathsToModuleNameMapper } = require('ts-jest')
+const { compilerOptions } = require('./tsconfig')
 
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  preset: "ts-jest",
-  testEnvironment: "node",
-  // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: 'src/' })
-  // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: "src/" })
-  roots: ["<rootDir>/src/"],
-  moduleNameMapper: {
-    '@/(.*)': '<rootDir>/src/assets/app/$1'
-  },
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  roots: ['<rootDir>/src'],
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
   testMatch: [
-    "**/__tests__/**/*.[jt]s?(x)",
-    "**/?(*.)+(spec|test).[tj]s?(x)"
+    '**/__tests__/**/*.[jt]s?(x)',
+    '**/?(*.)+(spec|test).[jt]s?(x)'
   ],
-};
+}
