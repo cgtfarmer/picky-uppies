@@ -28,9 +28,9 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - name: Init new repo in out folder and commit generated files
+      - name: Init new repo in SITE_DIR and commit generated files
         run: |
-          cd out
+          cd ${{ env.SITE_DIR }}
           git init
           git add -A
           git config --local user.email "action@github.com"
