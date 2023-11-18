@@ -9,6 +9,7 @@ export default class CanvasDisplay implements Display {
   private readonly bounds: Bounds;
   private readonly htmlCanvasElement: HTMLCanvasElement;
   private readonly context: CanvasRenderingContext2D;
+  private readonly transformMatrix: Vector2;
 
   private readonly backgroundColor: string;
 
@@ -41,6 +42,7 @@ export default class CanvasDisplay implements Display {
 
     this.context = context;
 
+    this.transformMatrix = new Vector2(1, -1);
     // this.container.insertAdjacentElement('beforeend', this.htmlCanvas);
 
     // this.container.insertAdjacentHTML('beforeend', `
@@ -64,6 +66,10 @@ export default class CanvasDisplay implements Display {
 
   public getHtmlCanvasElement(): Element {
     return this.htmlCanvasElement;
+  }
+
+  public getTransformMatrix(): Vector2 {
+    return this.transformMatrix;
   }
 
   public clearFrame(): void {

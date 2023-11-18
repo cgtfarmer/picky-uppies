@@ -5,6 +5,7 @@ import Player from '../../../game/model/character/player';
 import Scene from '../scene/scene';
 import { Display } from '../display/display';
 import EventSystem from '../../event-system/event-system';
+import Vector2 from '../vector2';
 
 export default class Game implements Renderable {
 
@@ -53,6 +54,12 @@ export default class Game implements Renderable {
 
   public getDisplay(): Display | null {
     return this.display;
+  }
+
+  public getDisplayTransformMatrix(): Vector2 | null {
+    if (this.display == null) return null;
+
+    return this.display.getTransformMatrix();
   }
 
   public setDisplay(display: Display): void {
