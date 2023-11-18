@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 env:
-  BROWSER_JS_PATH: /picky-uupies/assets/js
+  BROWSER_JS_PATH: /picky-uppies/assets/js
   SITE_DIR: ./site
 
 jobs:
