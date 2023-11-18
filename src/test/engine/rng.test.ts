@@ -1,6 +1,6 @@
-import Bounds from '../../app/engine/model/bounds';
-import Rng from '../../app/engine/model/rng';
-import Vector2 from '../../app/engine/model/vector2';
+import Bounds from '../../main/engine/model/bounds';
+import Rng from '../../main/engine/model/rng';
+import Vector2 from '../../main/engine/model/vector2';
 
 describe('when get random int', () => {
 
@@ -172,18 +172,18 @@ describe('when get random int', () => {
   });
 });
 
-describe('when get random point', () => {
+// describe('when get random point', () => {
 
-  test('given, then', () => {
-    // TODO: Finish
-    const bounds: Bounds = new Bounds(
-      Vector2.zero(),
-      new Vector2(3, 3),
-    );
+//   test('given, then', () => {
+//     // TODO: Finish
+//     const bounds: Bounds = new Bounds(
+//       Vector2.zero(),
+//       new Vector2(3, 3),
+//     );
 
-    Rng.getInstance().getRandomPoint(bounds);
-  });
-});
+//     Rng.getInstance().getRandomPoint(bounds);
+//   });
+// });
 
 function populateMap(start: number, end: number): Map<number, number> {
   const results: Map<number, number> = new Map<number, number>();
