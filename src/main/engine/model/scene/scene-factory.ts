@@ -5,6 +5,7 @@ import Resource from '../../../game/model/resource/resource';
 import GameObject from '../game-object';
 import Vector2 from '../vector2';
 import Bounds from '../bounds';
+import UiElementFactory from '../ui-element/ui-element-factory';
 
 export default class SceneFactory {
 
@@ -37,7 +38,16 @@ export default class SceneFactory {
       resources.push(resourceFactory.createRandom(bounds));
     }
 
-    const scene: Scene = new Scene(bounds, [], resources);
+    const uiElementFactory: UiElementFactory = UiElementFactory.getInstance();
+
+    const uiElements: GameObject[] = [
+      // uiElementFactory.createButton(new Bounds(Vector2.zero(), new Vector2(250, 100))),
+      uiElementFactory.createCounter(
+        new Vector2(bounds.getMax().x - 84, (bounds.getMax().y - 100))
+      ),
+    ];
+
+    const scene: Scene = new Scene(bounds, [], resources, uiElements);
 
     // const resourceSpawnEngine: ResourceSpawnEngine =
     //   new ResourceSpawnEngine(resourceFactory, 100);
@@ -47,10 +57,10 @@ export default class SceneFactory {
   }
 
   public createLotsMap(): Scene {
-    return new Scene(new Bounds(Vector2.zero(), Vector2.zero()), [], []);
+    return new Scene(new Bounds(Vector2.zero(), Vector2.zero()), [], [], []);
   }
 
   public createTonsMap(): Scene {
-    return new Scene(new Bounds(Vector2.zero(), Vector2.zero()), [], []);
+    return new Scene(new Bounds(Vector2.zero(), Vector2.zero()), [], [], []);
   }
 }

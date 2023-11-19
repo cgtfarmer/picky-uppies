@@ -15,12 +15,15 @@ export default class Scene implements Renderable {
 
   private resources: GameObject[];
 
+  private uiElements: GameObject[];
+
   public constructor(
-    bounds: Bounds, players: GameObject[], resources: GameObject[]
+    bounds: Bounds, players: GameObject[], resources: GameObject[], uiElements: GameObject[]
   ) {
     this.bounds = bounds;
     this.players = players;
     this.resources = resources;
+    this.uiElements = uiElements;
     // this.resourceSpawnEngine = null;
   }
 
@@ -78,11 +81,16 @@ export default class Scene implements Renderable {
 
       gameObject.setDisplay(display);
     });
+
+    this.uiElements.forEach((gameObject: GameObject) => {
+      gameObject.setDisplay(display);
+    });
   }
 
   public update(): void {
     this.resources.forEach(e => e.update());
     this.players.forEach(e => e.update());
+    this.uiElements.forEach(e => e.update());
     // this.resourceSpawnEngine?.update();
   }
 }

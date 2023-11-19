@@ -48,7 +48,7 @@ export default class GameObject implements Renderable {
   }
 
   public setDisplay(display: Display): void {
-    this.animator?.setDisplay(display);
+    this.animator.setDisplay(display);
   }
 
   public setRigidBody(rigidBody: RigidBody): void {

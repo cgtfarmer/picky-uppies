@@ -36,7 +36,7 @@ export default class CircleSpriteCanvasRenderer implements SpriteRenderer {
     this.canvasContext = this.canvas.getContext();
   }
 
-  public render() {
+  public render(): void {
     if (
       this.sprite == null ||
       this.canvas == null ||
