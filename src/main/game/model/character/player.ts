@@ -8,6 +8,7 @@ import { InputModule } from '@/main/engine/model/input-module/input-module';
 import KeybindModule from '@/main/engine/model/keybind-module/keybind-module';
 import Animator from '@/main/engine/model/animator/animator';
 import Game from '@/main/engine/model/game/game';
+import RigidBody2d from '@/main/engine/model/rigid-body/rigid-body-2d';
 
 export default class Player extends Character implements Renderable {
 
@@ -16,8 +17,6 @@ export default class Player extends Character implements Renderable {
   private keybindModule: KeybindModule | null;
 
   private inventory: Inventory;
-
-  private velocity: Vector2;
 
   private movementSpeed: number;
 
@@ -50,7 +49,6 @@ export default class Player extends Character implements Renderable {
     this.keybindModule = null;
     this.inputModule = inputModule;
     this.inventory = inventory;
-    this.velocity = Vector2.zero();
     this.movementSpeed = 8;
   }
 
@@ -62,20 +60,25 @@ export default class Player extends Character implements Renderable {
 
   public override update(): void {
     // console.log('[Player#update]');
-    const displayTransformMatrix: Vector2 | null = Game.getInstance().getDisplayTransformMatrix();
-
-    if (displayTransformMatrix == null) return;
 
     const movement: Vector2 = new Vector2(
       this.inputModule.getXAxis(),
       this.inputModule.getYAxis()
     );
 
-    this.velocity = movement.normalize()
-      .multiply(this.movementSpeed)
-      .scale(displayTransformMatrix);
+    // rb.MovePosition(rb.position + (movement.normalized * moveSpeed * Time.fixedDeltaTime));
 
-    this.transform.translate(this.velocity);
+    const velocity: Vector2 = movement.normalize().multiply(this.movementSpeed);
+
+    this.rigidBody?.translate(velocity);
+
+    // this.rigidBody.movePosition(this.rigidBody.getPosition() + velocity);
+
+    // this.velocity = movement.normalize()
+    //   .multiply(this.movementSpeed)
+    //   .scale(displayTransformMatrix);
+
+    // this.transform.translate(this.velocity);
 
     this.keybindModule?.perform();
 
