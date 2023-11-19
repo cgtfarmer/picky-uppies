@@ -11,6 +11,8 @@ export default class GameObject implements Renderable {
 
   public readonly id: string;
 
+  public customId: string | null;
+
   public enabled: boolean;
 
   protected readonly transform: Transform;
@@ -29,6 +31,7 @@ export default class GameObject implements Renderable {
     this.animator = animator;
     this.animator.setGameObject(this);
     this.rigidBody = null;
+    this.customId = null;
   }
 
   public getScene(): Scene | null {
@@ -48,12 +51,16 @@ export default class GameObject implements Renderable {
   }
 
   public setDisplay(display: Display): void {
-    this.animator?.setDisplay(display);
+    this.animator.setDisplay(display);
   }
 
   public setRigidBody(rigidBody: RigidBody): void {
     this.rigidBody = rigidBody;
     this.rigidBody.setGameObject(this);
+  }
+
+  public setCustomId(customId: string): void {
+    this.customId = customId;
   }
 
   // public setSpriteRenderer(spriteRenderer: SpriteRenderer): void {

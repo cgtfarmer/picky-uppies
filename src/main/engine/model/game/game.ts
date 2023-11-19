@@ -6,6 +6,8 @@ import Scene from '../scene/scene';
 import { Display } from '../display/display';
 import EventSystem from '../../event-system/event-system';
 import Vector2 from '../vector2';
+import SceneManager from '../scene/scene-manager';
+import StopWatch from '@/main/game/model/stop-watch';
 
 export default class Game implements Renderable {
 
@@ -15,13 +17,11 @@ export default class Game implements Renderable {
 
   private readonly eventSystem: EventSystem;
 
-  private readonly scenes: Scene[];
+  private readonly sceneManager: SceneManager;
 
   private player: Player | null;
 
   private display: Display | null;
-
-  private activeScene: Scene;
 
   private running: boolean;
 
@@ -35,21 +35,17 @@ export default class Game implements Renderable {
     return this.singleton;
   }
 
-  public constructor(eventSystem: EventSystem, scenes: Scene[]) {
+  public constructor(eventSystem: EventSystem, sceneManager: SceneManager) {
     this.display = null;
     this.player = null;
     this.running = false;
     this.interval = null;
     this.eventSystem = eventSystem;
-    this.scenes = scenes;
-
-    if (this.scenes.length < 1) throw new Error('At least 1 Scene required');
-
-    this.activeScene = scenes[0];
+    this.sceneManager = sceneManager;
   }
 
   public getActiveScene(): Scene {
-    return this.activeScene;
+    return this.sceneManager.getActiveScene();
   }
 
   public getDisplay(): Display | null {
@@ -65,7 +61,7 @@ export default class Game implements Renderable {
   public setDisplay(display: Display): void {
     this.display = display;
 
-    this.scenes.forEach((scene) => scene.setDisplay(display));
+    this.sceneManager.setDisplay(display);
   }
 
   public setPlayer(player: Player): void {
@@ -75,18 +71,19 @@ export default class Game implements Renderable {
   }
 
   public update(): void {
-    if (this.display == null) throw Error('Display must be present');
     // console.log('[Game#update]');
+    if (this.display == null) throw Error('Display must be present');
+
     this.display.clearFrame();
 
-    this.activeScene.update();
+    this.sceneManager.update();
   }
 
   public start(): void {
     console.log(`[Game#start] running: ${this.running}`);
     if (this.running) return;
 
-    if (this.display == null) throw Error('Display must be presetn');
+    if (this.display == null) throw Error('Display must be present');
 
     this.interval = window.setInterval(() => {
       // console.log('[Game#tick]');
@@ -101,5 +98,15 @@ export default class Game implements Renderable {
     }, Game.TICK_IN_MILLISECONDS);
 
     this.running = true;
+
+    const stopWatchIndex: number | null = this.sceneManager.getActiveScene()
+      .findGameObjectIndexByCustomId('stop-watch');
+
+    if (stopWatchIndex == null) return;
+
+    const stopWatch: StopWatch = this.sceneManager.getActiveScene()
+      .getUiElements()[stopWatchIndex] as StopWatch;
+
+    stopWatch.start();
   }
 }

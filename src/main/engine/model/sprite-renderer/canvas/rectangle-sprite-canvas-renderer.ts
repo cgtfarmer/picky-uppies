@@ -36,7 +36,7 @@ export default class RectangleSpriteCanvasRenderer implements SpriteRenderer {
     this.gameObject = gameObject;
   }
 
-  public render() {
+  public render(): void {
     if (
       this.sprite == null ||
       this.canvas == null ||

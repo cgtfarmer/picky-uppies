@@ -61,7 +61,7 @@ export default class Player extends Character implements Renderable {
       this.inputModule.getYAxis()
     );
 
-    const velocity: Vector2 = movement.normalize().multiply(this.movementSpeed);
+    const velocity: Vector2 = movement.normalize().multiplyScalar(this.movementSpeed);
 
     this.rigidBody?.translate(velocity);
 

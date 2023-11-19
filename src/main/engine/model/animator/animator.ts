@@ -19,6 +19,10 @@ export default class Animator {
     this.gameObject = null;
   }
 
+  public getActiveSprite(): Sprite {
+    return this.activeSprite;
+  }
+
   public setDisplay(display: Display): void {
     this.spriteRenderer.setDisplay(display);
   }

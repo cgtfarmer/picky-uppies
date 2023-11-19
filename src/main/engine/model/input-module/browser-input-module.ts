@@ -27,13 +27,13 @@ export default class BrowserInputModule implements InputModule {
   }
 
   public registerKey(key: string): void {
-    console.log(`[InputModule#registerKey] key=${key}`);
+    // console.log(`[InputModule#registerKey] key=${key}`);
 
     this.keys.set(key, true);
   }
 
   public unregisterKey(key: string): void {
-    console.log(`[InputModule#unregisterKey] key=${key}`);
+    // console.log(`[InputModule#unregisterKey] key=${key}`);
 
     this.keys.delete(key);
   }
