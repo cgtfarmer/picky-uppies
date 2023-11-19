@@ -32,7 +32,7 @@ export default class KeybindModule {
       const action: Action | undefined = this.keybindings.get(key);
       if (action == undefined) return;
 
-      console.log(`[KeybindModule#perform] '${key}'`);
+      // console.log(`[KeybindModule#perform] '${key}'`);
       action.perform(this.player.getTransform().position);
     });
   }
