@@ -48,4 +48,8 @@ export default class TextSprite extends CanvasSprite {
   public getFontFamily(): string {
     return this.fontFamily;
   }
+
+  public setContent(content: string): void {
+    this.content = content;
+  }
 }

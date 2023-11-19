@@ -26,24 +26,45 @@ export default class Vector2 {
     );
   }
 
-  public multiply(value: number): Vector2 {
+  public multiply(value: Vector2): Vector2 {
+    return new Vector2(
+      (this.x * value.x),
+      (this.y * value.y),
+    );
+  }
+
+  public divide(value: Vector2): Vector2 {
+    return new Vector2(
+      (this.x / value.x),
+      (this.y / value.y),
+    );
+  }
+
+  public addScalar(value: number): Vector2 {
+    return new Vector2(
+      (this.x + value),
+      (this.y + value)
+    );
+  }
+
+  public subtractScalar(value: number): Vector2 {
+    return new Vector2(
+      (this.x - value),
+      (this.y - value)
+    );
+  }
+
+  public multiplyScalar(value: number): Vector2 {
     return new Vector2(
       (this.x * value),
       (this.y * value),
     );
   }
 
-  public divide(value: number): Vector2 {
+  public divideScalar(value: number): Vector2 {
     return new Vector2(
       (this.x / value),
       (this.y / value),
-    );
-  }
-
-  public scale(value: Vector2): Vector2 {
-    return new Vector2(
-      (this.x * value.x),
-      (this.y * value.y),
     );
   }
 
@@ -58,7 +79,7 @@ export default class Vector2 {
 
     if (magnitude == 0) return Vector2.zero();
 
-    return this.divide(magnitude);
+    return this.divideScalar(magnitude);
   }
 
   public toString(): string {

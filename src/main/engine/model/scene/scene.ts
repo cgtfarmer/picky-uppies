@@ -44,6 +44,42 @@ export default class Scene implements Renderable {
     return this.resources;
   }
 
+  public getUiElements() {
+    return this.uiElements;
+  }
+
+  public addGameObject(gameObject: GameObject): void {
+    // TODO: Finish
+    this.uiElements.push(gameObject);
+  }
+
+  public removeGameObjectByCustomId(customId: string): void {
+    // TODO: Finish
+    const index = this.findGameObjectIndexByCustomId(customId);
+
+    if (index == null) return;
+
+    this.uiElements.splice(index, 1);
+  }
+
+  public removeGameObjectByIndex(index: number): void {
+    // TODO: Finish
+    this.uiElements.splice(index, 1);
+  }
+
+  public findGameObjectIndexByCustomId(customId: string): number | null {
+    // TODO: Finish
+    for (let i = 0; i < this.uiElements.length; i++) {
+      var uiElement = this.uiElements[i];
+
+      if (uiElement.customId != customId) continue;
+
+      return i;
+    }
+
+    return null;
+  }
+
   public setResources(resources: GameObject[]): void {
     this.resources = resources;
   }
@@ -88,6 +124,7 @@ export default class Scene implements Renderable {
   }
 
   public update(): void {
+    // console.log(this.resources);
     this.resources.forEach(e => e.update());
     this.players.forEach(e => e.update());
     this.uiElements.forEach(e => e.update());

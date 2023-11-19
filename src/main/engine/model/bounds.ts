@@ -11,7 +11,7 @@ export default class Bounds {
 
   public constructor(center: Vector2, size: Vector2) {
     this.center = center;
-    this.extents = size.multiply(0.5);
+    this.extents = size.multiplyScalar(0.5);
     this.size = size;
     this.max = this.center.add(this.extents);
     this.min = this.center.subtract(this.extents);
@@ -46,6 +46,18 @@ export default class Bounds {
     return new Vector2(
       rng.getRandomInt(this.min.x, this.max.x),
       rng.getRandomInt(this.min.y, this.max.y),
+    );
+  }
+
+  public getRandomPointWithPadding(padding: number): Vector2 {
+    const rng: Rng = Rng.getInstance();
+
+    const minWithPadding: Vector2 = this.min.addScalar(padding);
+    const maxWithPadding: Vector2 = this.max.subtractScalar(padding);
+
+    return new Vector2(
+      rng.getRandomInt(minWithPadding.x, maxWithPadding.x),
+      rng.getRandomInt(minWithPadding.y, maxWithPadding.y)
     );
   }
 }

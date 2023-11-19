@@ -7,6 +7,7 @@ import { Display } from '../display/display';
 import EventSystem from '../../event-system/event-system';
 import Vector2 from '../vector2';
 import SceneManager from '../scene/scene-manager';
+import StopWatch from '@/main/game/model/stop-watch';
 
 export default class Game implements Renderable {
 
@@ -82,7 +83,7 @@ export default class Game implements Renderable {
     console.log(`[Game#start] running: ${this.running}`);
     if (this.running) return;
 
-    if (this.display == null) throw Error('Display must be presetn');
+    if (this.display == null) throw Error('Display must be present');
 
     this.interval = window.setInterval(() => {
       // console.log('[Game#tick]');
@@ -97,5 +98,15 @@ export default class Game implements Renderable {
     }, Game.TICK_IN_MILLISECONDS);
 
     this.running = true;
+
+    const stopWatchIndex: number | null = this.sceneManager.getActiveScene()
+      .findGameObjectIndexByCustomId('stop-watch');
+
+    if (stopWatchIndex == null) return;
+
+    const stopWatch: StopWatch = this.sceneManager.getActiveScene()
+      .getUiElements()[stopWatchIndex] as StopWatch;
+
+    stopWatch.start();
   }
 }

@@ -29,7 +29,7 @@ export default class RigidBody2d implements RigidBody {
 
     if (this.gameObject == null || displayTransformMatrix == null) return;
 
-    const displayAdjustedDelta = delta.scale(displayTransformMatrix);
+    const displayAdjustedDelta = delta.multiply(displayTransformMatrix);
 
     // console.log(`[RigidBody2d#translate] displayAdjustedDelta=${displayAdjustedDelta}`);
 

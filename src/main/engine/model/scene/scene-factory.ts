@@ -1,11 +1,14 @@
-import ResourceFactory from '../../../game/model/resource/resource-factory';
+import ResourceFactory from '@/main/game/model/resource/resource-factory';
 import Scene from './scene';
-// import ResourceSpawnEngine from '@/game/model/resource/resource-spawn-engine';
-import Resource from '../../../game/model/resource/resource';
 import GameObject from '../game-object';
 import Vector2 from '../vector2';
 import Bounds from '../bounds';
 import UiElementFactory from '../ui-element/ui-element-factory';
+import StopWatch from '@/main/game/model/stop-watch';
+import CatchCounterFactory from '@/main/game/model/catch-counter-factory';
+import StopWatchFactory from '@/main/game/model/stop-watch-factory';
+import TextSprite from '../sprite/canvas/text-sprite';
+import UiElement from '../ui-element/ui-element';
 
 export default class SceneFactory {
 
@@ -22,6 +25,7 @@ export default class SceneFactory {
   public createScenes(): Scene[] {
     return [
       this.createSomeMap(),
+      this.createGameOver(),
     ];
   }
 
@@ -42,9 +46,11 @@ export default class SceneFactory {
 
     const uiElements: GameObject[] = [
       // uiElementFactory.createButton(new Bounds(Vector2.zero(), new Vector2(250, 100))),
-      uiElementFactory.createCounter(
-        new Vector2(bounds.getMax().x - 84, (bounds.getMax().y - 100))
-      ),
+      // uiElementFactory.createCounter(
+      //   new Vector2(bounds.getMax().x - 84, (bounds.getMax().y - 100))
+      // ),
+      CatchCounterFactory.getInstance().createDefault(bounds),
+      StopWatchFactory.getInstance().createDefault(bounds)
     ];
 
     const scene: Scene = new Scene(bounds, [], resources, uiElements);
@@ -62,5 +68,23 @@ export default class SceneFactory {
 
   public createTonsMap(): Scene {
     return new Scene(new Bounds(Vector2.zero(), Vector2.zero()), [], [], []);
+  }
+
+  public createGameOver(): Scene {
+    const bounds: Bounds = new Bounds(
+      Vector2.zero(),
+      new Vector2(1360, 765)
+    );
+
+    const youWinMsg: UiElement = UiElementFactory.getInstance()
+      .createTextElement(bounds.getCenter(), 'You Win!', 128);
+
+    const uiElements: GameObject[] = [
+      youWinMsg,
+    ];
+
+    const scene: Scene = new Scene(bounds, [], [], uiElements);
+
+    return scene;
   }
 }

@@ -20,7 +20,7 @@ export default class UiElementFactory {
     return this.singleton;
   }
 
-  public createButton(bounds: Bounds): UiElement {
+  public createButtonElement(bounds: Bounds): UiElement {
     const sprite: RectangleSprite = new RectangleSprite(bounds, true, 2, '#666666', '#000000');
 
     const spriteRenderer: RectangleSpriteCanvasRenderer = new RectangleSpriteCanvasRenderer();
@@ -32,17 +32,29 @@ export default class UiElementFactory {
     return uiElement;
   }
 
-  public createCounter(center: Vector2): UiElement {
+  public createTextElement(center: Vector2, content: string, fontSize: number): UiElement {
     const sprite: TextSprite = new TextSprite(
-      center, '0 / 10', 84, 'Georgia', 'end', true, 0.5, '#ffffff', '#000000'
+      center, content, fontSize, 'Georgia', 'center', true, 0.5, '#ffffff', '#000000'
     );
 
     const spriteRenderer: TextSpriteCanvasRenderer = new TextSpriteCanvasRenderer();
 
     const animator: Animator = new Animator(spriteRenderer, [sprite]);
 
-    const uiElement: UiElement = new UiElement(animator);
-
-    return uiElement;
+    return new UiElement(animator);
   }
+
+  // public createCounter(center: Vector2): UiElement {
+  //   const sprite: TextSprite = new TextSprite(
+  //     center, '0 / 10', 84, 'Georgia', 'end', true, 0.5, '#ffffff', '#000000'
+  //   );
+
+  //   const spriteRenderer: TextSpriteCanvasRenderer = new TextSpriteCanvasRenderer();
+
+  //   const animator: Animator = new Animator(spriteRenderer, [sprite]);
+
+  //   const uiElement: UiElement = new UiElement(animator);
+
+  //   return uiElement;
+  // }
 }

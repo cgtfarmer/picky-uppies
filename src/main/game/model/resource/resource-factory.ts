@@ -34,11 +34,11 @@ export default class ResourceFactory {
 
     switch (roll) {
     case 1:
-      return this.createPrometium(bounds.getRandomPoint());
+      return this.createPrometium(bounds.getRandomPointWithPadding(30));
     case 2:
-      return this.createEndurium(bounds.getRandomPoint());
+      return this.createEndurium(bounds.getRandomPointWithPadding(30));
     case 3:
-      return this.createTerbium(bounds.getRandomPoint());
+      return this.createTerbium(bounds.getRandomPointWithPadding(30));
     default:
       throw Error('Invalid roll');
     }
