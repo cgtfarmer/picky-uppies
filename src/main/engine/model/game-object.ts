@@ -5,8 +5,10 @@ import Scene from './scene/scene';
 import Transform from './transform';
 import UuidProvider from '@/main/engine/uuid-provider';
 import Vector2 from './vector2';
+import { RigidBody } from './rigid-body/rigid-body';
 
 export default class GameObject implements Renderable {
+
   public readonly id: string;
 
   public enabled: boolean;
@@ -17,6 +19,8 @@ export default class GameObject implements Renderable {
 
   protected animator: Animator;
 
+  protected rigidBody: RigidBody | null;
+
   public constructor(animator: Animator) {
     this.id = UuidProvider.getRandom();
     this.enabled = true;
@@ -24,6 +28,7 @@ export default class GameObject implements Renderable {
     this.transform = new Transform(Vector2.zero());
     this.animator = animator;
     this.animator.setGameObject(this);
+    this.rigidBody = null;
   }
 
   public getScene(): Scene | null {
@@ -34,12 +39,21 @@ export default class GameObject implements Renderable {
     return this.transform;
   }
 
+  public getRigidbody(): RigidBody | null {
+    return this.rigidBody;
+  }
+
   public setScene(scene: Scene): void {
     this.scene = scene;
   }
 
   public setDisplay(display: Display): void {
     this.animator?.setDisplay(display);
+  }
+
+  public setRigidBody(rigidBody: RigidBody): void {
+    this.rigidBody = rigidBody;
+    this.rigidBody.setGameObject(this);
   }
 
   // public setSpriteRenderer(spriteRenderer: SpriteRenderer): void {

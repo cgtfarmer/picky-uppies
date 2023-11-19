@@ -13,8 +13,8 @@ export default class Physics2D {
   }
 
   public overlapCircle(position: Vector2, radius: number, gameObjects: GameObject[]): GameObject[] {
-    return gameObjects.filter((o) => {
-      return o.enabled && this.pointIntersectsCircle(position, radius, o.getTransform().position);
+    return gameObjects.filter((e) => {
+      return (e.enabled && this.pointIntersectsCircle(position, radius, e.getTransform().position));
     });
   }
 

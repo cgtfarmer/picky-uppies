@@ -12,6 +12,8 @@ import Bounds from '@/main/engine/model/bounds';
 import Animator from '@/main/engine/model/animator/animator';
 import RectangleSpriteCanvasRenderer
   from '@/main/engine/model/sprite-renderer/canvas/rectangle-sprite-canvas-renderer';
+import { RigidBody } from '@/main/engine/model/rigid-body/rigid-body';
+import RigidBody2d from '@/main/engine/model/rigid-body/rigid-body-2d';
 
 export default class PlayerFactory {
 
@@ -38,6 +40,8 @@ export default class PlayerFactory {
     // const display: Display | null = game.getDisplay();
 
     // if (display == null) throw Error('Display must be present');
+
+    const rigidBody: RigidBody = new RigidBody2d();
 
     // const sprite: RectangleSprite = new RectangleSprite(40, 40, true, 2, '#ff0000', '#000000');
     const bounds: Bounds = new Bounds(
@@ -78,6 +82,7 @@ export default class PlayerFactory {
       inventory
     );
 
+    player.setRigidBody(rigidBody);
     player.setKeybindModule(keybindModule);
     return player;
   }
