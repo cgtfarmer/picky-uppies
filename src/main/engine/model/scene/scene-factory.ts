@@ -9,6 +9,9 @@ import CatchCounterFactory from '@/main/game/model/catch-counter-factory';
 import StopWatchFactory from '@/main/game/model/stop-watch-factory';
 import TextSprite from '../sprite/canvas/text-sprite';
 import UiElement from '../ui-element/ui-element';
+import EventSystem from '../../event-system/event-system';
+import { Topics } from '../../event-system/topics';
+import Message from '../../event-system/message';
 
 export default class SceneFactory {
 
@@ -24,9 +27,42 @@ export default class SceneFactory {
 
   public createScenes(): Scene[] {
     return [
+      this.createMainMenu(),
       this.createSomeMap(),
       this.createGameOver(),
     ];
+  }
+
+  public createMainMenu(): Scene {
+    const bounds: Bounds = new Bounds(
+      Vector2.zero(),
+      new Vector2(1360, 765)
+    );
+
+    const uiElementFactory: UiElementFactory = UiElementFactory.getInstance();
+
+    const title: UiElement = uiElementFactory.createTextElement(
+      new Vector2(bounds.getCenter().x, bounds.getMax().y - 150), 'Catch the Elves', 128
+    );
+
+    const center: Vector2 = bounds.getCenter();
+    const someLevel: UiElement = uiElementFactory.createTextElement(
+      new Vector2(center.x, center.y + 50), 'Some', 64
+    );
+    someLevel.setOnClickHandler(() => {
+      EventSystem.getInstance()
+        .getTopic(Topics.ChangeScene)
+        ?.publish(new Message('1'));
+    });
+
+    const uiElements: GameObject[] = [
+      title,
+      someLevel
+    ];
+
+    const scene: Scene = new Scene(bounds, [], [], uiElements);
+
+    return scene;
   }
 
   public createSomeMap(): Scene {

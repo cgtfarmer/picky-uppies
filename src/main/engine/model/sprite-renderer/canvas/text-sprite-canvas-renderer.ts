@@ -38,7 +38,8 @@ export default class TextSpriteCanvasRenderer {
       this.gameObject == null
     ) return;
 
-    const center: Vector2 = this.sprite.getCenter();
+    // const center: Vector2 = this.sprite.getCenter();
+    const position: Vector2 = this.gameObject.getTransform().position;
 
     this.canvasContext.beginPath();
     this.canvasContext.lineWidth = this.sprite.getLineWidth();
@@ -50,8 +51,8 @@ export default class TextSpriteCanvasRenderer {
     const canvasCenter: Vector2 = this.canvas.getBounds().getCenter();
     this.canvasContext.fillText(
       this.sprite.getContent(),
-      (canvasCenter.x + center.x),
-      (canvasCenter.y - center.y)
+      (canvasCenter.x + position.x),
+      (canvasCenter.y - position.y)
     );
 
     if (this.sprite.getFill()) {

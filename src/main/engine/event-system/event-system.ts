@@ -10,6 +10,7 @@ export default class EventSystem {
       const topics: Map<Topics, Topic> = new Map<Topics, Topic>([
         [Topics.Interact, new Topic()],
         [Topics.ResourceCollected, new Topic()],
+        [Topics.ChangeScene, new Topic()],
         [Topics.GameOver, new Topic()],
       ]);
 

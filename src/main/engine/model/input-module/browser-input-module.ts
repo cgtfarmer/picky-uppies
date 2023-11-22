@@ -1,19 +1,30 @@
+import DomAccessor from '@/main/dom/dom-accessor';
+import CanvasDisplay from '../display/canvas-display';
 import { InputModule } from './input-module';
+import Game from '../game/game';
+import Vector2 from '../vector2';
+import GameObject from '../game-object';
+import Physics2D from '../physics-2d';
+import UiElement from '../ui-element/ui-element';
+import { Display } from '../display/display';
+import Scene from '../scene/scene';
 
 export default class BrowserInputModule implements InputModule {
 
+  private readonly game: Game;
+  private canvas: HTMLCanvasElement | null;
   private xAxis: number;
   private yAxis: number;
 
   // private static keys: Map<string, boolean> = new Map<string, boolean>();
   private keys: Map<string, boolean>;
 
-  public constructor() {
+  public constructor(game: Game) {
+    this.game = game;
     this.xAxis = 0;
     this.yAxis = 0;
     this.keys = new Map<string, boolean>();
-
-    // window.addEventListener('keypress', this.handleKeypress);
+    this.canvas = null;
 
     window.addEventListener('keydown', (event) => {
       event.preventDefault();
@@ -23,6 +34,39 @@ export default class BrowserInputModule implements InputModule {
     window.addEventListener('keyup', (event) => {
       event.preventDefault();
       this.unregisterKey(event.key);
+    });
+  }
+
+  public setDisplay(display: Display): void {
+    const canvasDisplay: CanvasDisplay = display as CanvasDisplay;
+    this.canvas = canvasDisplay.getHtmlCanvasElement();
+
+    window.addEventListener('mousedown', (event) => {
+      console.log('[BrowserInputModule#mousedown-event]');
+
+      if (this.canvas == null) return;
+
+      const rect: DOMRect = this.canvas.getBoundingClientRect();
+
+      const activeScene: Scene | null = this.game.getActiveScene();
+
+      if (!activeScene) return;
+
+      const activeSceneExtents: Vector2 = activeScene.getBounds().getExtents();
+      const clickPosition: Vector2 = new Vector2(
+        (event.clientX - (rect.left + activeSceneExtents.x)),
+        (event.clientY - (rect.top + activeSceneExtents.y))
+      );
+
+      console.log(`[BrowserInputModule#mousedown-event] clickPosition=${clickPosition}`);
+
+      const uiElements: GameObject[] = activeScene.getUiElements();
+
+      // TODO: This is so bad and janky, please fix yesterday
+      const results: UiElement[] = Physics2D.getInstance()
+        .overlapCircle(clickPosition, 100, uiElements) as UiElement[];
+
+      results.forEach((e) => e.onClick());
     });
   }
 

@@ -19,6 +19,7 @@ export default class Physics2D {
   }
 
   public pointIntersectsCircle(center: Vector2, radius: number, point: Vector2): boolean {
+    console.log(`[Physics2d] center=${center}, radius=${radius}, point=${point}`);
     const difference: Vector2 = point.subtract(center);
 
     const magnitude: number = difference.magnitude();

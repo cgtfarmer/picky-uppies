@@ -29,6 +29,7 @@ export default class UiElementFactory {
 
     const uiElement: UiElement = new UiElement(animator);
 
+    uiElement.getTransform().position = bounds.getCenter();
     return uiElement;
   }
 
@@ -41,7 +42,10 @@ export default class UiElementFactory {
 
     const animator: Animator = new Animator(spriteRenderer, [sprite]);
 
-    return new UiElement(animator);
+    const uiElement: UiElement = new UiElement(animator);
+
+    uiElement.getTransform().position = center;
+    return uiElement;
   }
 
   // public createCounter(center: Vector2): UiElement {

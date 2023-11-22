@@ -64,7 +64,7 @@ export default class CanvasDisplay implements Display {
     return this.context;
   }
 
-  public getHtmlCanvasElement(): Element {
+  public getHtmlCanvasElement(): HTMLCanvasElement {
     return this.htmlCanvasElement;
   }
 

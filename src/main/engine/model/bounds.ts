@@ -26,6 +26,10 @@ export default class Bounds {
     return this.size;
   }
 
+  public getExtents(): Vector2 {
+    return this.extents;
+  }
+
   // public getExtents(): Vector2 {
   //   return this.extents;
   // }

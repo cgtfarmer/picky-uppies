@@ -1,13 +1,7 @@
-import BrowserInputModule from '../../../engine/model/input-module/browser-input-module';
 import Inventory from '../inventory';
 import Player from './player';
 import RectangleSprite from '../../../engine/model/sprite/canvas/rectangle-sprite';
-import Transform from '../../../engine/model/transform';
-import { InputModule } from '@/main/engine/model/input-module/input-module';
 import Vector2 from '@/main/engine/model/vector2';
-import KeybindModule from '@/main/engine/model/keybind-module/keybind-module';
-import { Action } from '@/main/engine/model/action/action';
-import Interact from '@/main/engine/model/action/interact';
 import Bounds from '@/main/engine/model/bounds';
 import Animator from '@/main/engine/model/animator/animator';
 import RectangleSpriteCanvasRenderer
@@ -61,16 +55,8 @@ export default class PlayerFactory {
     //   this.spriteRendererFactory.create(sprite, display, transform);
     // new RectangleSpriteCanvasRenderer(sprite, transform, this.canvas);
 
-    const inputModule: InputModule = new BrowserInputModule();
-
-    const keybindings: Map<string, Action> = new Map<string, Action>([
-      [' ', new Interact(0, 55)],
-    ]);
-    const keybindModule: KeybindModule = new KeybindModule(inputModule, keybindings);
-
     const player: Player = new Player(
       animator,
-      inputModule,
       'Player',
       100,
       100,
@@ -83,7 +69,7 @@ export default class PlayerFactory {
     );
 
     player.setRigidBody(rigidBody);
-    player.setKeybindModule(keybindModule);
+    // player.setKeybindModule(keybindModule);
     return player;
   }
 }

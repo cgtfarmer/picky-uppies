@@ -5,10 +5,11 @@ import Vector2 from '../../../engine/model/vector2';
 import { InputModule } from '@/main/engine/model/input-module/input-module';
 import KeybindModule from '@/main/engine/model/keybind-module/keybind-module';
 import Animator from '@/main/engine/model/animator/animator';
+import Game from '@/main/engine/model/game/game';
 
 export default class Player extends Character implements Renderable {
 
-  private inputModule: InputModule;
+  // private inputModule: InputModule;
 
   private keybindModule: KeybindModule | null;
 
@@ -18,7 +19,6 @@ export default class Player extends Character implements Renderable {
 
   public constructor(
     animator: Animator,
-    inputModule: InputModule,
     name: string,
     maxHealth: number,
     health: number,
@@ -42,7 +42,7 @@ export default class Player extends Character implements Renderable {
     );
 
     this.keybindModule = null;
-    this.inputModule = inputModule;
+    // this.inputModule = inputModule;
     this.inventory = inventory;
     this.movementSpeed = 8;
   }
@@ -55,15 +55,19 @@ export default class Player extends Character implements Renderable {
 
   public override update(): void {
     // console.log('[Player#update]');
+    const inputModule: InputModule | undefined = Game.getInstance()
+      .getKeybindModule()?.getInputModule();
 
-    const movement: Vector2 = new Vector2(
-      this.inputModule.getXAxis(),
-      this.inputModule.getYAxis()
-    );
+    if (inputModule) {
+      const movement: Vector2 = new Vector2(
+        inputModule.getXAxis(),
+        inputModule.getYAxis()
+      );
 
-    const velocity: Vector2 = movement.normalize().multiplyScalar(this.movementSpeed);
+      const velocity: Vector2 = movement.normalize().multiplyScalar(this.movementSpeed);
 
-    this.rigidBody?.translate(velocity);
+      this.rigidBody?.translate(velocity);
+    }
 
     this.keybindModule?.perform();
 

@@ -1,3 +1,5 @@
+import { Display } from '../display/display';
+
 export interface InputModule {
   registerKey(key: string): void;
 
@@ -10,4 +12,6 @@ export interface InputModule {
   keyIsDown(key: string): boolean;
 
   getActiveKeys(): string[];
+
+  setDisplay(display: Display): void;
 };

@@ -5,6 +5,7 @@ import { Renderable } from '../../interface/renderable';
 import GameObject from '../game-object';
 import Game from '../game/game';
 import Physics2D from '../physics-2d';
+import Scene from '../scene/scene';
 import Vector2 from '../vector2';
 import { Action } from './action';
 
@@ -27,8 +28,12 @@ export default class Interact implements Action {
     //   position, this.radius, Game.getInstance().getActiveScene().getRenderables()
     // );
 
+    const activeScene: Scene | null = Game.getInstance().getActiveScene();
+
+    if (!activeScene) return;
+
     const intersections: GameObject[] = Physics2D.getInstance().overlapCircle(
-      position, this.radius, Game.getInstance().getActiveScene().getResources()
+      position, this.radius, activeScene.getResources()
     );
 
     intersections.forEach((e) => {

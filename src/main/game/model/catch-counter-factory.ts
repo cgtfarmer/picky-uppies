@@ -33,6 +33,7 @@ export default class CatchCounterFactory {
     const catchCounter: CatchCounter = new CatchCounter(animator, 10);
 
     catchCounter.setCustomId('catch-counter');
+    catchCounter.getTransform().position = center;
     return catchCounter;
   }
 }

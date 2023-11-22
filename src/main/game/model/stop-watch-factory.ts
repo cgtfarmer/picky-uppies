@@ -33,6 +33,7 @@ export default class StopWatchFactory {
     const stopWatch: StopWatch = new StopWatch(animator);
 
     stopWatch.setCustomId('stop-watch');
+    stopWatch.getTransform().position = center;
     return stopWatch;
   }
 }

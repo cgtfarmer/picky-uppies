@@ -1,5 +1,6 @@
 import Player from '../../../game/model/character/player';
 import { Action } from '../action/action';
+import { Display } from '../display/display';
 import { InputModule } from '../input-module/input-module';
 
 export default class KeybindModule {
@@ -19,8 +20,16 @@ export default class KeybindModule {
     this.keybindings = keybindings;
   }
 
+  public getInputModule(): InputModule {
+    return this.inputModule;
+  }
+
   public setPlayer(player: Player) {
     this.player = player;
+  }
+
+  public setDisplay(display: Display) {
+    this.inputModule.setDisplay(display);
   }
 
   public perform() {

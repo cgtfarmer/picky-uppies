@@ -8,6 +8,8 @@ import EventSystem from '../../event-system/event-system';
 import Vector2 from '../vector2';
 import SceneManager from '../scene/scene-manager';
 import StopWatch from '@/main/game/model/stop-watch';
+import { InputModule } from '../input-module/input-module';
+import KeybindModule from '../keybind-module/keybind-module';
 
 export default class Game implements Renderable {
 
@@ -27,6 +29,8 @@ export default class Game implements Renderable {
 
   private interval: number | null;
 
+  private keybindModule: KeybindModule | null;
+
   public static getInstance(): Game {
     if (this.singleton == null) {
       this.singleton = GameFactory.getInstance().createDefault();
@@ -35,16 +39,17 @@ export default class Game implements Renderable {
     return this.singleton;
   }
 
-  public constructor(eventSystem: EventSystem, sceneManager: SceneManager) {
+  public constructor(eventSystem: EventSystem) {
     this.display = null;
     this.player = null;
     this.running = false;
     this.interval = null;
     this.eventSystem = eventSystem;
-    this.sceneManager = sceneManager;
+    this.sceneManager = new SceneManager(this, []);
+    this.keybindModule = null;
   }
 
-  public getActiveScene(): Scene {
+  public getActiveScene(): Scene | null {
     return this.sceneManager.getActiveScene();
   }
 
@@ -58,16 +63,34 @@ export default class Game implements Renderable {
     return this.display.getTransformMatrix();
   }
 
+  public getKeybindModule(): KeybindModule | null {
+    return this.keybindModule;
+  }
+
+  public getPlayer(): Player | null {
+    return this.player;
+  }
+
   public setDisplay(display: Display): void {
     this.display = display;
 
     this.sceneManager.setDisplay(display);
+
+    if (this.keybindModule == null) return;
+
+    this.keybindModule.setDisplay(display);
+  }
+
+  public setKeybindModule(keybindModule: KeybindModule): void {
+    this.keybindModule = keybindModule;
   }
 
   public setPlayer(player: Player): void {
     this.player = player;
+  }
 
-    this.getActiveScene().addRenderable(this.player);
+  public getSceneManager(): SceneManager {
+    return this.sceneManager;
   }
 
   public update(): void {
@@ -98,15 +121,5 @@ export default class Game implements Renderable {
     }, Game.TICK_IN_MILLISECONDS);
 
     this.running = true;
-
-    const stopWatchIndex: number | null = this.sceneManager.getActiveScene()
-      .findGameObjectIndexByCustomId('stop-watch');
-
-    if (stopWatchIndex == null) return;
-
-    const stopWatch: StopWatch = this.sceneManager.getActiveScene()
-      .getUiElements()[stopWatchIndex] as StopWatch;
-
-    stopWatch.start();
   }
 }

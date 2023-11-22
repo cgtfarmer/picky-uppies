@@ -5,6 +5,11 @@ import PlayerFactory from '../../../game/model/character/player-factory';
 import SceneFactory from '../scene/scene-factory';
 import EventSystem from '../../event-system/event-system';
 import SceneManager from '../scene/scene-manager';
+import BrowserInputModule from '../../../engine/model/input-module/browser-input-module';
+import { InputModule } from '@/main/engine/model/input-module/input-module';
+import KeybindModule from '@/main/engine/model/keybind-module/keybind-module';
+import { Action } from '@/main/engine/model/action/action';
+import Interact from '@/main/engine/model/action/interact';
 
 export default class GameFactory {
 
@@ -23,12 +28,19 @@ export default class GameFactory {
 
     const eventSystem: EventSystem = EventSystem.getInstance();
 
-    const sceneManager: SceneManager = new SceneManager(scenes);
+    const game: Game = new Game(eventSystem);
+    game.getSceneManager().setScenes(scenes);
 
-    const game: Game = new Game(eventSystem, sceneManager);
+    const inputModule: InputModule = new BrowserInputModule(game);
 
-    player.setScene(game.getActiveScene());
+    const keybindings: Map<string, Action> = new Map<string, Action>([
+      [' ', new Interact(0, 55)],
+    ]);
+    const keybindModule: KeybindModule = new KeybindModule(inputModule, keybindings);
+
     game.setPlayer(player);
+    keybindModule.setPlayer(player);
+    game.setKeybindModule(keybindModule);
     return game;
   }
 }
