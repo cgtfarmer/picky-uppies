@@ -8,6 +8,7 @@ import GameObject from '../game-object';
 import Game from '../game/game';
 import Scene from './scene';
 import StopWatch from '@/main/game/model/stop-watch';
+import { Tag } from '../tag';
 
 export default class SceneManager {
 
@@ -61,7 +62,7 @@ export default class SceneManager {
 
     if (index == null) return;
 
-    const gameObject: GameObject = this.activeScene.getUiElements()[index];
+    const gameObject: GameObject = this.activeScene.getGameObjectsByTag(Tag.UiElement)[index];
 
     this.activeScene.removeGameObjectByIndex(index);
 
@@ -87,7 +88,7 @@ export default class SceneManager {
     const player: Player | null = this.game.getPlayer();
     if (player) {
       player.setScene(this.activeScene);
-      this.activeScene.addRenderable(player);
+      this.activeScene.addGameObject(player);
     }
 
     const stopWatchIndex: number | null = this.activeScene
@@ -96,7 +97,7 @@ export default class SceneManager {
     if (stopWatchIndex == null) return;
 
     const stopWatch: StopWatch = this.activeScene
-      .getUiElements()[stopWatchIndex] as StopWatch;
+      .getGameObjectsByTag(Tag.UiElement)[stopWatchIndex] as StopWatch;
 
     stopWatch.start();
   }

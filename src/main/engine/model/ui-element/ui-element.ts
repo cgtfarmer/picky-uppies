@@ -1,5 +1,6 @@
 import Animator from '../animator/animator';
 import GameObject from '../game-object';
+import { Tag } from '../tag';
 
 type OnClickHandler = () => void;
 
@@ -7,8 +8,8 @@ export default class UiElement extends GameObject {
 
   private onClickHandler: OnClickHandler | null;
 
-  public constructor(animator: Animator) {
-    super(animator);
+  public constructor(customId: string, tags: Tag[]) {
+    super(customId, tags);
 
     this.onClickHandler = null;
   }
@@ -25,6 +26,6 @@ export default class UiElement extends GameObject {
 
   public override update(): void {
     // console.log('[UiElement#update]');
-    this.animator.render();
+    this.animator?.render();
   }
 }

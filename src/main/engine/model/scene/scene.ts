@@ -4,53 +4,42 @@ import GameObject from '../game-object';
 import { SpriteRenderer } from '../sprite-renderer/sprite-renderer';
 import Sprite from '../sprite/sprite';
 import Bounds from '../bounds';
+import { Tag } from '../tag';
 
 export default class Scene implements Renderable {
 
   private readonly bounds: Bounds;
 
+  private gameObjects: GameObject[];
+
   // private resourceSpawnEngine: ResourceSpawnEngine | null;
 
-  private players: GameObject[];
+  // private players: GameObject[];
 
-  private resources: GameObject[];
+  // private resources: GameObject[];
 
-  private uiElements: GameObject[];
+  // private uiElements: GameObject[];
 
-  public constructor(
-    bounds: Bounds, players: GameObject[], resources: GameObject[], uiElements: GameObject[]
-  ) {
+  public constructor(bounds: Bounds) {
     this.bounds = bounds;
-    this.players = players;
-    this.resources = resources;
-    this.uiElements = uiElements;
-    // this.resourceSpawnEngine = null;
+    this.gameObjects = [];
   }
-
-  // public setResourceSpawnEngine(resourceSpawnEngine: ResourceSpawnEngine): void {
-  //   this.resourceSpawnEngine = resourceSpawnEngine;
-  //   this.resourceSpawnEngine.setScene(this);
-  // }
 
   public getBounds(): Bounds {
     return this.bounds;
   }
 
-  public getPlayers() {
-    return this.players;
+  public getGameObjects(): GameObject[] {
+    return this.gameObjects;
   }
 
-  public getResources() {
-    return this.resources;
-  }
-
-  public getUiElements() {
-    return this.uiElements;
+  public getGameObjectsByTag(tag: Tag): GameObject[] {
+    return this.gameObjects.filter((e) => e.tags.includes(tag));
   }
 
   public addGameObject(gameObject: GameObject): void {
-    // TODO: Finish
-    this.uiElements.push(gameObject);
+    this.gameObjects.push(gameObject);
+    gameObject.setScene(this);
   }
 
   public removeGameObjectByCustomId(customId: string): void {
@@ -59,18 +48,19 @@ export default class Scene implements Renderable {
 
     if (index == null) return;
 
-    this.uiElements.splice(index, 1);
+    this.gameObjects[index].setScene(null);
+    this.gameObjects.splice(index, 1);
   }
 
   public removeGameObjectByIndex(index: number): void {
     // TODO: Finish
-    this.uiElements.splice(index, 1);
+    this.gameObjects.splice(index, 1);
   }
 
   public findGameObjectIndexByCustomId(customId: string): number | null {
     // TODO: Finish
-    for (let i = 0; i < this.uiElements.length; i++) {
-      var uiElement = this.uiElements[i];
+    for (let i = 0; i < this.gameObjects.length; i++) {
+      var uiElement = this.gameObjects[i];
 
       if (uiElement.customId != customId) continue;
 
@@ -80,54 +70,13 @@ export default class Scene implements Renderable {
     return null;
   }
 
-  public setResources(resources: GameObject[]): void {
-    this.resources = resources;
-  }
-
-  public addRenderable(renderable: GameObject) {
-    this.players.push(renderable);
-  }
-
   public setDisplay(display: Display): void {
-    // const spriteRendererFactory: SpriteRendererFactory = SpriteRendererFactory.getInstance();
-
-    this.players.forEach((gameObject: GameObject) => {
-      // const sprite: Sprite | null = gameObject.getSprite();
-
-      // if (sprite == null) return;
-
-      // const spriteRenderer: SpriteRenderer =
-      //   // spriteRendererFactory.create(sprite, display, gameObject.getTransform());
-      //   spriteRendererFactory.create(sprite, display, this);
-
-      gameObject.setDisplay(display);
-
-      // gameObject.setSpriteRenderer(spriteRenderer);
-    });
-
-    this.resources.forEach((gameObject: GameObject) => {
-      // const sprite: Sprite | null = gameObject.getSprite();
-
-      // if (sprite == null) return;
-
-      // const spriteRenderer: SpriteRenderer =
-      //   spriteRendererFactory.create(sprite, display, this);
-
-      // const spriteRenderer: SpriteRenderer =
-
-      gameObject.setDisplay(display);
-    });
-
-    this.uiElements.forEach((gameObject: GameObject) => {
+    this.gameObjects.forEach((gameObject: GameObject) => {
       gameObject.setDisplay(display);
     });
   }
 
   public update(): void {
-    // console.log(this.resources);
-    this.resources.forEach(e => e.update());
-    this.players.forEach(e => e.update());
-    this.uiElements.forEach(e => e.update());
-    // this.resourceSpawnEngine?.update();
+    this.gameObjects.forEach(e => e.update());
   }
 }

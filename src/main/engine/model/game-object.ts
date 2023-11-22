@@ -6,30 +6,36 @@ import Transform from './transform';
 import UuidProvider from '@/main/engine/uuid-provider';
 import Vector2 from './vector2';
 import { RigidBody } from './rigid-body/rigid-body';
+import { Tag } from './tag';
 
 export default class GameObject implements Renderable {
 
   public readonly id: string;
 
-  public customId: string | null;
+  public readonly customId: string | null;
 
-  public enabled: boolean;
+  public readonly tags: Tag[];
 
   protected readonly transform: Transform;
 
+  protected enabled: boolean;
+
   protected scene: Scene | null;
 
-  protected animator: Animator;
+  protected animator: Animator | null;
 
   protected rigidBody: RigidBody | null;
 
-  public constructor(animator: Animator) {
+  public constructor(customId: string | null, tags: Tag[]) {
+    if (customId?.trim() == '') throw new Error('Custom ID must be present or null');
+
     this.id = UuidProvider.getRandom();
+    this.customId = customId;
+    this.tags = tags;
     this.enabled = true;
-    this.scene = null;
     this.transform = new Transform(Vector2.zero());
-    this.animator = animator;
-    this.animator.setGameObject(this);
+    this.scene = null;
+    this.animator = null;
     this.rigidBody = null;
     this.customId = null;
   }
@@ -46,27 +52,27 @@ export default class GameObject implements Renderable {
     return this.rigidBody;
   }
 
-  public setScene(scene: Scene): void {
+  public isEnabled(): boolean {
+    return this.enabled;
+  }
+
+  public setAnimator(animator: Animator): void {
+    this.animator = animator;
+    this.animator.setGameObject(this);
+  }
+
+  public setScene(scene: Scene | null): void {
     this.scene = scene;
   }
 
   public setDisplay(display: Display): void {
-    this.animator.setDisplay(display);
+    this.animator?.setDisplay(display);
   }
 
   public setRigidBody(rigidBody: RigidBody): void {
     this.rigidBody = rigidBody;
     this.rigidBody.setGameObject(this);
   }
-
-  public setCustomId(customId: string): void {
-    this.customId = customId;
-  }
-
-  // public setSpriteRenderer(spriteRenderer: SpriteRenderer): void {
-  //   this.spriteRenderer = spriteRenderer;
-  //   this.spriteRenderer.setGameObject(this);
-  // }
 
   public update(): void {
     throw Error('Implement override');

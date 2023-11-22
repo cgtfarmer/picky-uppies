@@ -4,6 +4,7 @@ import Subscription from '@/main/engine/event-system/subscription';
 import { Topics } from '@/main/engine/event-system/topics';
 import Animator from '@/main/engine/model/animator/animator';
 import TextSprite from '@/main/engine/model/sprite/canvas/text-sprite';
+import { Tag } from '@/main/engine/model/tag';
 import UiElement from '@/main/engine/model/ui-element/ui-element';
 
 export default class CatchCounter extends UiElement {
@@ -12,8 +13,8 @@ export default class CatchCounter extends UiElement {
 
   private maxCounter: number;
 
-  public constructor(animator: Animator, maxCounter: number) {
-    super(animator);
+  public constructor(customId: string, tags: Tag[], maxCounter: number) {
+    super(customId, tags);
 
     this.counter = 0;
     this.maxCounter = maxCounter;
@@ -27,9 +28,11 @@ export default class CatchCounter extends UiElement {
   }
 
   public handleResourceCollected(id: string): void {
-    const textSprite: TextSprite = this.animator.getActiveSprite() as TextSprite;
-
     this.counter += 1;
+
+    if (!this.animator) return;
+
+    const textSprite: TextSprite = this.animator.getActiveSprite() as TextSprite;
 
     console.log(`[CatchCounter#handleResourceCollected] ${this}`);
 

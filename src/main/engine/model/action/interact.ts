@@ -6,6 +6,7 @@ import GameObject from '../game-object';
 import Game from '../game/game';
 import Physics2D from '../physics-2d';
 import Scene from '../scene/scene';
+import { Tag } from '../tag';
 import Vector2 from '../vector2';
 import { Action } from './action';
 
@@ -33,7 +34,7 @@ export default class Interact implements Action {
     if (!activeScene) return;
 
     const intersections: GameObject[] = Physics2D.getInstance().overlapCircle(
-      position, this.radius, activeScene.getResources()
+      position, this.radius, activeScene.getGameObjectsByTag(Tag.Resource)
     );
 
     intersections.forEach((e) => {

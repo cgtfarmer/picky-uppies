@@ -5,6 +5,7 @@ import TextSpriteCanvasRenderer
   from '@/main/engine/model/sprite-renderer/canvas/text-sprite-canvas-renderer';
 import TextSprite from '@/main/engine/model/sprite/canvas/text-sprite';
 import Vector2 from '@/main/engine/model/vector2';
+import { Tag } from '@/main/engine/model/tag';
 
 export default class CatchCounterFactory {
 
@@ -30,9 +31,8 @@ export default class CatchCounterFactory {
 
     const animator: Animator = new Animator(spriteRenderer, [sprite]);
 
-    const catchCounter: CatchCounter = new CatchCounter(animator, 10);
+    const catchCounter: CatchCounter = new CatchCounter('catch-counter', [Tag.UiElement], 10);
 
-    catchCounter.setCustomId('catch-counter');
     catchCounter.getTransform().position = center;
     return catchCounter;
   }
