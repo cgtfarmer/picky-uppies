@@ -4,6 +4,38 @@ export default class Vector2 {
     return new Vector2(0, 0);
   }
 
+  public static up(): Vector2 {
+    return new Vector2(0, 1);
+  }
+
+  public static down(): Vector2 {
+    return new Vector2(0, -1);
+  }
+
+  public static left(): Vector2 {
+    return new Vector2(-1, 0);
+  }
+
+  public static right(): Vector2 {
+    return new Vector2(1, 0);
+  }
+
+  public static upLeft(): Vector2 {
+    return new Vector2(-1, 1);
+  }
+
+  public static upRight(): Vector2 {
+    return new Vector2(1, 1);
+  }
+
+  public static downLeft(): Vector2 {
+    return new Vector2(-1, -1);
+  }
+
+  public static downRight(): Vector2 {
+    return new Vector2(1, -1);
+  }
+
   public readonly x: number;
   public readonly y: number;
 

@@ -14,12 +14,15 @@ export default class Physics2D {
 
   public overlapCircle(position: Vector2, radius: number, gameObjects: GameObject[]): GameObject[] {
     return gameObjects.filter((e) => {
-      return (e.enabled && this.pointIntersectsCircle(position, radius, e.getTransform().position));
+      return (
+        e.isEnabled() && this.pointIntersectsCircle(position, radius, e.getTransform().position)
+      );
     });
   }
 
   public pointIntersectsCircle(center: Vector2, radius: number, point: Vector2): boolean {
-    console.log(`[Physics2d] center=${center}, radius=${radius}, point=${point}`);
+    // console.log(`[Physics2d] center=${center}, radius=${radius}, point=${point}`);
+
     const difference: Vector2 = point.subtract(center);
 
     const magnitude: number = difference.magnitude();

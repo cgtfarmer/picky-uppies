@@ -172,18 +172,104 @@ describe('when get random int', () => {
   });
 });
 
-// describe('when get random point', () => {
+// TODO: Clean up these next 2 describe blocks
+describe('getRandomPoint', () => {
 
-//   test('given, then', () => {
-//     // TODO: Finish
-//     const bounds: Bounds = new Bounds(
-//       Vector2.zero(),
-//       new Vector2(3, 3),
-//     );
+  test('given bounds with (0, 0), (10, 6), then populates range inclusively', () => {
+    const rng: Rng = Rng.getInstance();
 
-//     Rng.getInstance().getRandomPoint(bounds);
-//   });
-// });
+    const bounds: Bounds = new Bounds(Vector2.zero(), new Vector2(10, 6));
+
+    const xResults: Map<number, number> = new Map<number, number>();
+    const yResults: Map<number, number> = new Map<number, number>();
+    for(let i = 0; i < 500; i++) {
+      const point: Vector2 = rng.getRandomPoint(bounds);
+
+      let currentX = xResults.get(point.x);
+      if (currentX == undefined) currentX = 0;
+
+      let currentY = yResults.get(point.y);
+      if (currentY == undefined) currentY = 0;
+
+      xResults.set(point.x, (currentX + 1));
+      yResults.set(point.y, (currentY + 1));
+    }
+
+    console.log(xResults);
+    console.log(yResults);
+
+    const xResultNeg5 = xResults.get(-5);
+    const xResultNeg3 = xResults.get(-3);
+    const xResult0 = xResults.get(0);
+    const xResult3 = xResults.get(3);
+    const xResult5 = xResults.get(5);
+    expect(xResultNeg5 && xResultNeg5 >= 1).toBe(true);
+    expect(xResultNeg3 && xResultNeg3 >= 1).toBe(true);
+    expect(xResult0 && xResult0 >= 1).toBe(true);
+    expect(xResult3 && xResult3 >= 1).toBe(true);
+    expect(xResult5 && xResult5 >= 1).toBe(true);
+
+    const yResultNeg3 = yResults.get(-3);
+    const yResultNeg1 = yResults.get(-1);
+    const yResult0 = yResults.get(0);
+    const yResult1 = yResults.get(1);
+    const yResult3 = yResults.get(3);
+    expect(yResultNeg3 && yResultNeg3 >= 1).toBe(true);
+    expect(yResultNeg1 && yResultNeg1 >= 1).toBe(true);
+    expect(yResult0 && yResult0 >= 1).toBe(true);
+    expect(yResult1 && yResult1 >= 1).toBe(true);
+    expect(yResult3 && yResult3 >= 1).toBe(true);
+  });
+});
+
+describe('getRandomPointWithPadding', () => {
+
+  test('given bounds with (0, 0), (10, 6), then populates range inclusively w/ padding', () => {
+    const rng: Rng = Rng.getInstance();
+
+    const bounds: Bounds = new Bounds(Vector2.zero(), new Vector2(10, 6));
+
+    const xResults: Map<number, number> = new Map<number, number>();
+    const yResults: Map<number, number> = new Map<number, number>();
+    for(let i = 0; i < 500; i++) {
+      const point: Vector2 = rng.getRandomPointWithPadding(bounds, 1);
+
+      let currentX = xResults.get(point.x);
+      if (currentX == undefined) currentX = 0;
+
+      let currentY = yResults.get(point.y);
+      if (currentY == undefined) currentY = 0;
+
+      xResults.set(point.x, (currentX + 1));
+      yResults.set(point.y, (currentY + 1));
+    }
+
+    console.log(xResults);
+    console.log(yResults);
+
+    const xResultNeg5 = xResults.get(-5);
+    const xResultNeg3 = xResults.get(-3);
+    const xResult0 = xResults.get(0);
+    const xResult3 = xResults.get(3);
+    const xResult5 = xResults.get(5);
+    expect(xResultNeg5).toBe(undefined);
+    expect(xResultNeg3 && xResultNeg3 >= 1).toBe(true);
+    expect(xResult0 && xResult0 >= 1).toBe(true);
+    expect(xResult3 && xResult3 >= 1).toBe(true);
+    expect(xResult5).toBe(undefined);
+
+    const yResultNeg3 = yResults.get(-3);
+    const yResultNeg1 = yResults.get(-1);
+    const yResult0 = yResults.get(0);
+    const yResult1 = yResults.get(1);
+    const yResult3 = yResults.get(3);
+    expect(yResultNeg3).toBe(undefined);
+    expect(yResultNeg1 && yResultNeg1 >= 1).toBe(true);
+    expect(yResult0 && yResult0 >= 1).toBe(true);
+    expect(yResult1 && yResult1 >= 1).toBe(true);
+    expect(yResult3).toBe(undefined);
+  });
+});
 
 function populateMap(start: number, end: number): Map<number, number> {
   const results: Map<number, number> = new Map<number, number>();
