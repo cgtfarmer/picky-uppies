@@ -1,4 +1,3 @@
-import DomAccessor from '../../../dom/dom-accessor';
 import GameFactory from './game-factory';
 import { Renderable } from '../../interface/renderable';
 import Player from '../../../game/model/character/player';
@@ -7,8 +6,6 @@ import { Display } from '../display/display';
 import EventSystem from '../../event-system/event-system';
 import Vector2 from '../vector2';
 import SceneManager from '../scene/scene-manager';
-import StopWatch from '@/main/game/model/stop-watch';
-import { InputModule } from '../input-module/input-module';
 import KeybindModule from '../keybind-module/keybind-module';
 
 export default class Game implements Renderable {
@@ -17,9 +14,9 @@ export default class Game implements Renderable {
 
   private static singleton: Game;
 
-  private readonly eventSystem: EventSystem;
-
   private readonly sceneManager: SceneManager;
+
+  private eventSystem: EventSystem | null;
 
   private player: Player | null;
 
@@ -39,14 +36,16 @@ export default class Game implements Renderable {
     return this.singleton;
   }
 
-  public constructor(eventSystem: EventSystem) {
-    this.display = null;
-    this.player = null;
+  public constructor() {
     this.running = false;
     this.interval = null;
-    this.eventSystem = eventSystem;
-    this.sceneManager = new SceneManager(this, []);
+
+    this.eventSystem = null;
+    this.sceneManager = new SceneManager(this);
     this.keybindModule = null;
+
+    this.display = null;
+    this.player = null;
   }
 
   public getActiveScene(): Scene | null {
@@ -69,6 +68,10 @@ export default class Game implements Renderable {
 
   public getPlayer(): Player | null {
     return this.player;
+  }
+
+  public setEventSystem(eventSystem: EventSystem): void {
+    this.eventSystem = eventSystem;
   }
 
   public setDisplay(display: Display): void {

@@ -14,7 +14,7 @@ describe('when get random int', () => {
     expect(results.size).toBe(1);
 
     const result0 = results.get(0);
-    expect(result0 && result0 >= 1).toBe(true);
+    expect(result0 && result0 >= 1).toBeTruthy();
   });
 
   test('given range of 0 to 1, then populates range inclusively', () => {
@@ -23,8 +23,8 @@ describe('when get random int', () => {
 
     const result0 = results.get(0);
     const result1 = results.get(1);
-    expect(result0 && result0 >= 1).toBe(true);
-    expect(result1 && result1 >= 1).toBe(true);
+    expect(result0 && result0 >= 1).toBeTruthy();
+    expect(result1 && result1 >= 1).toBeTruthy();
   });
 
   test('given range of 0 to 2, then populates range inclusively', () => {
@@ -34,9 +34,9 @@ describe('when get random int', () => {
     const result0 = results.get(0);
     const result1 = results.get(1);
     const result2 = results.get(2);
-    expect(result0 && result0 >= 1).toBe(true);
-    expect(result1 && result1 >= 1).toBe(true);
-    expect(result2 && result2 >= 1).toBe(true);
+    expect(result0 && result0 >= 1).toBeTruthy();
+    expect(result1 && result1 >= 1).toBeTruthy();
+    expect(result2 && result2 >= 1).toBeTruthy();
   });
 
   test('given range of 1 to 1, then populates range inclusively', () => {
@@ -44,7 +44,7 @@ describe('when get random int', () => {
     expect(results.size).toBe(1);
 
     const result1 = results.get(1);
-    expect(result1 && result1 >= 1).toBe(true);
+    expect(result1 && result1 >= 1).toBeTruthy();
   });
 
   test('given range of 1 to 2, then populates range inclusively', () => {
@@ -53,8 +53,8 @@ describe('when get random int', () => {
 
     const result1 = results.get(1);
     const result2 = results.get(2);
-    expect(result1 && result1 >= 1).toBe(true);
-    expect(result2 && result2 >= 1).toBe(true);
+    expect(result1 && result1 >= 1).toBeTruthy();
+    expect(result2 && result2 >= 1).toBeTruthy();
   });
 
   test('given range of 1 to 3, then populates range inclusively', () => {
@@ -64,9 +64,9 @@ describe('when get random int', () => {
     const result1 = results.get(1);
     const result2 = results.get(2);
     const result3 = results.get(3);
-    expect(result1 && result1 >= 1).toBe(true);
-    expect(result2 && result2 >= 1).toBe(true);
-    expect(result3 && result3 >= 1).toBe(true);
+    expect(result1 && result1 >= 1).toBeTruthy();
+    expect(result2 && result2 >= 1).toBeTruthy();
+    expect(result3 && result3 >= 1).toBeTruthy();
   });
 
   test('given range of 2 to 2, then populates range inclusively', () => {
@@ -74,7 +74,7 @@ describe('when get random int', () => {
     expect(results.size).toBe(1);
 
     const result2 = results.get(2);
-    expect(result2 && result2 >= 1).toBe(true);
+    expect(result2 && result2 >= 1).toBeTruthy();
   });
 
   test('given range of 2 to 3, then populates range inclusively', () => {
@@ -83,8 +83,8 @@ describe('when get random int', () => {
 
     const result2 = results.get(2);
     const result3 = results.get(3);
-    expect(result2 && result2 >= 1).toBe(true);
-    expect(result3 && result3 >= 1).toBe(true);
+    expect(result2 && result2 >= 1).toBeTruthy();
+    expect(result3 && result3 >= 1).toBeTruthy();
   });
 
   test('given range of 2 to 4, then populates range inclusively', () => {
@@ -94,9 +94,9 @@ describe('when get random int', () => {
     const result2 = results.get(2);
     const result3 = results.get(3);
     const result4 = results.get(4);
-    expect(result2 && result2 >= 1).toBe(true);
-    expect(result3 && result3 >= 1).toBe(true);
-    expect(result4 && result4 >= 1).toBe(true);
+    expect(result2 && result2 >= 1).toBeTruthy();
+    expect(result3 && result3 >= 1).toBeTruthy();
+    expect(result4 && result4 >= 1).toBeTruthy();
   });
 
   test('given range of -1 to 1, then populates range inclusively', () => {
@@ -106,9 +106,9 @@ describe('when get random int', () => {
     const resultNeg1 = results.get(-1);
     const result0 = results.get(0);
     const result1 = results.get(1);
-    expect(resultNeg1 && resultNeg1 >= 1).toBe(true);
-    expect(result0 && result0 >= 1).toBe(true);
-    expect(result1 && result1 >= 1).toBe(true);
+    expect(resultNeg1 && resultNeg1 >= 1).toBeTruthy();
+    expect(result0 && result0 >= 1).toBeTruthy();
+    expect(result1 && result1 >= 1).toBeTruthy();
   });
 
   test('given range of -1 to -1, then populates range inclusively', () => {
@@ -116,7 +116,7 @@ describe('when get random int', () => {
     expect(results.size).toBe(1);
 
     const resultNeg1 = results.get(-1);
-    expect(resultNeg1 && resultNeg1 >= 1).toBe(true);
+    expect(resultNeg1 && resultNeg1 >= 1).toBeTruthy();
   });
 
   test('given range of -2 to -1, then populates range inclusively', () => {
@@ -125,8 +125,8 @@ describe('when get random int', () => {
 
     const resultNeg2 = results.get(-2);
     const resultNeg1 = results.get(-1);
-    expect(resultNeg2 && resultNeg2 >= 1).toBe(true);
-    expect(resultNeg1 && resultNeg1 >= 1).toBe(true);
+    expect(resultNeg2 && resultNeg2 >= 1).toBeTruthy();
+    expect(resultNeg1 && resultNeg1 >= 1).toBeTruthy();
   });
 
   test('given range of -3 to -1, then populates range inclusively', () => {
@@ -136,9 +136,9 @@ describe('when get random int', () => {
     const resultNeg3 = results.get(-3);
     const resultNeg2 = results.get(-2);
     const resultNeg1 = results.get(-1);
-    expect(resultNeg3 && resultNeg3 >= 1).toBe(true);
-    expect(resultNeg2 && resultNeg2 >= 1).toBe(true);
-    expect(resultNeg1 && resultNeg1 >= 1).toBe(true);
+    expect(resultNeg3 && resultNeg3 >= 1).toBeTruthy();
+    expect(resultNeg2 && resultNeg2 >= 1).toBeTruthy();
+    expect(resultNeg1 && resultNeg1 >= 1).toBeTruthy();
   });
 
   test('given range of -2 to -2, then populates range inclusively', () => {
@@ -146,7 +146,7 @@ describe('when get random int', () => {
     expect(results.size).toBe(1);
 
     const resultNeg2 = results.get(-2);
-    expect(resultNeg2 && resultNeg2 >= 1).toBe(true);
+    expect(resultNeg2 && resultNeg2 >= 1).toBeTruthy();
   });
 
   test('given range of -3 to -2, then populates range inclusively', () => {
@@ -155,8 +155,8 @@ describe('when get random int', () => {
 
     const resultNeg3 = results.get(-3);
     const resultNeg2 = results.get(-2);
-    expect(resultNeg3 && resultNeg3 >= 1).toBe(true);
-    expect(resultNeg2 && resultNeg2 >= 1).toBe(true);
+    expect(resultNeg3 && resultNeg3 >= 1).toBeTruthy();
+    expect(resultNeg2 && resultNeg2 >= 1).toBeTruthy();
   });
 
   test('given range of -4 to -2, then populates range inclusively', () => {
@@ -166,9 +166,9 @@ describe('when get random int', () => {
     const resultNeg4 = results.get(-4);
     const resultNeg3 = results.get(-3);
     const resultNeg2 = results.get(-2);
-    expect(resultNeg4 && resultNeg4 >= 1).toBe(true);
-    expect(resultNeg3 && resultNeg3 >= 1).toBe(true);
-    expect(resultNeg2 && resultNeg2 >= 1).toBe(true);
+    expect(resultNeg4 && resultNeg4 >= 1).toBeTruthy();
+    expect(resultNeg3 && resultNeg3 >= 1).toBeTruthy();
+    expect(resultNeg2 && resultNeg2 >= 1).toBeTruthy();
   });
 });
 
@@ -203,22 +203,22 @@ describe('getRandomPoint', () => {
     const xResult0 = xResults.get(0);
     const xResult3 = xResults.get(3);
     const xResult5 = xResults.get(5);
-    expect(xResultNeg5 && xResultNeg5 >= 1).toBe(true);
-    expect(xResultNeg3 && xResultNeg3 >= 1).toBe(true);
-    expect(xResult0 && xResult0 >= 1).toBe(true);
-    expect(xResult3 && xResult3 >= 1).toBe(true);
-    expect(xResult5 && xResult5 >= 1).toBe(true);
+    expect(xResultNeg5 && xResultNeg5 >= 1).toBeTruthy();
+    expect(xResultNeg3 && xResultNeg3 >= 1).toBeTruthy();
+    expect(xResult0 && xResult0 >= 1).toBeTruthy();
+    expect(xResult3 && xResult3 >= 1).toBeTruthy();
+    expect(xResult5 && xResult5 >= 1).toBeTruthy();
 
     const yResultNeg3 = yResults.get(-3);
     const yResultNeg1 = yResults.get(-1);
     const yResult0 = yResults.get(0);
     const yResult1 = yResults.get(1);
     const yResult3 = yResults.get(3);
-    expect(yResultNeg3 && yResultNeg3 >= 1).toBe(true);
-    expect(yResultNeg1 && yResultNeg1 >= 1).toBe(true);
-    expect(yResult0 && yResult0 >= 1).toBe(true);
-    expect(yResult1 && yResult1 >= 1).toBe(true);
-    expect(yResult3 && yResult3 >= 1).toBe(true);
+    expect(yResultNeg3 && yResultNeg3 >= 1).toBeTruthy();
+    expect(yResultNeg1 && yResultNeg1 >= 1).toBeTruthy();
+    expect(yResult0 && yResult0 >= 1).toBeTruthy();
+    expect(yResult1 && yResult1 >= 1).toBeTruthy();
+    expect(yResult3 && yResult3 >= 1).toBeTruthy();
   });
 });
 
@@ -253,9 +253,9 @@ describe('getRandomPointWithPadding', () => {
     const xResult3 = xResults.get(3);
     const xResult5 = xResults.get(5);
     expect(xResultNeg5).toBe(undefined);
-    expect(xResultNeg3 && xResultNeg3 >= 1).toBe(true);
-    expect(xResult0 && xResult0 >= 1).toBe(true);
-    expect(xResult3 && xResult3 >= 1).toBe(true);
+    expect(xResultNeg3 && xResultNeg3 >= 1).toBeTruthy();
+    expect(xResult0 && xResult0 >= 1).toBeTruthy();
+    expect(xResult3 && xResult3 >= 1).toBeTruthy();
     expect(xResult5).toBe(undefined);
 
     const yResultNeg3 = yResults.get(-3);
@@ -264,9 +264,9 @@ describe('getRandomPointWithPadding', () => {
     const yResult1 = yResults.get(1);
     const yResult3 = yResults.get(3);
     expect(yResultNeg3).toBe(undefined);
-    expect(yResultNeg1 && yResultNeg1 >= 1).toBe(true);
-    expect(yResult0 && yResult0 >= 1).toBe(true);
-    expect(yResult1 && yResult1 >= 1).toBe(true);
+    expect(yResultNeg1 && yResultNeg1 >= 1).toBeTruthy();
+    expect(yResult0 && yResult0 >= 1).toBeTruthy();
+    expect(yResult1 && yResult1 >= 1).toBeTruthy();
     expect(yResult3).toBe(undefined);
   });
 });

@@ -2,6 +2,10 @@ import Vector2 from './vector2';
 
 export default class Bounds {
 
+  public static zero(): Bounds {
+    return new Bounds(Vector2.zero(), Vector2.zero());
+  }
+
   private center: Vector2;
   private extents: Vector2;
   private max: Vector2;
