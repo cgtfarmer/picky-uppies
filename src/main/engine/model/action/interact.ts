@@ -33,7 +33,7 @@ export default class Interact implements Action {
 
     if (!activeScene) return;
 
-    const intersections: GameObject[] = Physics2D.getInstance().overlapCircle(
+    const intersections: GameObject[] = Physics2D.getInstance().overlapCircleAll(
       position, this.radius, activeScene.getGameObjectsByTag(Tag.Resource)
     );
 

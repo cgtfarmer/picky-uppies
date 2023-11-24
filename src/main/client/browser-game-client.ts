@@ -1,17 +1,7 @@
-import DomAccessor from '@/main/dom/dom-accessor';
-import CanvasDisplay from '../display/canvas-display';
-import { InputModule } from './input-module';
-import Game from '../game/game';
-import Vector2 from '../vector2';
-import GameObject from '../game-object';
-import Physics2D from '../physics-2d';
-import UiElement from '../ui-element/ui-element';
-import { Display } from '../display/display';
-import Scene from '../scene/scene';
+// type OnClickHandler = (event: MouseEvent) => void;
 
-export default class BrowserInputModule implements InputModule {
+export default class BrowserGameClient {
 
-  private readonly game: Game;
   private canvas: HTMLCanvasElement | null;
   private xAxis: number;
   private yAxis: number;
@@ -19,55 +9,35 @@ export default class BrowserInputModule implements InputModule {
   // private static keys: Map<string, boolean> = new Map<string, boolean>();
   private keys: Map<string, boolean>;
 
-  public constructor(game: Game) {
-    this.game = game;
-    this.xAxis = 0;
-    this.yAxis = 0;
-    this.keys = new Map<string, boolean>();
-    this.canvas = null;
+  // private onMouseDown: OnClickHandler | null;
 
-    window.addEventListener('keydown', (event) => {
+  public constructor() {
+    window.addEventListener('keydown', (event: KeyboardEvent) => {
+      // TODO: Maybe just restrict default on space key?
       event.preventDefault();
       this.registerKey(event.key);
     });
 
-    window.addEventListener('keyup', (event) => {
+    window.addEventListener('keyup', (event: KeyboardEvent) => {
       event.preventDefault();
       this.unregisterKey(event.key);
     });
+
+    window.addEventListener('mousedown', (event: MouseEvent) => {
+    });
+      const rect: DOMRect = display.getHtmlCanvasElement().getBoundingClientRect();
+
+      const clickPosition: Vector2 = new Vector2(
+        (event.clientX - (rect.left + display.size().x)),
+        (event.clientY - (rect.top + display.size().y))
+      );
   }
 
   public setDisplay(display: Display): void {
     const canvasDisplay: CanvasDisplay = display as CanvasDisplay;
     this.canvas = canvasDisplay.getHtmlCanvasElement();
 
-    window.addEventListener('mousedown', (event) => {
-      console.log('[BrowserInputModule#mousedown-event]');
-
-      if (this.canvas == null) return;
-
-      const rect: DOMRect = this.canvas.getBoundingClientRect();
-
-      const activeScene: Scene | null = this.game.getActiveScene();
-
-      if (!activeScene) return;
-
-      const activeSceneExtents: Vector2 = activeScene.getBounds().getExtents();
-      const clickPosition: Vector2 = new Vector2(
-        (event.clientX - (rect.left + activeSceneExtents.x)),
-        (event.clientY - (rect.top + activeSceneExtents.y))
-      );
-
-      console.log(`[BrowserInputModule#mousedown-event] clickPosition=${clickPosition}`);
-
-      const uiElements: GameObject[] = activeScene.getUiElements();
-
-      // TODO: This is so bad and janky, please fix yesterday
-      const results: UiElement[] = Physics2D.getInstance()
-        .overlapCircle(clickPosition, 100, uiElements) as UiElement[];
-
-      results.forEach((e) => e.onClick());
-    });
+    window.addEventListener('mousedown', this.handleMouseDown);
   }
 
   public registerKey(key: string): void {
@@ -124,6 +94,18 @@ export default class BrowserInputModule implements InputModule {
 
   public getActiveKeys(): string[] {
     return Array.from(this.keys.keys());
+  }
+
+  public setOnMouseDown(callback: OnClickHandler): void {
+    this.onMouseDown = callback;
+  }
+
+  public handleMouseDown(event: MouseEvent): void {
+    console.log('[BrowserInputModule#handleMouseDown]');
+
+    if (!this.onMouseDown) return;
+
+    this.onMouseDown(event);
   }
 
   // private registerKey(event: KeyboardEvent): void {

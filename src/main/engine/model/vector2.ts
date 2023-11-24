@@ -114,6 +114,28 @@ export default class Vector2 {
     return this.divideScalar(magnitude);
   }
 
+  public greaterThan(value: Vector2): boolean {
+    const difference: Vector2 = this.subtract(value);
+
+    if (difference.x > 0 && difference.y > 0) return true;
+
+    return false;
+  }
+
+  public lessThan(value: Vector2): boolean {
+    const difference: Vector2 = this.subtract(value);
+
+    if (difference.x < 0 && difference.y < 0) return true;
+
+    return false;
+  }
+
+  public between(min: Vector2, max: Vector2): boolean {
+    if (this.greaterThan(min) && this.lessThan(max)) return true;
+
+    return false;
+  }
+
   public toString(): string {
     return `(${this.x}, ${this.y})`;
   }

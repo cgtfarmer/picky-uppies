@@ -95,9 +95,9 @@ describe('addGameObject', () => {
   });
 });
 
-describe('removeGameObject', () => {
+describe('deleteGameObject', () => {
 
-  test('given GameObject is present, then removes successfully', () => {
+  test('given GameObject is present, then deletes successfully', () => {
     const bounds: Bounds = new Bounds(
       Vector2.zero(),
       new Vector2(1360, 765)
@@ -113,7 +113,7 @@ describe('removeGameObject', () => {
     scene.addGameObject(gameObject2);
     scene.addGameObject(gameObject3);
 
-    scene.removeGameObject(gameObject2);
+    scene.deleteGameObject(gameObject2);
 
     expect(scene.getGameObjects().length)
       .toBe(2);
@@ -140,7 +140,7 @@ describe('removeGameObject', () => {
     scene.addGameObject(gameObject1);
     scene.addGameObject(gameObject3);
 
-    scene.removeGameObject(gameObject2);
+    scene.deleteGameObject(gameObject2);
 
     expect(scene.getGameObjects().length)
       .toBe(2);

@@ -67,17 +67,17 @@ describe('addScene', () => {
   });
 });
 
-describe('removeScene', () => {
+describe('deleteScene', () => {
 
   describe('given one scene present', () => {
 
-    test('then removes scene', () => {
+    test('then deletes scene', () => {
       const sceneManager: SceneManager = new SceneManager();
 
       const scene: Scene = new Scene(Bounds.zero());
       sceneManager.addScene(scene);
 
-      sceneManager.removeScene(scene);
+      sceneManager.deleteScene(scene);
       expect(sceneManager.findSceneIndex(scene))
         .toBeNull();
     });
@@ -88,7 +88,7 @@ describe('removeScene', () => {
       const scene: Scene = new Scene(Bounds.zero());
       sceneManager.addScene(scene);
 
-      sceneManager.removeScene(scene);
+      sceneManager.deleteScene(scene);
       expect(sceneManager.getActiveScene())
         .toBeNull();
     });
@@ -98,7 +98,7 @@ describe('removeScene', () => {
 
     describe('and scene is not activeScene', () => {
 
-      test('removes scene', () => {
+      test('deletes scene', () => {
         const sceneManager: SceneManager = new SceneManager();
 
         const scene1: Scene = new Scene(Bounds.zero());
@@ -106,7 +106,7 @@ describe('removeScene', () => {
         sceneManager.addScene(scene1);
         sceneManager.addScene(scene2);
 
-        sceneManager.removeScene(scene2);
+        sceneManager.deleteScene(scene2);
         expect(sceneManager.findSceneIndex(scene2))
           .toBeNull();
       });
@@ -119,7 +119,7 @@ describe('removeScene', () => {
         sceneManager.addScene(scene1);
         sceneManager.addScene(scene2);
 
-        sceneManager.removeScene(scene2);
+        sceneManager.deleteScene(scene2);
         expect(sceneManager.getActiveScene())
           .toBe(scene1);
       });
@@ -127,7 +127,7 @@ describe('removeScene', () => {
 
     describe('and scene is activeScene', () => {
 
-      test('removes scene', () => {
+      test('deletes scene', () => {
         const sceneManager: SceneManager = new SceneManager();
 
         const scene1: Scene = new Scene(Bounds.zero());
@@ -135,7 +135,7 @@ describe('removeScene', () => {
         sceneManager.addScene(scene1);
         sceneManager.addScene(scene2);
 
-        sceneManager.removeScene(scene1);
+        sceneManager.deleteScene(scene1);
         expect(sceneManager.findSceneIndex(scene1))
           .toBeNull();
       });
@@ -148,7 +148,7 @@ describe('removeScene', () => {
         sceneManager.addScene(scene1);
         sceneManager.addScene(scene2);
 
-        sceneManager.removeScene(scene1);
+        sceneManager.deleteScene(scene1);
         expect(sceneManager.getActiveScene())
           .toBeNull();
       });

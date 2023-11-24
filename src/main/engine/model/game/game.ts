@@ -6,7 +6,8 @@ import { Display } from '../display/display';
 import EventSystem from '../../event-system/event-system';
 import Vector2 from '../vector2';
 import SceneManager from '../scene/scene-manager';
-import KeybindModule from '../keybind-module/keybind-module';
+import BrowserInputController from '../../../client/browser-game-client';
+import { Action } from '../action/action';
 
 export default class Game implements Renderable {
 
@@ -16,7 +17,9 @@ export default class Game implements Renderable {
 
   private readonly sceneManager: SceneManager;
 
-  private eventSystem: EventSystem | null;
+  // private inputModule: BrowserInputController;
+
+  // private eventSystem: EventSystem;
 
   private player: Player | null;
 
@@ -25,8 +28,6 @@ export default class Game implements Renderable {
   private running: boolean;
 
   private interval: number | null;
-
-  private keybindModule: KeybindModule | null;
 
   public static getInstance(): Game {
     if (this.singleton == null) {
@@ -40,12 +41,15 @@ export default class Game implements Renderable {
     this.running = false;
     this.interval = null;
 
-    this.eventSystem = null;
-    this.sceneManager = new SceneManager(this);
-    this.keybindModule = null;
+    // this.eventSystem = new EventSystem();
+    this.sceneManager = new SceneManager();
+    // this.inputModule = new BrowserInputController();
 
     this.display = null;
     this.player = null;
+  }
+
+  public click(position: Vector2): void {
   }
 
   public getActiveScene(): Scene | null {
@@ -62,31 +66,31 @@ export default class Game implements Renderable {
     return this.display.getTransformMatrix();
   }
 
-  public getKeybindModule(): KeybindModule | null {
-    return this.keybindModule;
-  }
+  // public getInputModule(): BrowserInputController | null {
+  //   return this.inputModule;
+  // }
 
   public getPlayer(): Player | null {
     return this.player;
   }
 
-  public setEventSystem(eventSystem: EventSystem): void {
-    this.eventSystem = eventSystem;
-  }
+  // public setEventSystem(eventSystem: EventSystem): void {
+  //   this.eventSystem = eventSystem;
+  // }
 
   public setDisplay(display: Display): void {
     this.display = display;
 
     this.sceneManager.setDisplay(display);
 
-    if (this.keybindModule == null) return;
+    // if (this.inputModule == null) return;
 
-    this.keybindModule.setDisplay(display);
+    // this.inputModule.setDisplay(display);
   }
 
-  public setKeybindModule(keybindModule: KeybindModule): void {
-    this.keybindModule = keybindModule;
-  }
+  // public setInputModule(inputModule: BrowserInputController): void {
+  //   this.inputModule = inputModule;
+  // }
 
   public setPlayer(player: Player): void {
     this.player = player;

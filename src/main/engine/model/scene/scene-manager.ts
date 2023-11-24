@@ -35,17 +35,13 @@ export default class SceneManager {
     //   ));
   }
 
-  public getScenes(): Scene[] {
-    return this.scenes;
-  }
-
   public addScene(scene: Scene): void {
     this.scenes.push(scene);
 
     if (this.scenes.length == 1) this.activeScene = this.scenes[0];
   }
 
-  public removeScene(scene: Scene): void {
+  public deleteScene(scene: Scene): void {
     const index: number | null = this.findSceneIndex(scene);
 
     if (index == null) return;
@@ -63,6 +59,10 @@ export default class SceneManager {
     }
 
     return null;
+  }
+
+  public getScenes(): Scene[] {
+    return this.scenes;
   }
 
   public setScenes(scenes: Scene[]): void {
@@ -83,7 +83,7 @@ export default class SceneManager {
   public moveGameObjectToScene(gameObject: GameObject, scene: Scene): void {
     if (!this.activeScene) return;
 
-    this.activeScene.removeGameObject(gameObject);
+    this.activeScene.deleteGameObject(gameObject);
 
     scene.addGameObject(gameObject);
   }
@@ -95,7 +95,7 @@ export default class SceneManager {
 
     if (!gameObject) return;
 
-    this.activeScene.removeGameObject(gameObject);
+    this.activeScene.deleteGameObject(gameObject);
 
     scene.addGameObject(gameObject);
   }

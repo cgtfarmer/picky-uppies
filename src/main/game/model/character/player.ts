@@ -2,20 +2,20 @@ import { Renderable } from '../../../engine/interface/renderable';
 import Character from './character';
 import Inventory from '../inventory';
 import Vector2 from '../../../engine/model/vector2';
-import { InputModule } from '@/main/engine/model/input-module/input-module';
-import KeybindModule from '@/main/engine/model/keybind-module/keybind-module';
 import Animator from '@/main/engine/model/animator/animator';
-import Game from '@/main/engine/model/game/game';
+import { Action } from '@/main/engine/model/action/action';
 
 export default class Player extends Character implements Renderable {
-
-  // private inputModule: InputModule;
-
-  private keybindModule: KeybindModule | null;
 
   private inventory: Inventory;
 
   private movementSpeed: number;
+
+  private movement: Vector2;
+
+  private validActions: Action[];
+
+  private queuedAction: Action | null;
 
   public constructor(
     animator: Animator,
@@ -41,36 +41,39 @@ export default class Player extends Character implements Renderable {
       attackRange,
     );
 
-    this.keybindModule = null;
-    // this.inputModule = inputModule;
     this.inventory = inventory;
     this.movementSpeed = 8;
+    this.movement = Vector2.zero();
+    this.validActions = [];
+    this.queuedAction = null;
   }
 
-  public setKeybindModule(keybindModule: KeybindModule) {
-    this.keybindModule = keybindModule;
+  public setMovement(movement: Vector2): void {
+    this.movement = movement;
+  }
 
-    this.keybindModule.setPlayer(this);
+  public queueAction(action: Action): void {
+    console.log(`[Player#queueAction] ${action}`);
+
+    if (!this.validActions.includes(action)) {
+      console.log('[Player#queueAction] ERROR: Player cannot perform this action');
+      return;
+    }
+
+    if (this.queuedAction == action) {
+      console.log('[Player#queueAction] ERROR: Player is already performing this action');
+      return;
+    }
+
+    this.queuedAction = action;
   }
 
   public override update(): void {
-    // console.log('[Player#update]');
-    const inputModule: InputModule | undefined = Game.getInstance()
-      .getKeybindModule()?.getInputModule();
+    const velocity: Vector2 = this.movement.normalize()
+      .multiplyScalar(this.movementSpeed);
 
-    if (inputModule) {
-      const movement: Vector2 = new Vector2(
-        inputModule.getXAxis(),
-        inputModule.getYAxis()
-      );
+    this.rigidBody?.translate(velocity);
 
-      const velocity: Vector2 = movement.normalize().multiplyScalar(this.movementSpeed);
-
-      this.rigidBody?.translate(velocity);
-    }
-
-    this.keybindModule?.perform();
-
-    this.animator.render();
+    this.animator?.render();
   }
 }

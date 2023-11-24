@@ -8,6 +8,8 @@ import Vector2 from './vector2';
 import { RigidBody } from './rigid-body/rigid-body';
 import { Tag } from './tag';
 
+type OnClickHandler = () => void;
+
 export default class GameObject implements Renderable {
 
   public readonly id: string;
@@ -26,6 +28,8 @@ export default class GameObject implements Renderable {
 
   protected rigidBody: RigidBody | null;
 
+  protected onClickHandler: OnClickHandler | null;
+
   public constructor(customId: string | null, tags: Tag[]) {
     if (customId?.trim() == '') throw new Error('Custom ID must be present or null');
 
@@ -38,6 +42,7 @@ export default class GameObject implements Renderable {
     this.animator = null;
     this.rigidBody = null;
     this.customId = null;
+    this.onClickHandler = null;
   }
 
   public getScene(): Scene | null {
@@ -72,6 +77,16 @@ export default class GameObject implements Renderable {
   public setRigidBody(rigidBody: RigidBody): void {
     this.rigidBody = rigidBody;
     this.rigidBody.setGameObject(this);
+  }
+
+  public setOnClickHandler(onClickHandler: OnClickHandler): void {
+    this.onClickHandler = onClickHandler;
+  }
+
+  public onClick(): void {
+    if (this.onClickHandler == null) return;
+
+    this.onClickHandler();
   }
 
   public update(): void {

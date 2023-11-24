@@ -7,6 +7,8 @@ export default class EventSystem {
 
   public static getInstance(): EventSystem {
     if (this.singleton == null) {
+      this.singleton = new EventSystem();
+
       const topics: Map<Topics, Topic> = new Map<Topics, Topic>([
         [Topics.Interact, new Topic()],
         [Topics.ResourceCollected, new Topic()],
@@ -14,7 +16,7 @@ export default class EventSystem {
         [Topics.GameOver, new Topic()],
       ]);
 
-      this.singleton = new EventSystem(topics);
+      this.singleton.setTopics(topics);
     }
 
     return this.singleton;
@@ -22,11 +24,23 @@ export default class EventSystem {
 
   private topics: Map<Topics, Topic>;
 
-  public constructor(topics: Map<Topics, Topic>) {
-    this.topics = topics;
+  public constructor() {
+    this.topics = new Map<Topics, Topic>();
+  }
+
+  public addTopic(topicEntry: Topics, topic: Topic): void {
+    this.topics.set(topicEntry, topic);
+  }
+
+  public deleteTopic(topicEntry: Topics): void {
+    this.topics.delete(topicEntry);
   }
 
   public getTopic(topicEntry: Topics): Topic | undefined {
     return this.topics.get(topicEntry);
+  }
+
+  public setTopics(topics: Map<Topics, Topic>): void {
+    this.topics = topics;
   }
 }

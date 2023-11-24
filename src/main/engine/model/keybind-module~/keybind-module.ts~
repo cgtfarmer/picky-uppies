@@ -1,7 +1,7 @@
 import Player from '../../../game/model/character/player';
 import { Action } from '../action/action';
 import { Display } from '../display/display';
-import { InputModule } from '../input-module/input-module';
+import { InputModule } from '../input-module~/input-module.ts~';
 
 export default class KeybindModule {
 
