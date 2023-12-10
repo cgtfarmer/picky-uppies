@@ -117,23 +117,91 @@ export default class Vector2 {
   public greaterThan(value: Vector2): boolean {
     const difference: Vector2 = this.subtract(value);
 
-    if (difference.x > 0 && difference.y > 0) return true;
-
-    return false;
+    return (difference.x > 0 && difference.y > 0);
   }
 
   public lessThan(value: Vector2): boolean {
     const difference: Vector2 = this.subtract(value);
 
-    if (difference.x < 0 && difference.y < 0) return true;
-
-    return false;
+    return (difference.x < 0 && difference.y < 0);
   }
 
   public between(min: Vector2, max: Vector2): boolean {
-    if (this.greaterThan(min) && this.lessThan(max)) return true;
+    return (this.greaterThan(min) && this.lessThan(max));
+  }
 
-    return false;
+  /**
+   * Calculate the angle of this vector as if it were stemming from the center of the unit circle.
+   *
+   * <p>Angles are computed counterclockwise where 0 is represented by
+   * the normalized vector (1, 0), and pi is represented by the normalized vector (-1, 0)</p>
+   */
+  public angle(): number {
+    const result: number = Math.atan2(this.y, this.x);
+    if (this.y >= 0) return result;
+
+    return (2 * Math.PI) + result;
+  }
+
+  /**
+   * Garbo manual version.
+   */
+  // public badAngle(): number {
+  //   const normalized: Vector2 = this.normalize();
+
+  //   const result: number = Math.atan(normalized.y / normalized.x);
+  //   if (normalized.x > 0 && normalized.y > 0) {
+  //     return result;
+  //   } else if (normalized.x < 0 && normalized.y > 0) {
+  //     return (Math.PI / 2) - result;
+  //   } else if (normalized.x < 0 && normalized.y < 0) {
+  //     return (1.5 * Math.PI) - result;
+  //   } else if (normalized.x > 0 && normalized.y < 0) {
+  //     return (1.5 * Math.PI) - result;
+  //   }
+
+  //   if (normalized.x == 0) {
+  //     if (normalized.y == 1) return (Math.PI / 2);
+
+  //     return (Math.PI * 1.5);
+  //   }
+
+  //   if (normalized.y == 0) {
+  //     if (normalized.x == 1) return 0;
+
+  //     return Math.PI;
+  //   }
+
+  //   return 0;
+  // }
+
+  /**
+   * Determine if angle is greater than the given vector's angle.
+   *
+   * <p>See <code>angle</code></p>
+   *
+   * @param value the given vector
+   *
+   * @returns whether the angle is greater than the given vector's angle
+   */
+  public greaterThanAngle(value: Vector2): boolean {
+    return this.angle() > value.angle();
+  }
+
+  public lessThanAngle(value: Vector2): boolean {
+    return this.angle() < value.angle();
+  }
+
+  public betweenAngle(min: Vector2, max: Vector2): boolean {
+    return (this.greaterThanAngle(min) && this.lessThanAngle(max));
+  }
+
+  public slope(): number {
+    return (this.y / this.x);
+  }
+
+  public equals(value: Vector2): boolean {
+    return (value.x == this.x && value.y == this.y);
   }
 
   public toString(): string {

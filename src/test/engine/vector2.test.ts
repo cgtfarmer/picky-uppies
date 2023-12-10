@@ -192,3 +192,76 @@ describe('normalize', () => {
     expect(actual).toStrictEqual(expected);
   });
 });
+
+describe('angle', () => {
+
+  describe('given unitary inputs', () => {
+
+    test('(1, 0)', () => {
+      expect(new Vector2(1, 0).angle()).toBe(0);
+    });
+
+    test('(1, 1)', () => {
+      expect(new Vector2(1, 1).angle()).toBe((1 / 4) * Math.PI);
+    });
+
+    test('(0, 1)', () => {
+      expect(new Vector2(0, 1).angle()).toBe((2 / 4) * Math.PI);
+    });
+
+    test('(-1, 1)', () => {
+      expect(new Vector2(-1, 1).angle()).toBe((3 / 4) * Math.PI);
+    });
+
+    test('(-1, 0)', () => {
+      expect(new Vector2(-1, 0).angle()).toBe(Math.PI);
+    });
+
+    test('(-1, -1)', () => {
+      expect(new Vector2(-1, -1).angle()).toBe((5 / 4) * Math.PI);
+    });
+
+    test('(0, -1)', () => {
+      expect(new Vector2(0, -1).angle()).toBe((6 / 4) * Math.PI);
+    });
+
+    test('(1, -1)', () => {
+      expect(new Vector2(1, -1).angle()).toBe((7 / 4) * Math.PI);
+    });
+  });
+
+  describe('given non-unitary inputs', () => {
+
+    test('(3, 0)', () => {
+      expect(new Vector2(3, 0).angle()).toBe(0);
+    });
+
+    test('(3, 3)', () => {
+      expect(new Vector2(3, 3).angle()).toBe((1 / 4) * Math.PI);
+    });
+
+    test('(0, 3)', () => {
+      expect(new Vector2(0, 3).angle()).toBe((2 / 4) * Math.PI);
+    });
+
+    test('(-3, 3)', () => {
+      expect(new Vector2(-3, 3).angle()).toBe((3 / 4) * Math.PI);
+    });
+
+    test('(-3, 0)', () => {
+      expect(new Vector2(-3, 0).angle()).toBe(Math.PI);
+    });
+
+    test('(-3, -3)', () => {
+      expect(new Vector2(-3, -3).angle()).toBe((5 / 4) * Math.PI);
+    });
+
+    test('(0, -3)', () => {
+      expect(new Vector2(0, -3).angle()).toBe((6 / 4) * Math.PI);
+    });
+
+    test('(3, -3)', () => {
+      expect(new Vector2(3, -3).angle()).toBe((7 / 4) * Math.PI);
+    });
+  });
+});

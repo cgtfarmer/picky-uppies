@@ -2,6 +2,7 @@ import Component from '../component';
 import GameObject from '../game-object';
 import Transform from '../transform';
 import Vector2 from '../vector2';
+import { Collider2d } from './collider-2d';
 
 export default class BoxCollider2d extends Component {
 
@@ -13,16 +14,37 @@ export default class BoxCollider2d extends Component {
     this.size = size;
   }
 
-  // public closestPoint(point: Vector2): Vector2 {
-  //   const difference: Vector2 = point.subtract(this.transform.position);
+  public overlapsCollider(collider: Collider2d): boolean {
+    return false;
+  }
 
-  //   const extents: Vector2 = this.size.divideScalar(2);
-  //   const max: Vector2 = this.transform.position.add(extents);
+  public closestPoint(point: Vector2): Vector2 {
+    if (point.equals(this.transform.position)) {
+      return new Vector2(
+        this.transform.position.x,
+        (this.transform.position.y + (this.size.y / 2)),
+      );
+    }
 
-  //   // y = (difference.x / difference.y) * max.x
+    const pointVector: Vector2 = point.subtract(this.transform.position);
 
-  //   return
-  // }
+    const extents: Vector2 = this.size.divideScalar(2);
+    const max: Vector2 = this.transform.position.add(extents);
+
+    // const normalizedDifference: Vector2 = difference.normalize();
+    // const normalizedMax: Vector2 = max.normalize();
+
+    // console.log(`normalizedDifference=${normalizedDifference}, normalizedMax=${normalizedMax}`);
+
+    // const differenceSlope: number = difference.slope();
+    // const maxSlope: number = max.slope();
+    // if (differenceSlope > 0) {
+    // } else if (differenceSlope < 0) {
+    // }
+
+    // TODO: Handle differenceSlope == 0
+    return Vector2.zero();
+  }
 
   public getCenter(): Vector2 {
     return this.transform.position;
